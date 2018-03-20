@@ -51,3 +51,8 @@ The `-t_src` is critical here as this is what projects our geospatial points int
 
 ```
 ## Step 3: Load into MongoDB for easier analysis and querying
+
+```$xslt
+ jq  ".features" --compact-output output.geojson > features.json
+ mongoimport --db databaseName -c features --file "features.json" --jsonArray
+```
