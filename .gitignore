@@ -62,3 +62,4 @@ typings/
 
 # data files
 data/
+package-lock.json
