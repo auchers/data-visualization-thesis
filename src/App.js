@@ -3,11 +3,14 @@ import ReactDOM from "react-dom";
 import * as d3 from 'd3';
 import _ from 'lodash';
 
-import './css/style.css'; // Import CSS -> ADDED IN THIS STEP
-import geoData from './assets/data/mn_features';
+//components
+import Timeline from './vizComponents/Timeline'
 
-var width = 900;
-var height = 1200;
+import './css/style.css';
+import plutoData from './assets/data/output';
+
+var width = window.innerWidth;
+var height = window.innerHeight * .8;
 var margin = {left: 100, right: 20, top: 100, bottom: 20};
 
 class App extends Component {
@@ -20,19 +23,23 @@ class App extends Component {
 
     componentWillMount(){
         // process data
-        console.log(geoData);
+        let buildings = plutoData;
+        this.setState({buildings});
+    }
+
+    componentDidMount(){
+        console.log(this.state.buildings);
     }
 
     render() {
         var props = {
-            width, margin
+            width, height, margin
         };
 
         return (
-            <div className='App'>
-                <h2>
-                    Hi! This is my first app!
-                </h2>
+            <div id='container'>
+                <h2>Testing out React and D3</h2>
+                <Timeline {...props} {...this.state}/>
             </div>
         );
     }
