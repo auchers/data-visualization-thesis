@@ -4,7 +4,7 @@ import * as d3 from 'd3';
 import _ from 'lodash';
 
 import './css/style.css'; // Import CSS -> ADDED IN THIS STEP
-import geoData from '../nyc-data-playground/data/json/mn_features';
+import geoData from './assets/data/mn_features';
 
 var width = 900;
 var height = 1200;
