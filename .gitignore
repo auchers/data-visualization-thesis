@@ -70,3 +70,7 @@ yarn-error.log
 *.sln
 package-lock.json
 data/
+
+# data files
+data/
+package-lock.json
