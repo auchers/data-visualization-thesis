@@ -26,7 +26,7 @@ function pipeline(db, callback) {
     const collection = db.collection(collName);
     collection.aggregate([
         { $match: {'properties.Borough': "MN" } },
-        { $limit: 1000 }, //TODO: take out when feel comfortable with the data
+        // { $limit: 1000 }, //TODO: take out when feel comfortable with the data
         { $project: {
                 "properties.Borough" : 1,
                 "properties.Address" : 1,
@@ -42,6 +42,7 @@ function pipeline(db, callback) {
                 "properties.OwnerName" : 1,
                 "properties.YearBuilt": 1,
                 "properties.YearAlter1" : 1,
+                "properties.CD" : 1,
                 longLat: { $arrayElemAt: [{ $arrayElemAt: [ "$geometry.coordinates", 0] } , 0] },
             }
         },
