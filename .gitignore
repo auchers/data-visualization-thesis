@@ -70,6 +70,7 @@ yarn-error.log
 *.sln
 package-lock.json
 data/
+.ipynb_checkpoints
 
 # data files
 data/
