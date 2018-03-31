@@ -8,8 +8,9 @@ import Timeline from './vizComponents/Timeline'
 
 import './css/style.css';
 import plutoData from './assets/data/output';
+import landUseMapping from './assets/data/landUseMapping';
 
-var width = window.innerWidth;
+var width = window.innerWidth * .8;
 var height = window.innerHeight * .8;
 var margin = {left: 100, right: 20, top: 100, bottom: 20};
 
@@ -17,18 +18,19 @@ class App extends Component {
     constructor(props){
         super(props);
         this.state = {
-            buildings : [],
+            buildings: [],
+            landUseMapping: {}
         };
     }
 
     componentWillMount(){
         // process data
         let buildings = plutoData;
-        this.setState({buildings});
+        this.setState({buildings, landUseMapping});
     }
 
     componentDidMount(){
-        console.log(this.state.buildings);
+        // console.log(this.state.buildings);
     }
 
     render() {
