@@ -14,6 +14,9 @@ let year_aggregates = [];
 class Timeline extends Component {
     constructor(props){
         super(props);
+        this.state =  {
+            transitionStage: 0, // how we will transition through stages
+        };
 
     }
 
@@ -30,7 +33,7 @@ class Timeline extends Component {
                     count: buildings.length,
                     buildings: buildings,
                 }
-            }).filter((map) => {return map.year > 0 })
+            }).filter((map) => {return map.year > 0 && map.year < 2020 })
             .sortBy((map) => {return map.year })
             .value();
 
@@ -75,7 +78,7 @@ class Timeline extends Component {
 
         this.rects.append('rect')
             .attr('x', 1)
-            .attr('width', (yearScale(bins[0].x1) - yearScale(bins[0].x0) -1))
+            .attr('width', (yearScale(bins[1].x1) - yearScale(bins[1].x0)) - 2 )
             .attr('height', d => {return countScale.range()[0] - countScale(d.length)} )
 
         this.rects.append("text")
@@ -89,11 +92,9 @@ class Timeline extends Component {
             .attr("class", "axis axis--x")
             .attr("transform", "translate(0," + (this.props.height - padding.bottom) + ")")
             .call(d3.axisBottom(yearScale)
-                .ticks(20)
+                .ticks(10)
                 .tickFormat(d3.format(""))
             );
-
-        console.log(d3.formatSpecifier(yearScale.ticks(20)[0]));
 
         this.rects.on('mouseover', (d) => {
             console.log(d.x0, d.x1);
@@ -102,8 +103,11 @@ class Timeline extends Component {
 
     render() {
         return (
-            <svg width={this.props.width} height={this.props.height} ref={el => this.container = d3.select(el)} id='timeline-container'>
-            </svg>
+            <div>
+                <button>Transition</button>
+                <svg width={this.props.width} height={this.props.height} ref={el => this.container = d3.select(el)} id='timeline-container'>
+                </svg>
+            </div>
         );
     }
 }
