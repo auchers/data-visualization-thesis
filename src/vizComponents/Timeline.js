@@ -93,6 +93,7 @@ class Timeline extends Component {
             .attr('height', d => {return countScale.range()[0] - countScale(d.length)} )
 
         this.rects.append("text")
+            .attr('class', 'hist-label')
             .attr("dy", ".75em")
             .attr("y", -14)
             .attr("x", (yearScale(bins[0].x1) - yearScale(bins[0].x0)) / 2)
@@ -122,7 +123,8 @@ class Timeline extends Component {
     rotateHistogram() {
         console.log('rotating histogram')
         this.axis.attr('display', 'none')
-        this.hist.attr('class', 'rotated_hist')
+        this.hist.attr('class', 'rotated-hist')
+        d3.selectAll('.hist-label').classed('rotated-hist', true)
 
     }
 
