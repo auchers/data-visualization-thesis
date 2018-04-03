@@ -16,3 +16,14 @@ body {
 svg {
     overflow: visible;
 }
+
+.histograom{
+    transition-duration: 2s;
+    transform-origin: left;
+}
+
+.rotated_hist{
+    transition-duration: 2s;
+    transform-origin: center;
+    transform: rotate(90deg) translate(25%, 50%);
+}

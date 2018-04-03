@@ -11,8 +11,10 @@ import './css/style.css';
 import plutoData from './assets/data/full_output';
 import landUseMapping from './assets/data/landUseMapping';
 
-var width = window.innerWidth * .9;
-var height = window.innerHeight * .8;
+// var width = window.innerWidth * .9;
+// var height = window.innerHeight * .8;
+var width = 760;
+var height = 400;
 var margin = {left: 100, right: 20, top: 100, bottom: 20};
 
 class App extends Component {

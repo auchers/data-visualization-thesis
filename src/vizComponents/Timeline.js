@@ -15,8 +15,17 @@ class Timeline extends Component {
     constructor(props){
         super(props);
         this.state =  {
-            transitionStage: 0, // how we will transition through stages
+            currentTransition: 3, // how we will transition through stages
+            transitions: [
+                {"stage":0, "text":"Add SVG cover to Map", "function":'',},
+                {"stage":1, "text":"Pull Map Up and animate dots down", "function":'',},
+                {"stage":2, "text":"Form Histogram", "function":'',},
+                {"stage":3, "text":"Rotate Histogram", "function": () => {this.rotateHistogram()},},
+                {"stage":4, "text":"Smooth Out Histogram to be Continuous", "function":'',},
+            ],
         };
+        this.handleTransition = this.handleTransition.bind(this);
+        this.rotateHistogram = this.rotateHistogram.bind(this);
 
     }
 
@@ -54,16 +63,18 @@ class Timeline extends Component {
     }
 
     componentDidMount(){
+        this.container.append('g').attr('class', 'histogram');
         this.renderBasicBarChart();
     }
 
     renderBasicBarChart(){
         // axis
-        let g = this.container.append("g")
+        this.axis = this.container.append("g").attr('class', 'axis')
             // .attr("transform", "translate(" + padding.left + ", 0)");
 
+        this.hist = this.container.select('.histogram');
         // data bind
-        let rectsData = this.container.selectAll('.bar')
+        let rectsData = this.hist.selectAll('.bar')
             .data(bins);
 
         //exit
@@ -88,7 +99,7 @@ class Timeline extends Component {
             .attr("text-anchor", "middle")
             .text(function(d) { return d.length; });
 
-        g.append("g")
+        this.axis.append("g")
             .attr("class", "axis axis--x")
             .attr("transform", "translate(0," + (this.props.height - padding.bottom) + ")")
             .call(d3.axisBottom(yearScale)
@@ -101,11 +112,25 @@ class Timeline extends Component {
         })
     }
 
+    handleTransition(){
+        console.log('handlingTransition');
+        let currentTransition = this.state.currentTransition + 1;
+        this.state.transitions[this.state.currentTransition].function();
+        this.setState({currentTransition});
+    }
+
+    rotateHistogram() {
+        console.log('rotating histogram')
+        this.axis.attr('display', 'none')
+        this.hist.attr('class', 'rotated_hist')
+
+    }
+
     render() {
         return (
-            <div>
-                <button>Transition</button>
-                <svg width={this.props.width} height={this.props.height} ref={el => this.container = d3.select(el)} id='timeline-container'>
+            <div className='viz-wrapper'>
+                <button onClick={this.handleTransition}>{this.state.transitions[this.state.currentTransition].text}</button>
+                <svg width={this.props.width} height={this.props.height} ref={el => this.container = d3.select(el)} id='viz-svg'>
                 </svg>
             </div>
         );
