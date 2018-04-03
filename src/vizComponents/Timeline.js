@@ -17,11 +17,21 @@ class Timeline extends Component {
         this.state =  {
             currentTransition: 3, // how we will transition through stages
             transitions: [
-                {"stage":0, "text":"Add SVG cover to Map", "function":'',},
-                {"stage":1, "text":"Pull Map Up and animate dots down", "function":'',},
-                {"stage":2, "text":"Form Histogram", "function":'',},
-                {"stage":3, "text":"Rotate Histogram", "function": () => {this.rotateHistogram()},},
-                {"stage":4, "text":"Smooth Out Histogram to be Continuous", "function":'',},
+                {"stage":0,
+                    "text":"Add SVG cover to Map",
+                    "function": () => {console.log('no function yet')},},
+                {"stage":1,
+                    "text":"Pull Map Up and animate dots down",
+                    "function": () => {console.log('no function yet')},},
+                {"stage":2,
+                    "text":"Form Histogram",
+                    "function": () => {this.undoRotateHistogram()},},
+                {"stage":3,
+                    "text":"Rotate Histogram",
+                    "function": () => {this.rotateHistogram()},},
+                {"stage":4,
+                    "text":"Smooth Out Histogram to be Continuous",
+                    "function": () => {console.log('no function yet')},},
             ],
         };
         this.handleTransition = this.handleTransition.bind(this);
@@ -112,28 +122,39 @@ class Timeline extends Component {
             console.log(d.x0, d.x1);
         })
     }
-
-    handleTransition(){
+    // TODO:  make this mode declarative
+    handleTransition(stage = this.state.currentTransition){
         console.log('handlingTransition');
-        let currentTransition = this.state.currentTransition + 1;
-        this.state.transitions[this.state.currentTransition].function();
+        let currentTransition = stage + 1;
+        this.state.transitions[stage].function();
         this.setState({currentTransition});
     }
 
     rotateHistogram() {
-        console.log('rotating histogram')
-        this.axis.attr('display', 'none')
-        this.hist.attr('class', 'rotated-hist')
-        d3.selectAll('.hist-label').classed('rotated-hist', true)
-        this.axis.attr('class', 'rotated-hist').selectAll('text').classed('rotated-hist', true)
-
+        console.log('rotating histogram');
+        this.hist.classed('rotated-hist', true);
+        d3.selectAll('.hist-label').classed('rotated-hist', true);
+        this.axis.classed('rotated-hist', true).selectAll('text').classed('rotated-hist', true);
     }
 
+    undoRotateHistogram(){
+        //clear previous rotations
+        d3.selectAll('.rotated-hist').classed('rotated-hist', false);
+    }
+
+
+
     render() {
+        let curStage = this.state.currentTransition,
+            prevStage = (this.state.currentTransition > 1) ?  this.state.currentTransition - 2 : 0;
+
         return (
             <div className='viz-wrapper'>
-                <button onClick={this.handleTransition}>{this.state.transitions[this.state.currentTransition].text}</button>
-                <svg width={this.props.width} height={this.props.height} ref={el => this.container = d3.select(el)} id='viz-svg'>
+                <button onClick={() => this.handleTransition(prevStage)}>Back</button>
+                <button onClick={() => this.handleTransition()}>
+                    {this.state.transitions[curStage].text}</button>
+                <svg width={this.props.width} height={this.props.height}
+                     ref={el => this.container = d3.select(el)} id='viz-svg'>
                 </svg>
             </div>
         );
