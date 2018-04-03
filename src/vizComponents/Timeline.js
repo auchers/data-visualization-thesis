@@ -125,6 +125,7 @@ class Timeline extends Component {
         this.axis.attr('display', 'none')
         this.hist.attr('class', 'rotated-hist')
         d3.selectAll('.hist-label').classed('rotated-hist', true)
+        this.axis.attr('class', 'rotated-hist').selectAll('text').classed('rotated-hist', true)
 
     }
 
