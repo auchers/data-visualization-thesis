@@ -19,13 +19,13 @@ svg {
 
 .histograom{
     transition-duration: 3s;
-    transform-origin: left;
+    transform-origin: center;
 }
 
 g.rotated-hist{
     transition-duration: 3s;
     transform-origin: center;
-    transform: rotate(90deg) translate(25%, 50%);
+    /*transform: rotate(90deg) translate(25%, 50%);*/
     display: unset;
 }
 

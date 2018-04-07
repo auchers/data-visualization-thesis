@@ -50,7 +50,7 @@ function pipeline(db, callback) {
         if (err) {console.log(err)}
 
         console.log('finished aggregation');
-        fs.writeFileSync('./data/mongoOutput/output.json', JSON.stringify(docs, null, 2));
+        fs.writeFileSync('../src/assets/data/full_output.json', JSON.stringify(docs, null, 2));
         callback();
     });
 }

@@ -118,9 +118,9 @@ class Timeline extends Component {
                 .tickFormat(d3.format(""))
             );
 
-        this.rects.on('mouseover', (d) => {
-            console.log(d.x0, d.x1);
-        })
+        // this.rects.on('mouseover', (d) => {
+            // console.log(d.x0, d.x1);
+        // })
     }
     // TODO:  make this mode declarative
     handleTransition(stage = this.state.currentTransition){
@@ -132,17 +132,22 @@ class Timeline extends Component {
 
     rotateHistogram() {
         console.log('rotating histogram');
-        this.hist.classed('rotated-hist', true);
-        d3.selectAll('.hist-label').classed('rotated-hist', true);
-        this.axis.classed('rotated-hist', true).selectAll('text').classed('rotated-hist', true);
+        // let rotateTransform = d3.svg.transform().rotate(90).translate(25, 50);
+        this.hist
+            .style('transform-origin', 'center')
+            .style('transition-duration', '3s')
+            .style('transform', `rotate(90deg) translate(${this.props.height/2}px,${this.props.width/4}px `)
+
+        // this.hist.classed('rotated-hist', true);
+        // d3.selectAll('.hist-label').classed('rotated-hist', true);
+        // this.axis.classed('rotated-hist', true).selectAll('text').classed('rotated-hist', true);
     }
 
     undoRotateHistogram(){
         //clear previous rotations
-        d3.selectAll('.rotated-hist').classed('rotated-hist', false);
+        // d3.selectAll('.rotated-hist')
+        this.hist.style('transform', 'none')
     }
-
-
 
     render() {
         let curStage = this.state.currentTransition,
