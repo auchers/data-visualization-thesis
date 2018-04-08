@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import * as d3 from 'd3';
 import * as d3_color from 'd3-scale-chromatic';
-import _ from 'lodash';
+import * as metrics from '../helpers/metricsConfig'
 
 // Page Variables
 let padding = {top: 10, bottom: 30, left: 30, right: 30};
@@ -52,7 +52,7 @@ let hist = {
             .style('transition', transition)
             .style('height', 0)
     }
-}
+};
 
 class Timeline extends Component {
     constructor(props){
@@ -74,7 +74,7 @@ class Timeline extends Component {
                     "function": () => {this.downScaleHistogram()},},
                 {"stage":4,
                     "text":"Add New Right Axis",
-                    "function": () => {console.log('no function yet')},},
+                    "function": () => {this.renderRightHist()},},
                 {"stage":5,
                     "text":"Dissolve Bars",
                     "function": () => {this.dissolveBars()},},
@@ -83,7 +83,8 @@ class Timeline extends Component {
 
         this.handleTransition = this.handleTransition.bind(this);
         this.downScaleHistogram = this.downScaleHistogram.bind(this);
-        // this.dissolveBars = this.dissolveBars(this);
+        this.renderRightHist = this.renderRightHist.bind(this);
+        this.prepRightHistData = this.prepRightHistData.bind(this);
     }
 
     initializeHistObject(color = d3_color.interpolateBlues){
@@ -96,12 +97,12 @@ class Timeline extends Component {
 
     componentWillMount(){
         console.log('all props:', this.props);
-
         //initialize left histogram object
         this.left = this.initializeHistObject();
+        let curMetric = metrics[0]; //TODO replace other mentions with curMetric
 
         // process data
-        let years = this.props.buildings.map (d => d.properties.YearBuilt)
+        let years = this.props.buildings.map (d => d.properties[curMetric.metric])
                 .filter(d => { return d >= 1860 && d <= 2020});
 
         this.left.xScale.range([padding.left , this.props.width - padding.right])
@@ -119,15 +120,15 @@ class Timeline extends Component {
         this.left.yScale.range([this.props.height - 1.5*padding.bottom, padding.top])
             .domain([0, d3.max(this.left.bins, (d) => {return d.length;})]);
 
-        console.log('bins', this.left.bins);
+        console.log('left bins', this.left.bins);
     }
 
     componentDidMount(){
-        this.left.el = this.container.append('g').attr('class', 'histogram');
-        this.renderBasicBarChart();
+        this.left.el = this.container.append('g').attr('class', 'left-histogram');
+        this.renderFirstBarChart();
     }
 
-    renderBasicBarChart(){
+    renderFirstBarChart(){
         // leftAxis
         this.left.axis = this.container.append("g")
             .attr("class", "leftAxis leftAxis--x")
@@ -172,6 +173,67 @@ class Timeline extends Component {
 
     dissolveBars(){
         this.left.dissolveBars();
+    }
+
+    prepRightHistData(){
+        let curMetric = metrics[1];
+
+        this.right = this.initializeHistObject(d3_color[curMetric.colorScheme]);
+
+        //TODO figure out a way to generalize more -- LOTS of redundancy
+        // process data
+        let map = this.props.buildings.map (d => d.properties[curMetric.metric]);
+            // .filter(d => { return d >= 1860 && d <= 2020});
+
+        this.right.xScale.range([this.props.width/2 + padding.right, this.props.width - padding.right])
+            .domain([d3.min(map), d3.max(map)]);
+
+        // map darker colors to earlier years
+        this.right.colorScale.domain([d3.max(map), d3.min(map)]);
+
+        this.right.bins = d3.histogram()
+            .value(d => d.properties[curMetric.metric])
+            .domain(this.right.xScale.domain())
+            .thresholds(this.right.xScale.ticks(20))
+            (this.props.buildings); //TODO need to update this data to gradually filter data being shown
+
+        this.right.yScale.range([this.props.height - 1.5*padding.bottom, padding.top])
+            .domain([0, d3.max(this.right.bins, (d) => {return d.length;})]);
+
+        console.log('right bins', this.right.bins)
+        // console.log('left bins', this.left.bins);
+
+    }
+
+    renderRightHist(){
+        this.prepRightHistData();
+        this.right.el = this.container.append('g').attr('class', 'right-histogram');
+        // leftAxis
+        this.right.axis = this.container.append("g")
+            .attr("class", "rightAxis rightAxis--x")
+            .attr("transform", "translate(0, " + (this.props.height - padding.bottom) + ")")
+
+        // data bind
+        let rectsData = this.right.el.selectAll('.bar')
+            .data(this.right.bins);
+
+        //exit
+        rectsData.exit().remove();
+
+        //enter and update
+        let rightRects = rectsData.enter()
+            .append('g')
+            .attr('class', d => d.x0 + '-' + d.x1)
+            .classed('bar', true)
+            .merge(rectsData);
+
+        rightRects.append('rect')
+            .attr('x', 1)
+            .attr('height', d => {return this.right.yScale.range()[0] - this.right.yScale(d.length)} )
+            .attr('fill', d => {return this.right.colorScale(d.x0)})
+
+        // position elements
+        this.right.positionRectsAndAxis();
     }
 
     render() {
