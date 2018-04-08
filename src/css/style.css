@@ -1,16 +1,24 @@
 body {
     background: #f9fafb;
     font-size: 16px;
-    /*margin: 0;*/
+    font-family: "Century Gothic", sans-serif;
     margin: 30px;
 }
 
-#container{
-
+h2 {
+    font-size: xx-large;
 }
 
-#timeline-container{
+button{
+    /*border: none;*/
+    font-family: "Century Gothic", sans-serif;
+    padding: .5em;
+    margin: .5em;
+    background: none;
+}
 
+text{
+    font-family: "Century Gothic", sans-serif;
 }
 
 svg {

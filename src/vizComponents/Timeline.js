@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import * as d3 from 'd3';
+import * as d3_color from 'd3-scale-chromatic';
 import _ from 'lodash';
 
 // Page Variables
@@ -8,6 +9,7 @@ let padding = {top: 10, bottom: 30, left: 30, right: 30};
 // D3 Globals
 let countScale = d3.scaleLinear();
 let yearScale = d3.scaleLinear();
+let colorScale = d3.scaleSequential(d3_color.interpolateBlues);
 let bins;
 let year_aggregates = [];
 
@@ -27,16 +29,16 @@ class Timeline extends Component {
                     "text":"Form Histogram",
                     "function": () => {this.undoRotateHistogram()},},
                 {"stage":3,
-                    "text":"Rotate Histogram",
-                    "function": () => {this.rotateHistogram()},},
+                    "text":"Shrink Histogram To Left",
+                    "function": () => {this.downScaleHistogram()},},
                 {"stage":4,
                     "text":"Smooth Out Histogram to be Continuous",
                     "function": () => {console.log('no function yet')},},
             ],
         };
-        this.handleTransition = this.handleTransition.bind(this);
-        this.rotateHistogram = this.rotateHistogram.bind(this);
 
+        this.handleTransition = this.handleTransition.bind(this);
+        this.downScaleHistogram = this.downScaleHistogram.bind(this);
     }
 
     componentWillMount(){
@@ -52,13 +54,16 @@ class Timeline extends Component {
                     count: buildings.length,
                     buildings: buildings,
                 }
-            }).filter((map) => {return map.year > 0 && map.year < 2020 })
+            }).filter((map) => {return map.year > 1860 && map.year < 2020 })
             .sortBy((map) => {return map.year })
             .value();
 
         // TODO: decide whether we need this structure - if not change yearScale domain to work without it
         yearScale.range([padding.left , this.props.width - padding.right])
             .domain([year_aggregates[0].year, year_aggregates[year_aggregates.length - 1].year]);
+
+        // map darker colors to earlier years
+        colorScale.domain([year_aggregates[year_aggregates.length - 1].year + 50, year_aggregates[0].year]);
 
         bins = d3.histogram()
             .value(d => d.properties.YearBuilt)
@@ -95,20 +100,21 @@ class Timeline extends Component {
             .append('g')
             .attr('class', 'bar')
             .attr('class', d => d.x0 + '-' + d.x1)
-            .attr('transform', d => {return "translate(" + yearScale(d.x0) + ',' + countScale(d.length) + ")"; })
+            .style('transform', d => {return "translate(" + yearScale(d.x0) + 'px,' + countScale(d.length) + "px)"; });
 
         this.rects.append('rect')
             .attr('x', 1)
-            .attr('width', (yearScale(bins[1].x1) - yearScale(bins[1].x0)) - 2 )
+            .style('width', (yearScale(bins[1].x1) - yearScale(bins[1].x0)) - 2 )
             .attr('height', d => {return countScale.range()[0] - countScale(d.length)} )
+            .attr('fill', d => {return colorScale(d.x0)})
 
-        this.rects.append("text")
-            .attr('class', 'hist-label')
-            .attr("dy", ".75em")
-            .attr("y", -14)
-            .attr("x", (yearScale(bins[0].x1) - yearScale(bins[0].x0)) / 2)
-            .attr("text-anchor", "middle")
-            .text(function(d) { return d.length; });
+        // this.rects.append("text")
+        //     .attr('class', 'hist-label')
+        //     .attr("dy", ".75em")
+        //     .attr("y", -14)
+        //     .attr("x", (yearScale(bins[0].x1) - yearScale(bins[0].x0)) / 2)
+        //     .attr("text-anchor", "middle")
+        //     .text(function(d) { return d.length; });
 
         this.axis.append("g")
             .attr("class", "axis axis--x")
@@ -118,9 +124,6 @@ class Timeline extends Component {
                 .tickFormat(d3.format(""))
             );
 
-        // this.rects.on('mouseover', (d) => {
-            // console.log(d.x0, d.x1);
-        // })
     }
     // TODO:  make this mode declarative
     handleTransition(stage = this.state.currentTransition){
@@ -130,17 +133,24 @@ class Timeline extends Component {
         this.setState({currentTransition});
     }
 
-    rotateHistogram() {
-        console.log('rotating histogram');
+    downScaleHistogram(side = 'left') {
+        console.log('downscaling histogram');
+        yearScale.range([padding.left, this.props.width/2 - padding.right]);
         // let rotateTransform = d3.svg.transform().rotate(90).translate(25, 50);
-        this.hist
-            .style('transform-origin', 'center')
+        this.rects
             .style('transition-duration', '3s')
-            .style('transform', `rotate(90deg) translate(${this.props.height/2}px,${this.props.width/4}px `)
+            .style("transform", "translate(0px,0px)")
+            .style('transform', d => {return "translate(" + yearScale(d.x0) + 'px,' + countScale(d.length) + "px)"; })
 
-        // this.hist.classed('rotated-hist', true);
-        // d3.selectAll('.hist-label').classed('rotated-hist', true);
-        // this.axis.classed('rotated-hist', true).selectAll('text').classed('rotated-hist', true);
+        this.rects.selectAll('rect')
+            .style('transition-duration', '4s')
+            .style('width', (yearScale(bins[1].x1) - yearScale(bins[1].x0)) - 2 )
+
+
+            // .style('transform-origin', 'center')
+
+            // .style('transform', `rotate(90deg) translate(${this.props.height/2}px,${this.props.width/4}px `)
+
     }
 
     undoRotateHistogram(){

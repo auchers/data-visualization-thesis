@@ -11,14 +11,6 @@ import './css/style.css';
 import plutoData from './assets/data/full_output';
 import landUseMapping from './assets/data/landUseMapping';
 
-// var width = window.innerWidth * .9;
-// var height = window.innerHeight * .8;
-const style = {
-    "width": 760,
-    "height": 1400,
-    "margin": {"left": 100, "right": 20, "top": 100, "bottom": 20},
-}
-
 class App extends Component {
     constructor(props){
         super(props);
@@ -42,11 +34,22 @@ class App extends Component {
 
         return (
             <div id='container'>
-                <h2>Testing out React and D3</h2>
-                <Timeline {...style} {...this.state}/>
+                <h2>Exploring the Build Infrastructure of NYC</h2>
+                <Timeline {...styles.timeline} {...this.state}/>
             </div>
         );
     }
+}
+
+const styles = {
+    container: {
+        width: 760,
+        height: 1400,
+    },
+    timeline: {
+        width: 760,
+        height: 400,
+    },
 }
 
 export default App;

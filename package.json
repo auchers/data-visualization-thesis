@@ -37,6 +37,7 @@
   },
   "dependencies": {
     "d3": "^4.13.0",
+    "d3-scale-chromatic": "^1.2.0",
     "lodash": "^4.17.5"
   }
 }
