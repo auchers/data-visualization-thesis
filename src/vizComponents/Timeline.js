@@ -5,7 +5,7 @@ import _ from 'lodash';
 
 // Page Variables
 let padding = {top: 10, bottom: 30, left: 30, right: 30};
-
+let delayUnit = 250;
 let hist = {
     xScale: null,
     yScale: null,
@@ -29,6 +29,28 @@ let hist = {
             .ticks(axisTicks)
             .tickFormat(d3.format(""))
         );
+    },
+    dissolveBars(){
+        console.log('dissolving Bars');
+        let el = this.el;
+        let maxLength = this.yScale.domain()[1];
+
+        let transition = (d, i) => {
+            let timingFunction = 'ease-in-out';
+            let delay = (i * delayUnit); // offset delay by bar index
+            let adj = d.length / maxLength; // adjust duration by height of bar
+            let duration = (delayUnit + (250 * adj) );
+            return `all ${duration}ms ${timingFunction} ${delay}ms`
+        };
+
+        el.selectAll('g.bar')
+            .style('transition', transition)
+            .style('transform', d => {
+                return "translate(" + this.xScale(d.x0) + 'px,' + this.yScale.range()[0] + "px)"; });
+
+        el.selectAll('rect')
+            .style('transition', transition)
+            .style('height', 0)
     }
 }
 
@@ -53,12 +75,15 @@ class Timeline extends Component {
                 {"stage":4,
                     "text":"Add New Right Axis",
                     "function": () => {console.log('no function yet')},},
+                {"stage":5,
+                    "text":"Dissolve Bars",
+                    "function": () => {this.dissolveBars()},},
             ],
         };
 
         this.handleTransition = this.handleTransition.bind(this);
         this.downScaleHistogram = this.downScaleHistogram.bind(this);
-        this.initializeHistObject = this.initializeHistObject.bind(this);
+        // this.dissolveBars = this.dissolveBars(this);
     }
 
     initializeHistObject(color = d3_color.interpolateBlues){
@@ -72,7 +97,9 @@ class Timeline extends Component {
     componentWillMount(){
         console.log('all props:', this.props);
 
+        //initialize left histogram object
         this.left = this.initializeHistObject();
+
         // process data
         let years = this.props.buildings.map (d => d.properties.YearBuilt)
                 .filter(d => { return d >= 1860 && d <= 2020});
@@ -127,38 +154,42 @@ class Timeline extends Component {
 
         // position elements
         this.left.positionRectsAndAxis(10);
-
-        console.log('left histogram object', this.left);
     }
 
     handleTransition(stage = this.state.currentTransition){
-        console.log('handlingTransition');
         let currentTransition = stage + 1;
         this.state.transitions[stage].function();
         this.setState({currentTransition});
     }
 
     downScaleHistogram(side = 'left') {
-        console.log('downscaling histogram');
-
         // update range of xscale
         this.left.xScale.range([padding.left, this.props.width/2 - padding.right]);
 
         // position elements
         this.left.positionRectsAndAxis();
-
     }
 
+    dissolveBars(){
+        this.left.dissolveBars();
+    }
 
     render() {
         let curStage = this.state.currentTransition,
             prevStage = (this.state.currentTransition > 1) ?  this.state.currentTransition - 2 : 0;
 
+        // make sure there is a next step
+        function NextButton(props){
+            if (props.nextStep){
+                return <button onClick={() => props.handler()}>{props.nextStep.text}</button>
+            }
+                return <button>All Done!</button>
+        }
+
         return (
             <div className='viz-wrapper'>
-                <button onClick={() => this.handleTransition(prevStage)}>Back</button>
-                <button onClick={() => this.handleTransition()}>
-                    {this.state.transitions[curStage].text}</button>
+                {/*<button onClick={() => this.handleTransition(prevStage)}>Back</button>*/}
+                <NextButton nextStep={this.state.transitions[curStage]} handler={this.handleTransition}/>
                 <svg width={this.props.width} height={this.props.height}
                      ref={el => this.container = d3.select(el)} id='viz-svg'>
                 </svg>
