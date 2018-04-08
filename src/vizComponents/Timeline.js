@@ -137,6 +137,8 @@ class Timeline extends Component {
         console.log('downscaling histogram');
         yearScale.range([padding.left, this.props.width/2 - padding.right]);
         // let rotateTransform = d3.svg.transform().rotate(90).translate(25, 50);
+
+       // TODO: abstract this away to a position rects and a generalized calculate X/Y scales function
         this.rects
             .style('transition-duration', '3s')
             .style("transform", "translate(0px,0px)")
@@ -146,10 +148,12 @@ class Timeline extends Component {
             .style('transition-duration', '4s')
             .style('width', (yearScale(bins[1].x1) - yearScale(bins[1].x0)) - 2 )
 
-
-            // .style('transform-origin', 'center')
-
-            // .style('transform', `rotate(90deg) translate(${this.props.height/2}px,${this.props.width/4}px `)
+        this.axis
+            .style('transition-duration', '3s')
+            .call(d3.axisBottom(yearScale)
+                .ticks(10)
+                .tickFormat(d3.format(""))
+            );
 
     }
 
