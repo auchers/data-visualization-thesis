@@ -58,25 +58,24 @@ class Timeline extends Component {
 
         this.handleTransition = this.handleTransition.bind(this);
         this.downScaleHistogram = this.downScaleHistogram.bind(this);
-        this.initializeHistObjects = this.initializeHistObjects.bind(this);
+        this.initializeHistObject = this.initializeHistObject.bind(this);
     }
 
-    initializeHistObjects(){
-        this.left = Object.assign({}, hist, {
+    initializeHistObject(color = d3_color.interpolateBlues){
+        return Object.assign({}, hist, {
             xScale: d3.scaleLinear(),
             yScale: d3.scaleLinear(),
-            colorScale: d3.scaleSequential(d3_color.interpolateBlues),
+            colorScale: d3.scaleSequential(color),
         });
-
     }
 
     componentWillMount(){
-        this.initializeHistObjects();
         console.log('all props:', this.props);
 
+        this.left = this.initializeHistObject();
         // process data
         let years = this.props.buildings.map (d => d.properties.YearBuilt)
-                .filter(d => { return d >= 1860 && d <= 2020})
+                .filter(d => { return d >= 1860 && d <= 2020});
 
         this.left.xScale.range([padding.left , this.props.width - padding.right])
             .domain([d3.min(years), d3.max(years)]);
