@@ -13,6 +13,23 @@ let hist = {
     bins: null,
     el: null,
     axis: null,
+    positionRectsAndAxis(axisTicks = 4) {
+        let el = this.el;
+        el.selectAll('g.bar')
+            .style('transition-duration', '3s')
+            .style("transform", "translate(0px,0px)")
+            .style('transform', d => {
+                return "translate(" + this.xScale(d.x0) + 'px,' + this.yScale(d.length) + "px)"; });
+
+        el.selectAll('rect')
+            .style('transition-duration', '4s')
+            .style('width', (this.xScale(this.bins[1].x1) - this.xScale(this.bins[1].x0)) - 2 )
+
+        this.axis.call(d3.axisBottom(this.xScale)
+            .ticks(axisTicks)
+            .tickFormat(d3.format(""))
+        );
+    }
 }
 
 class Timeline extends Component {
@@ -110,7 +127,7 @@ class Timeline extends Component {
             .attr('fill', d => {return this.left.colorScale(d.x0)})
 
         // position elements
-        this.positionRectsAndAxis(this.left, 10);
+        this.left.positionRectsAndAxis(10);
 
         console.log('left histogram object', this.left);
     }
@@ -129,27 +146,10 @@ class Timeline extends Component {
         this.left.xScale.range([padding.left, this.props.width/2 - padding.right]);
 
         // position elements
-        this.positionRectsAndAxis(this.left);
+        this.left.positionRectsAndAxis();
 
     }
 
-    positionRectsAndAxis(hist, axisTicks = 4){
-        let el = hist.el;
-        el.selectAll('g.bar')
-            .style('transition-duration', '3s')
-            .style("transform", "translate(0px,0px)")
-            .style('transform', d => {
-                return "translate(" + this.left.xScale(d.x0) + 'px,' + this.left.yScale(d.length) + "px)"; });
-
-        el.selectAll('rect')
-            .style('transition-duration', '4s')
-            .style('width', (this.left.xScale(this.left.bins[1].x1) - this.left.xScale(this.left.bins[1].x0)) - 2 )
-
-        hist.axis.call(d3.axisBottom(this.left.xScale)
-            .ticks(axisTicks)
-            .tickFormat(d3.format(""))
-        );
-    }
 
     render() {
         let curStage = this.state.currentTransition,
