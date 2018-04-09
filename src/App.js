@@ -34,7 +34,7 @@ class App extends Component {
 
         return (
             <div id='container'>
-                <h2>Exploring the Build Infrastructure of NYC</h2>
+                <h2>Exploring the Built Infrastructure of NYC</h2>
                 <Timeline {...styles.timeline} {...this.state}/>
             </div>
         );

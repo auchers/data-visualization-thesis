@@ -23,7 +23,7 @@ let hist = {
 
         el.selectAll('rect')
             .style('transition-duration', '4s')
-            .style('width', (this.xScale(this.bins[1].x1) - this.xScale(this.bins[1].x0)) - 2 )
+            .style('width', (this.xScale(this.bins[1].x1) - this.xScale(this.bins[1].x0)));
 
         this.axis.call(d3.axisBottom(this.xScale)
             .ticks(axisTicks)
@@ -39,7 +39,7 @@ let hist = {
             let timingFunction = 'ease-in-out';
             let delay = (i * delayUnit); // offset delay by bar index
             let adj = d.length / maxLength; // adjust duration by height of bar
-            let duration = (delayUnit + (250 * adj) );
+            let duration = (delayUnit + (500 * adj) );
             return `all ${duration}ms ${timingFunction} ${delay}ms`
         };
 
@@ -230,7 +230,8 @@ class Timeline extends Component {
         rightRects.append('rect')
             .attr('x', 1)
             .attr('height', d => {return this.right.yScale.range()[0] - this.right.yScale(d.length)} )
-            .attr('fill', d => {return this.right.colorScale(d.x0)})
+            // .attr('fill', d => {return this.right.colorScale(d.x0)})
+            .attr('fill', 'none');
 
         // position elements
         this.right.positionRectsAndAxis();
