@@ -1,58 +1,129 @@
-# Documentation for Data Processing
+*Data Documentation*
 
-## Step 1: Accessing Data
+Ultimately creates 1 NYC buildings dataset composed of the following 3 parts:
 
-The first step was to download the data. In this case I used publicly available New York City tax lot data available [here](https://www1.nyc.gov/site/planning/data-maps/open-data/dwn-pluto-mappluto.page). This data comes in the form of **shapefiles**. I downloaded all 5 boroughs (from the bottom of the page) and unzipped them.
+Spatial Join documentation from [here](https://github.com/UrbanSystemsLab/spatial-join-mongodb)
 
-![](./assets/process_screenshots/PLUTO-downloading-files.png)
+1. [PLUTO Tax Lots](https://www1.nyc.gov/site/planning/data-maps/open-data/dwn-pluto-mappluto.page), with buffer
+2. [NYC Building Footprints](https://data.cityofnewyork.us/Housing-Development/Building-Footprints/nqwf-w8eh)
+3. [Green Roofs](https://github.com/tnc-ny-science/NYC_GreenRoofMapping/tree/master/greenroof_gisdata/20180403_greenroof_gte50px_0x5m/polygons)
 
-#### (Optional) Exploration 
+# Data Preprocessing
 
-In order to get a better sense regarding what I was dealing with, I used [QGIS](https://www.qgis.org/en/site/) to quickly get a sense of what I had to work with. QGIS is open-source geographic modelling software that you can download to your computer and then view/augment various geographic file formats. 
+## Step 1: Create buffer on PLUTO dataset
+This is important so that our spatial join will be able to catch the buildings as being within each lot
+In QGIS - 'Vector' > 'Geoprocessing Tools' > 'Fixed Distance Buffer' with
+* 'Distance': 0.00002 and
+* 'Segments': 5
 
-Once you download the software you can simply drag one of the '.shp' files into the layers panel and you will be able to view the map.
-![](./assets/process_screenshots/QGIS-viewing-shapefile.png)
+## Step 2: Add all three to MongoDB
 
-To explore what information comes within these files, you can peek in the 'attribute table' and there you will find all the properties this dataset returns. More information about these fields can be found in PlUTO's [documentation](https://www1.nyc.gov/assets/planning/download/pdf/data-maps/open-data/pluto_datadictionary.pdf?v=17v1_1)
+### Convert Shapefiles to GeoJSON (ensuring correct projection)
+In order to load these datesets into MongoDB, we have to first convert them into JSON files. We can do that using GDAL's 'Ogr2ogr' utility by running:
 
-![](./assets/process_screenshots/QGIS-accessing-attribute-table.png) 
+> `ogr2ogr -f GeoJSON -t_srs crs:84 [name].geojson [name].shp`
 
-## Step 2: Convert to GeoJSON
+We are also taking this opportunity to make sure that we are using the correct projection by using the -t_srs flag. This is critical for our spatial join to work as expected, as well as for mapboxGL to render our maps at the end of this process.
 
-Shapefiles are great because they are super great at holding a lot of information without taking up a lot of space.
-`TODO: add more info about shapefiles here`
+We can always check that our files are in the  **correct projection (WGS84)** by running the following (taken from [this SO question](this question)):
 
-That said, aside from specific GIS software like QGIS and ArcGIS, very few programs can handle their structure. That's why we will now be converting these files to geoJSON. Once they are in that format, they are like regular JSON objects and we can do anything with them. 
+> `ogrinfo -ro -so -al  file.shp`  
+> #`-ro` opens the file in read only mode
+> #`-so` 'summary only' - suppresses all of the features and shows only summary info
+> #`al` lists all the layers in the given file
 
-Luckily there is a really great piece of software called [`ogr2ogr`](http://www.gdal.org/ogr2ogr.html) that can make this conversion easy for us. I followed along with [this procedure](https://ben.balter.com/2013/06/26/how-to-convert-shapefiles-to-geojson-for-use-on-github/).
+Given the correct projection, it should look like this:
 
-   * First, install [gdal](http://www.gdal.org/). This is actually the software underlying QGIS which we used earlier. 
-   
-   ```brew install gdal```
-   
-   * Next, `cd` into your directory with the shapefile and run
-   
-   ```ogr2ogr -f GeoJSON -t_srs crs:84 [name].geojson [name].shp```
-   
-The `-t_src` is critical here as this is what projects our geospatial points into ones that can be recognized by other programs. The value we are passing it (`crs:84`). There are many different projections one can use, but I have always been safest with this one [**WGS 84: EPSG Projection**]. You can read a bit about it [here](http://mapserver.org/ogc/wms_server.html#coordinate-systems-and-axis-orientation).
+![](./imgs/projection.png)
 
-(optional note): I liked to keep my shapefiles and geoJSON separate so that I could keep track of where all my data was coming from. 
+### Remove Headers to Create JSON files
+At this point, we need to augment our file a bit to make sure that each feature in this collection gets added to MongoDB as its own document. To do that we need to strip off the header, and load into MongoDB only the 'features' section.
 
-```$xslt
-.
-+-- data
-|   +-- shapefiles
-|        +-- qn_mappluto_17v1_1
-|        +-- mn_mappluto_17v1_1
-|        +-- bk_mappluto_17v1_1
-|        +-- Bronx17V1.1
-|        +-- StatenIsland17V1.1
-|   +--geoJSON
+You can see the problem by viewing the beginning of one of the files with something like `less` (to get out of that screen, just type `q`).
 
-```
-## Step 3: Load into MongoDB for easier analysis and querying
+example:
+> `less buildings.geojson`
 
-```$xslt
- jq  ".features" --compact-output output.geojson > features.json
- mongoimport --db databaseName -c features --file "features.json" --jsonArray
-```
+(we only want the part contained in 'features')
+![](./imgs/geojson.png)
+
+To get just the 'features' we can use `jq` utility ([helpful link](https://shapeshed.com/jq-json/#how-to-use-pipes-with-jq)) by running:
+
+> `jq  ".features" --compact-output buildings.geojson > buildings.json`
+
+> `jq  ".features" --compact-output green_roofs.geojson > green_roofs.json`
+
+> `jq  ".features" --compact-output lots_with_buffer.geojson > lots_with_buffer.json`
+
+now when we run `buildings.json` we should see:
+![](./imgs/json.png) (see? only section within 'features' with no header)
+
+Now these are ready to load into MongoDB!
+
+### Database Information
+
+To get MongoDB running, run `mongod`. Then, in a separate terminal window run `mondo` to get the mongo shell.
+
+### Ensuring Spatial Index
+
+Create empty collections in MongoDB before importing the data (from the mongo shell)
+
+> `db.buildings.createIndex({"geometry":"2dsphere"})
+db.lots_with_buffer.createIndex({"geometry":"2dsphere"})
+db.green_roofs.createIndex({"geometry":"2dsphere"})
+`
+
+Import json files into mongo collections (from regular terminal window located in the directory holding your json files)
+
+> `mongoimport --db thesis -c buildings --file "buildings.json" --jsonArray
+mongoimport --db thesis -c lots_with_buffer --file "lots_buffer.json" --jsonArray
+mongoimport --db thesis -c green_roofs --file "green_roofs.json" --jsonArray`
+
+We can compare the documents loaded to the original file by checking:
+
+>`jq '. | length' test_file.json`
+
+against
+> `db.[col].find().count()` # from Mongo shell
+
+For me the total counts looked like this:
+
+Dataset | JSON length | collection count
+-----|-----|-----
+Buildings | 1082792 | 1082789
+Lots with Buffer | 42637 | 42637
+Green Roofs | 7130 | 3659 <br> (many were lost here due to bad spatial index)
+
+TODO: check what happened with green roofs loss
+
+To double check, let's ensure the spatial index:
+> `db.buildings.ensureIndex({"geometry":"2dsphere"})
+db.lots_with_buffer.ensureIndex({"geometry":"2dsphere"})
+db.green_roofs.ensureIndex({"geometry":"2dsphere"})`
+
+### Database schema
+DB name: 'thesis'
+**Collections**:
+
+Collection Name | Data | Code (if applicable)
+----- |-----|-----
+buildings | NYC building Footprints |
+lots_with_buffers | PLUTO lots with buffers (from step 1) |
+green_roofs | GreenRoofs |
+buildings_in_lots | spatial join of 'buildings' with 'lots_with_buffers' |
+
+### Add Green Roof Column to Green Roof Data
+
+Once we join the data, we'll want some field by which to filter out the green roofs for the future views. This is the best time to add that in so that we can keep track of which of our geometries are, in fact, green roofs.
+
+We can add that from 
+
+## Step 3: First Spatial Join (Buildings into Lots)
+
+## Step 4: Second Spatial Join  (Green Roofs into Lots)
+
+## Step 5: Export from MongoDB
+export and add geojson headers
+
+## Step 6: Convert to MBTILES
+tippecanoe
