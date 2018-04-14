@@ -74,4 +74,6 @@ data/
 
 # data files
 data/
-package-lock.json
+package-lock.jso
+spatial-join-mongodb/
+
