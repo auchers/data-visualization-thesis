@@ -11,6 +11,8 @@ Spatial Join documentation from [here](https://github.com/UrbanSystemsLab/spatia
 # Data Preprocessing
 
 ## Step 1: Create buffer on PLUTO dataset
+(If you want all 5 boroughs, a pre-step would be to merge the shapefiles of all 5 boroughs into 1 file and re-project that 1 file) [ref](https://www.northrivergeographic.com/ogr2ogr-merge-shapefiles))
+
 This is important so that our spatial join will be able to catch the buildings as being within each lot
 In QGIS - 'Vector' > 'Geoprocessing Tools' > 'Fixed Distance Buffer' with
 * 'Distance': 0.00002 and
@@ -91,7 +93,7 @@ For me the total counts looked like this:
 Dataset | JSON length | collection count
 -----|-----|-----
 Buildings | 1082792 | 1082789
-Lots with Buffer | 42637 | 42637
+Lots with Buffer | 857266 | 857266
 Green Roofs | 7130 | 3659 <br> (many were lost here due to bad spatial index)
 
 TODO: check what happened with green roofs loss
@@ -116,9 +118,28 @@ buildings_in_lots | spatial join of 'buildings' with 'lots_with_buffers' |
 
 Once we join the data, we'll want some field by which to filter out the green roofs for the future views. This is the best time to add that in so that we can keep track of which of our geometries are, in fact, green roofs.
 
-We can add that from 
+To view the existing properties of our Green Roof dataset, we can run:
 
-## Step 3: First Spatial Join (Buildings into Lots)
+>`db.green_roofs.find({},{"properties": 1}).limit(10)`
+
+To add our new field to the whole collection, we'll run:
+
+>`db.green_roofs.update({}, {$set : {"properties.green_roof": 1}}, false, true)`
+
+Now when we check `db.green_roofs.find({},{"properties": 1}).limit(10)` again, we should see our new field there.
+
+## Step 3: First Spatial Join (Lot properties into Buildings)
+For this project, we will be using the spatial join brilliantly developed [here](https://github.com/UrbanSystemsLab/spatial-join-mongodb).
+
+To view the fields we have in our PLUTO lots data we can run:
+
+>`db.lots_with_buffer.find({},{"properties": 1}).limit(10).pretty()`
+
+Fields from PLUTO lots to merge into Buildings:
+
+> `node init.js --db 'mongodb://localhost:27017/thesis' --innerLayer buildings --outerLayer lots_with_buffer --outputLayer buildings_with_lots  --outerLayerAttributes "Address", "BldgArea", "BldgClass", "Block", "BoroCode", "LandUse", "LotArea", "NumFloors", "UnitsRes", "UnitsTotal", "OwnerName", "YearAlter1", "CD", "ResidFAR", "FacilFAR", "BuiltFAR", "CommFAR", "Landmark", "UnitsTotal", "AssessTot" `
+
+>`node init.js --db 'mongodb://localhost:27017/thesis' --innerLayer buildings --outerLayer lots_with_buffer --outputLayer buildings_with_lots2  --outerLayerAttributes "LotArea", "YearBuilt"`
 
 ## Step 4: Second Spatial Join  (Green Roofs into Lots)
 
