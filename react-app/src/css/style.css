@@ -1,0 +1,46 @@
+body {
+    background: #f3f4f5;
+    font-size: 16px;
+    font-family: "Century Gothic", sans-serif;
+    margin: 30px;
+}
+
+h2 {
+    font-size: xx-large;
+}
+
+button{
+    /*border: none;*/
+    font-family: "Century Gothic", sans-serif;
+    padding: .5em;
+    margin: .5em;
+    background: none;
+}
+
+text{
+    font-family: "Century Gothic", sans-serif;
+}
+
+svg {
+    overflow: visible;
+}
+
+.histograom{
+    transition-duration: 3s;
+    transform-origin: center;
+}
+
+g.rotated-hist{
+    transition-duration: 3s;
+    transform-origin: center;
+    /*transform: rotate(90deg) translate(25%, 50%);*/
+    display: unset;
+}
+
+text.rotated-hist.hist-label{
+    transform: rotate(-90deg) translate(20px,20px);
+}
+
+.tick > text.rotated-hist {
+    transform: rotate(-90deg) translate(-20px,-12px);
+}

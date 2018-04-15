@@ -1,0 +1,12 @@
+[
+  {
+  "metric": "YearBuilt",
+    "yScaleType": "Linear",
+    "colorScheme": "interpolateBlues"
+  },
+  {
+    "metric": "NumFloors",
+    "yScaleType": "Linear",
+    "colorScheme": "interpolatePuRd"
+  }
+]
