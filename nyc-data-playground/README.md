@@ -139,12 +139,24 @@ Fields from PLUTO lots to merge into Buildings:
 
 > `node init.js --db 'mongodb://localhost:27017/thesis' --innerLayer buildings --outerLayer lots_with_buffer --outputLayer buildings_with_lots  --outerLayerAttributes "Address", "BldgArea", "BldgClass", "Block", "BoroCode", "LandUse", "LotArea", "NumFloors", "UnitsRes", "UnitsTotal", "OwnerName", "YearAlter1", "CD", "ResidFAR", "FacilFAR", "BuiltFAR", "CommFAR", "Landmark", "UnitsTotal", "AssessTot" `
 
->`node init.js --db 'mongodb://localhost:27017/thesis' --innerLayer buildings --outerLayer lots_with_buffer --outputLayer buildings_with_lots2  --outerLayerAttributes "LotArea", "YearBuilt"`
-
-## Step 4: Second Spatial Join  (Green Roofs into Lots)
 
 ## Step 5: Export from MongoDB
 export and add geojson headers
 
+>`mongoexport --db thesis -c buildings_with_lots --out "buildings_with_lots.json" --jsonArray`
+
+Re-add the header to make the file a valid GeoJSON:
+
+>`echo '{ "type": "FeatureCollection","features":'  >> buildings_with_lots.geojson ; cat  buildings_with_lots.json >> buildings_with_lots.geojson ; echo '}' >> buildings_with_lots.geojson`
+
+
 ## Step 6: Convert to MBTILES
-tippecanoe
+`--drop-fraction-as-needed` vs `-pd`
+
+`-pd` creates really uneaven coverage at zoom levels lower than 14 (as in more zoomed out)
+
+`--drop-fraction-as-needed` looks like more even coverage, but when you zoom in it is missing features
+
+I ultimately went with `-pd` because I didn't want to miss any of the features and I will find a way to limit the zoom from afar.
+
+> `tippecanoe -pd -z 14 -n 3d-building-tileset -l building-layer -f -o tileset-phoenix-buildings.mbtiles ../clippedBuildings/clipped.json`
