@@ -1,13 +1,13 @@
 <template>
   <!--<h1>{{msg}}</h1>-->
-  <div id="mapbox">
-
-  </div>
+  <div id="mapbox"></div>
 </template>
 
 <script>
+import {bus} from '../main'
 import mapboxgl from 'mapbox-gl';
 import * as d3 from 'd3';
+
 import '../../node_modules/mapbox-gl/dist/mapbox-gl.css';
 
 export default {
@@ -120,13 +120,14 @@ export default {
           (features);
 
         // get total counts and sums
-        let total_area = features.reduce( (accum, feature) => {
+        let summary_stats = features.reduce( (accum, feature) => {
           accum.cnt = accum.cnt + 1;
           accum.total_area = accum.total_area + feature.properties.shape_area;
           return accum
         }, {cnt: 0, total_area: 0});
 
-        console.log(bins, total_area);
+        console.log('histogram bins: ', bins ,'summary stats: ' , summary_stats);
+        bus.$emit('clicked-map', summary_stats)
       });
 
     })

@@ -1,13 +1,25 @@
 <template>
   <div id="app">
-    <router-view/>
+    <Map/>
   </div>
 </template>
 
 <script>
 
+import Map from "./components/Map";
+import {bus} from './main'
+
 export default {
-  name: 'App'
+  name: 'App',
+  components: {Map},
+
+  mounted(){
+    bus.$on('clicked-map', (payload) => {
+      console.log('payload: ', payload)
+    })
+  }
+
+
 }
 </script>
 
