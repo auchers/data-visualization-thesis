@@ -42,34 +42,36 @@ export default {
         }
       }
 
-      // extrusions
-      map.addLayer({
-        'id': '3d-buildings',
-        'source': 'composite',
-        'source-layer': 'building',
-        'filter': ['==', 'extrude', 'true'],
-        'type': 'fill-extrusion',
-        'minzoom': 14,
-        'paint':{
-          'fill-extrusion-color': '#aaa',
-          'fill-extrusion-height': [
-            "interpolate", ["linear"], ["zoom"],
-            15, 0,
-            15.05, ["get", 'height']
-          ],
-          'fill-extrusion-base': [
-            "interpolate", ["linear"], ["zoom"],
-            15, 0,
-            15.05, ["get", "min_height"]
-          ],
-          'fill-extrusion-opacity': .6
-        }
-      }, labelLayerId); // adds the layer label on top so that visible above extrusions
+      // // extrusions
+      // map.addLayer({
+      //   'id': '3d-buildings',
+      //   'source': 'composite',
+      //   'source-layer': 'building',
+      //   'filter': ['==', 'extrude', 'true'],
+      //   'type': 'fill-extrusion',
+      //   'minzoom': 14,
+      //   'paint':{
+      //     'fill-extrusion-color': '#aaa',
+      //     'fill-extrusion-height': [
+      //       "interpolate", ["linear"], ["zoom"],
+      //       15, 0,
+      //       15.05, ["get", 'height']
+      //     ],
+      //     'fill-extrusion-base': [
+      //       "interpolate", ["linear"], ["zoom"],
+      //       15, 0,
+      //       15.05, ["get", "min_height"]
+      //     ],
+      //     'fill-extrusion-opacity': .6
+      //   }
+      // },
+      //   labelLayerId); // adds the layer label on top so that visible above extrusions
       // },
 
       // building footprints
       map.addLayer({
         "id": 'green-roof-potential',
+        "name": 'gr-potential',
         "type": 'fill-extrusion',
         'source': {
           'type': 'vector',
@@ -105,6 +107,15 @@ export default {
           'fill-color': '#df00d2'
         }
       })
+
+      map.on('click', function (e) {
+        // !! returns layer properties!!
+        // let features = map.queryRenderedFeatures(e.point);
+        let options = { layers: ['green-roof-potential'] };
+        let features = map.queryRenderedFeatures(options);
+
+        console.log(features);
+      });
 
     })
   }
