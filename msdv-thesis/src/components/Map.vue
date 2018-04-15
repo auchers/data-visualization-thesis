@@ -63,6 +63,68 @@ export default {
           'fill-extrusion-opacity': .6
         }
       }, labelLayerId); // adds the layer label on top so that visible above extrusions
+      // },
+
+
+      map.addLayer(
+        // {
+        //   "layers" : {
+        //     "-L7XOyhcs92Be8-2Nx5d" : {
+        //       "filter" : [ "has", "heat_risk" ],
+        //       "id" : "NewYork-HeatRisk",
+        //       "layout" : {
+        //         "visibility" : "none"
+        //       },
+        //       "paint" : {
+        //         "fill-extrusion-base" : {
+        //           "property" : "min_height",
+        //           "type" : "identity"
+        //         },
+        //         "fill-extrusion-color" : {
+        //           "property" : "heat_risk",
+        //           "stops" : [ [ 0.438, "#fef0d9" ], [ 0.455, "#fdcc8a" ], [ 0.469, "#fc8d59" ], [ 0.484, "#e34a33" ], [ 0.749, "#b30000" ] ]
+        //         },
+        //         "fill-extrusion-height" : {
+        //           "property" : "height",
+        //           "type" : "identity"
+        //         },
+        //         "fill-extrusion-opacity" : 1
+        //       },
+        //       "source" : "composite",
+        //       "source-layer" : "buildings-new-york",
+        //       "type" : "fill-extrusion"
+        //     }
+        //   },
+        //   "name" : "Heat Risk"
+        // },
+
+
+      {
+        "id": 'green-roof-potential',
+        "type": 'fill-extrusion',
+        'source': {
+          'type': 'vector',
+          'url': 'mapbox://aucher.2u35uvcm' //MapID from bottom of tileset page
+        },
+        'source-layer': 'building-layer',
+        'paint':
+        {
+
+          'fill-extrusion-color':
+          [
+            "step",
+            ["log10", ["get", "shape_area"]],
+            "rgba(68,1,84,255)",
+            1, "rgba(64,67,135,255)",
+            2, "rgba(41,120,142,255)",
+            3, "rgba(34,168,132,255)",
+            4, "rgba(122,210,81,255)",
+            5, "rgba(253,231,37,255)",
+            6, "rgba(99,82,136,255)",
+          ]
+        }
+        })
+
     })
 
   }
