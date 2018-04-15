@@ -14,6 +14,8 @@ export default {
   components: {Map},
 
   mounted(){
+
+    // testing out event bus
     bus.$on('clicked-map', (payload) => {
       console.log('payload: ', payload)
     })

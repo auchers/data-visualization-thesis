@@ -18,6 +18,7 @@ export default {
     }
   },
   mounted(){
+    var store = this.$store
     mapboxgl.accessToken = 'pk.eyJ1IjoiYXVjaGVyIiwiYSI6ImNqODd4NnBndzFjZDQyd3FocnM4Njc2NWQifQ.dql4s6oWRANbYGt44i6n9A';
 
     let map = new mapboxgl.Map({
@@ -126,8 +127,11 @@ export default {
           return accum
         }, {cnt: 0, total_area: 0});
 
-        console.log('histogram bins: ', bins ,'summary stats: ' , summary_stats);
-        bus.$emit('clicked-map', summary_stats)
+        // console.log('histogram bins: ', bins ,'summary stats: ' , summary_stats);
+        // bus.$emit('clicked-map', summary_stats)
+
+        store.commit('storeSummaryBins', summary_stats);
+
       });
 
     })
