@@ -7,6 +7,7 @@
 
 <script>
 import mapboxgl from 'mapbox-gl';
+import * as d3 from 'd3';
 import '../../node_modules/mapbox-gl/dist/mapbox-gl.css';
 
 export default {
@@ -32,7 +33,6 @@ export default {
     map.on('load', function(){
       // insert layers beneath any symbol layer
       let layers = map.getStyle().layers;
-      // console.log(layers);
 
       let labelLayerId;
       for (var i = 0; i < layers.length; i++){
@@ -114,7 +114,19 @@ export default {
         let options = { layers: ['green-roof-potential'] };
         let features = map.queryRenderedFeatures(options);
 
-        console.log(features);
+        // calculate histogram bins for features returned
+        let bins = d3.histogram()
+          .value(d => Math.log(d.properties.shape_area))
+          (features);
+
+        // get total counts and sums
+        let total_area = features.reduce( (accum, feature) => {
+          accum.cnt = accum.cnt + 1;
+          accum.total_area = accum.total_area + feature.properties.shape_area;
+          return accum
+        }, {cnt: 0, total_area: 0});
+
+        console.log(bins, total_area);
       });
 
     })
@@ -122,7 +134,6 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
   #mapbox{
     position: absolute;
