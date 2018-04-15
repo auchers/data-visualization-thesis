@@ -1,6 +1,10 @@
 <template>
   <div id="app">
-    <Map/>
+      <Header/>
+    <div id="grid-wrapper">
+      <Map/>
+      <RightPanel/>
+    </div>
   </div>
 </template>
 
@@ -8,10 +12,12 @@
 
 import Map from "./components/Map";
 import {bus} from './main'
+import Header from "./components/Header";
+import RightPanel from "./components/RightPannel"
 
 export default {
   name: 'App',
-  components: {Map},
+  components: {RightPanel, Header, Map},
 
   mounted(){
 
@@ -26,12 +32,26 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
+  body{
+   height: 100vh;
+    background-color: rgb(242, 238, 232);
+  }
+
+  #app {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    margin-top: 60px;
+    height: 100%;
+  }
+
+  #grid-wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 100vh;
+    margin: 1em;
+  }
 </style>

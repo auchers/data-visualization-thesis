@@ -21,6 +21,12 @@ export default {
     var store = this.$store
     mapboxgl.accessToken = 'pk.eyJ1IjoiYXVjaGVyIiwiYSI6ImNqODd4NnBndzFjZDQyd3FocnM4Njc2NWQifQ.dql4s6oWRANbYGt44i6n9A';
 
+    // // Set bounds to New York, New York
+    // var bounds = [
+    //   [-74.04728500751165, 40.68392799015035], // Southwest coordinates
+    //   [-73.91058699000139, 40.87764500765852]  // Northeast coordinates
+    // ];
+
     let map = new mapboxgl.Map({
       style: 'mapbox://styles/aucher/cj87xa4nv3xb02ro4j9o2hatb',
       center: [-74.0066, 40.7135],
@@ -28,7 +34,8 @@ export default {
       pitch: 60,
       bearing: 32.8,
       hash: true,
-      container: 'mapbox'
+      container: 'mapbox',
+      // maxBounds: bounds // Sets bounds as max
     });
 
     map.on('load', function(){
@@ -79,6 +86,7 @@ export default {
           'url': 'mapbox://aucher.2u35uvcm' //MapID from bottom of tileset page
         },
         'source-layer': 'building-layer',
+        "filter": ["has", "shape_area"],
         'paint':{
           'fill-extrusion-color':
           [
@@ -104,6 +112,7 @@ export default {
           'url': 'mapbox://aucher.1kik7pca' //MapID from bottom of tileset page
         },
         'source-layer': 'green_roofs-d1x6o7',
+        "filter": ["has", "Id"],
         'paint':{
           'fill-color': '#df00d2'
         }
@@ -140,12 +149,18 @@ export default {
 </script>
 
 <style>
+
   #mapbox{
-    position: absolute;
+    /*position: absolute;*/
     /*left: 3em;*/
-    top: 3em;
-    bottom: 3em;
-    width: 80%;
+    /*top: 3em;*/
+    /*bottom: 3em;*/
+    width: 100%;
+    height: 100%;
   }
 
+  canvas.mapboxgl-canvas{
+    position: unset !important;
+    width: 100% !important;
+  }
 </style>
