@@ -12,9 +12,11 @@
   "dependencies": {
     "d3": "^5.0.0",
     "element-ui": "^2.3.4",
+    "lodash": "^4.17.5",
     "mapbox-gl": "^0.44.2",
     "vue": "^2.5.2",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

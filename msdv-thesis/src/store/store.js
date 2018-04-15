@@ -3,11 +3,11 @@ import Vuex from 'vuex'
 
 import { bus } from '../main'
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export const store = new Vuex.Store({
-  debug : true,
   state: {
+    debug : true,
     summary_bins: [],
   },
 
@@ -23,7 +23,7 @@ export const store = new Vuex.Store({
 
   mutations: {
     storeSummaryBins: (state, payload) => {
-      if (this.debug) console.log('storing summary bins to store', payload);
+      if (state.debug) console.log('storing summary bins to store', payload);
       state.summary_bins = Object.assign({}, payload)
     }
   }
