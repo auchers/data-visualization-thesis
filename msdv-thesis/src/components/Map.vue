@@ -22,7 +22,7 @@ export default {
     let map = new mapboxgl.Map({
       style: 'mapbox://styles/aucher/cj87xa4nv3xb02ro4j9o2hatb',
       center: [-74.0066, 40.7135],
-      zoom: 14,
+      zoom: 13,
       pitch: 60,
       bearing: 32.8,
       hash: true,
@@ -32,6 +32,7 @@ export default {
     map.on('load', function(){
       // insert layers beneath any symbol layer
       let layers = map.getStyle().layers;
+      // console.log(layers);
 
       let labelLayerId;
       for (var i = 0; i < layers.length; i++){
@@ -41,6 +42,7 @@ export default {
         }
       }
 
+      // extrusions
       map.addLayer({
         'id': '3d-buildings',
         'source': 'composite',
@@ -65,41 +67,8 @@ export default {
       }, labelLayerId); // adds the layer label on top so that visible above extrusions
       // },
 
-
-      map.addLayer(
-        // {
-        //   "layers" : {
-        //     "-L7XOyhcs92Be8-2Nx5d" : {
-        //       "filter" : [ "has", "heat_risk" ],
-        //       "id" : "NewYork-HeatRisk",
-        //       "layout" : {
-        //         "visibility" : "none"
-        //       },
-        //       "paint" : {
-        //         "fill-extrusion-base" : {
-        //           "property" : "min_height",
-        //           "type" : "identity"
-        //         },
-        //         "fill-extrusion-color" : {
-        //           "property" : "heat_risk",
-        //           "stops" : [ [ 0.438, "#fef0d9" ], [ 0.455, "#fdcc8a" ], [ 0.469, "#fc8d59" ], [ 0.484, "#e34a33" ], [ 0.749, "#b30000" ] ]
-        //         },
-        //         "fill-extrusion-height" : {
-        //           "property" : "height",
-        //           "type" : "identity"
-        //         },
-        //         "fill-extrusion-opacity" : 1
-        //       },
-        //       "source" : "composite",
-        //       "source-layer" : "buildings-new-york",
-        //       "type" : "fill-extrusion"
-        //     }
-        //   },
-        //   "name" : "Heat Risk"
-        // },
-
-
-      {
+      // building footprints
+      map.addLayer({
         "id": 'green-roof-potential',
         "type": 'fill-extrusion',
         'source': {
@@ -107,9 +76,7 @@ export default {
           'url': 'mapbox://aucher.2u35uvcm' //MapID from bottom of tileset page
         },
         'source-layer': 'building-layer',
-        'paint':
-        {
-
+        'paint':{
           'fill-extrusion-color':
           [
             "step",
@@ -125,10 +92,22 @@ export default {
         }
         })
 
+      // existing green roofs
+      map.addLayer({
+        "id": 'existing-green-roof',
+        "type": 'fill',
+        'source': {
+          'type': 'vector',
+          'url': 'mapbox://aucher.1kik7pca' //MapID from bottom of tileset page
+        },
+        'source-layer': 'green_roofs-d1x6o7',
+        'paint':{
+          'fill-color': '#df00d2'
+        }
+      })
+
     })
-
   }
-
 }
 </script>
 
