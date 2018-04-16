@@ -52,6 +52,6 @@ export default {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-auto-rows: 100vh;
-    margin: 1em;
+    margin: 1rem;
   }
 </style>

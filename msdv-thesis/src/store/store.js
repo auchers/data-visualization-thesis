@@ -8,23 +8,31 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
   state: {
     debug : true,
-    summary_bins: [],
+    summary: [],
+    histogram_bins: [],
   },
 
   getters: {
-    getSummaryBins: (state) => {return state.summary_bins}
+    getSummary: (state) => {return state.summary},
+    getHistogramBins: (state) => {return state.histogram_bins}
   },
 
   actions: {
-    setSummaryBins: (activeMaps) => {
-      store.commit('storeSummaryBins', activeMaps)
+    setSummary: (activeMaps) => {
+      store.commit('storeSummary', activeMaps)
     }
   },
 
   mutations: {
-    storeSummaryBins: (state, payload) => {
-      if (state.debug) console.log('storing summary bins to store', payload);
-      state.summary_bins = Object.assign({}, payload)
-    }
+    storeSummary: (state, payload) => {
+      if (state.debug) console.log('storing summary to store', payload);
+      state.summary = Object.assign({}, payload)
+    },
+
+    storeHistogramBins: (state, payload) => {
+      if (state.debug) console.log('storing histogram bins to store', payload);
+      state.histogram_bins = Object.assign({}, payload)
+    },
+
   }
 })

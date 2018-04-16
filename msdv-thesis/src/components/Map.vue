@@ -50,32 +50,6 @@ export default {
         }
       }
 
-      // // extrusions
-      // map.addLayer({
-      //   'id': '3d-buildings',
-      //   'source': 'composite',
-      //   'source-layer': 'building',
-      //   'filter': ['==', 'extrude', 'true'],
-      //   'type': 'fill-extrusion',
-      //   'minzoom': 14,
-      //   'paint':{
-      //     'fill-extrusion-color': '#aaa',
-      //     'fill-extrusion-height': [
-      //       "interpolate", ["linear"], ["zoom"],
-      //       15, 0,
-      //       15.05, ["get", 'height']
-      //     ],
-      //     'fill-extrusion-base': [
-      //       "interpolate", ["linear"], ["zoom"],
-      //       15, 0,
-      //       15.05, ["get", "min_height"]
-      //     ],
-      //     'fill-extrusion-opacity': .6
-      //   }
-      // },
-      //   labelLayerId); // adds the layer label on top so that visible above extrusions
-      // },
-
       // building footprints
       map.addLayer({
         "id": 'green-roof-potential',
@@ -102,7 +76,7 @@ export default {
           ]
         }
         })
-
+    // TODO move colors out to store (use them for histograms as well)
       // existing green roofs
       map.addLayer({
         "id": 'existing-green-roof',
@@ -136,10 +110,8 @@ export default {
           return accum
         }, {cnt: 0, total_area: 0});
 
-        // console.log('histogram bins: ', bins ,'summary stats: ' , summary_stats);
-        // bus.$emit('clicked-map', summary_stats)
-
-        store.commit('storeSummaryBins', summary_stats);
+        store.commit('storeSummary', summary_stats);
+        store.commit('storeHistogramBins', bins);
 
       });
 
@@ -164,3 +136,29 @@ export default {
     width: 100% !important;
   }
 </style>
+
+// // extrusions
+// map.addLayer({
+//   'id': '3d-buildings',
+//   'source': 'composite',
+//   'source-layer': 'building',
+//   'filter': ['==', 'extrude', 'true'],
+//   'type': 'fill-extrusion',
+//   'minzoom': 14,
+//   'paint':{
+//     'fill-extrusion-color': '#aaa',
+//     'fill-extrusion-height': [
+//       "interpolate", ["linear"], ["zoom"],
+//       15, 0,
+//       15.05, ["get", 'height']
+//     ],
+//     'fill-extrusion-base': [
+//       "interpolate", ["linear"], ["zoom"],
+//       15, 0,
+//       15.05, ["get", "min_height"]
+//     ],
+//     'fill-extrusion-opacity': .6
+//   }
+// },
+//   labelLayerId); // adds the layer label on top so that visible above extrusions
+// },

@@ -1,5 +1,7 @@
 <template>
-  <div id="header"></div>
+  <div id="header">
+    <h1>{{title}}</h1>
+  </div>
 </template>
 
 <script>
@@ -10,7 +12,7 @@
     name: 'Header',
     data () {
       return {
-        msg: 'This is the Map Component'
+        title: 'This is the Title'
       }
     },
     mounted(){
@@ -20,5 +22,10 @@
 </script>
 
 <style>
+
+  #header {
+    text-align: left;
+    padding-left: 1rem;
+  }
 
 </style>
