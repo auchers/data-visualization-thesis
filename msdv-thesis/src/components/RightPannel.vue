@@ -1,6 +1,6 @@
 <template>
   <div id="right-panel">
-    <h2>{{msg}}</h2>
+    <h3>{{msg}}</h3>
     <Histogram/>
   </div>
 </template>
@@ -15,7 +15,7 @@
     components: {Histogram},
     data () {
       return {
-        msg: 'This is the Right Panel Component'
+        msg: 'Explore the Distribution of Roof Areas'
       }
     },
     mounted(){
@@ -31,7 +31,7 @@
     text-align: left;
   }
 
-  #right-panel > h2 {
+  #right-panel > h3 {
     margin: 0;
     line-height: 95%;
   }

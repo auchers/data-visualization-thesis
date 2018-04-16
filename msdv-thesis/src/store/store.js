@@ -25,12 +25,12 @@ export const store = new Vuex.Store({
 
   mutations: {
     storeSummary: (state, payload) => {
-      if (state.debug) console.log('storing summary to store', payload);
+      if (state.debug) console.log('storing summary to store');
       state.summary = Object.assign({}, payload)
     },
 
     storeHistogramBins: (state, payload) => {
-      if (state.debug) console.log('storing histogram bins to store', payload);
+      if (state.debug) console.log('storing histogram bins to store');
       state.histogram_bins = Object.assign({}, payload)
     },
 

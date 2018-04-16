@@ -22,7 +22,7 @@
     name: 'Histogram',
     data () {
       return {
-        msg: 'Histogram',
+        msg: 'click anywhere on the map to see how the roof areas are distributed within your current view',
         width: null,
         height: null,
         x: null,
@@ -53,7 +53,7 @@
             };
           })(this));
 
-        console.log(map);
+        // console.log(map);
         return map;
       }
     },
@@ -76,18 +76,16 @@
     mounted(){
       this.width = this.$refs.svg.getBoundingClientRect().width;
       this.height = this.$refs.svg.getBoundingClientRect().height;
-      // console.log(this.width, this.height);
-
-      // this.x.domain([0, 15])
-      //   .range([0, this.width]);
-      //
-      // this.y.range([0, this.height]);
 
     }
   }
 </script>
 
 <style>
+  #histogram{
+    height: 300px;
+  }
+
   svg{
     width: 100%;
     height: 100%;

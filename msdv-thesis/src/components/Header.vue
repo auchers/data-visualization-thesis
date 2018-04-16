@@ -12,7 +12,7 @@
     name: 'Header',
     data () {
       return {
-        title: 'This is the Title'
+        title: 'Exploring the Potential of Green Roofs in NYC'
       }
     },
     mounted(){
