@@ -18,3 +18,5 @@ nyc-data-playground/data/
 nyc-data-playground/spatial-join-mongodb/
 nyc-data-playground/.ipynb_checkpoints/
 nyc-data-playground/jupyter_notebooks/.ipynb_checkpoints/
+
+package-lock.json
