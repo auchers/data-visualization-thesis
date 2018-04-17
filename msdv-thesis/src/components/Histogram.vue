@@ -1,7 +1,7 @@
 <template>
   <div id="histogram">
     <p>{{msg}}</p>
-    <svg class="histogram" ref="svg">
+    <svg ref="svg">
       <rect v-for="d in layout"
             class="bar"
             fill="#aaa"
@@ -20,6 +20,7 @@
 
   export default {
     name: 'Histogram',
+    // props: ['height'],
     data () {
       return {
         msg: 'click anywhere on the map to see how the roof areas are distributed within your current view',
@@ -83,11 +84,14 @@
 
 <style>
   #histogram{
-    height: 300px;
+    height: 50vh;
+    display: flex;
+    flex-flow: column;
+    margin-bottom: 1em;
+
   }
 
   svg{
-    width: 100%;
-    height: 100%;
+    flex: 1 1 auto;
   }
 </style>

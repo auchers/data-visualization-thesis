@@ -123,10 +123,10 @@ export default {
 <style>
 
   #mapbox{
-    /*position: absolute;*/
+    /*position: sticky;*/
     /*left: 3em;*/
     /*top: 3em;*/
-    /*bottom: 3em;*/
+    /*bottom: 0;*/
     width: 100%;
     height: 100%;
   }
