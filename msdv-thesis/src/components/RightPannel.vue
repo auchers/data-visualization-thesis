@@ -3,7 +3,7 @@
       <h3>{{msg}}</h3>
       <Histogram/>
       <div class="scrollSection" id="div1"
-           v-waypoint="{ active: true, callback: onWaypoint, options: intersectionOptions }">
+           v-waypoint="{ active: true, callback: onWaypoint }">
         {{div1Text}}
       </div>
       <div class="scrollSection div2">{{div1Text}}</div>
@@ -44,9 +44,8 @@
 
         if (direction === this.$waypointMap.DIRECTION_TOP) {
           console.log('waypoint going top!', el.id)
+          //todo emit event with div id that map listens to as well
         }
-        // console.log(obj.el.id, obj.going);
-
       }
     },
 
