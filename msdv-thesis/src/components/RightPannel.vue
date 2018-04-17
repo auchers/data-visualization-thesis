@@ -2,7 +2,10 @@
   <div id="right-panel">
       <h3>{{msg}}</h3>
       <Histogram/>
-      <div class="scrollSection div1">{{div1Text}}</div>
+      <div class="scrollSection" id="div1"
+           v-waypoint="{ active: true, callback: onWaypoint, options: intersectionOptions }">
+        {{div1Text}}
+      </div>
       <div class="scrollSection div2">{{div1Text}}</div>
       <div class="scrollSection div3">{{div1Text}}</div>
       <div class="scrollSection div4">{{div1Text}}</div>
@@ -13,6 +16,10 @@
   import {bus} from '../main'
   import * as d3 from 'd3';
   import Histogram from "./Histogram";
+  import Vue from 'vue';
+  import VueWaypoint from 'vue-waypoint';
+
+  Vue.use(VueWaypoint);
 
   export default {
     name: 'RightPanel',
@@ -26,6 +33,23 @@
         div3Text: "",
       }
     },
+
+    methods: {
+      onWaypoint ({el, going, direction}) {
+        // going: in, out
+        // direction: top, right, bottom, left
+        if (going === this.$waypointMap.GOING_IN) {
+          console.log('waypoint going in!', el.id)
+        }
+
+        if (direction === this.$waypointMap.DIRECTION_TOP) {
+          console.log('waypoint going top!', el.id)
+        }
+        // console.log(obj.el.id, obj.going);
+
+      }
+    },
+
     mounted(){
 
     }
