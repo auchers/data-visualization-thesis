@@ -157,6 +157,9 @@ Re-add the header to make the file a valid GeoJSON:
 
 `--drop-fraction-as-needed` looks like more even coverage, but when you zoom in it is missing features
 
-I ultimately went with `-pd` because I didn't want to miss any of the features and I will find a way to limit the zoom from afar.
+I ultimately went with using the `-y` flag to specify the fields that I wanted in conjunction with `--drop-fraction-as-needed` because I didn't want to miss any buildings.
 
-> `tippecanoe -pd -z 14 -n 3d-building-tileset -l building-layer -f -o tileset-phoenix-buildings.mbtiles ../clippedBuildings/clipped.json`
+> `tippecanoe -pd -z 14 -n 3d-building-tileset -l building-layer -f -o tileset-phoenix-buildings.mbtiles ../clippedBuildings/clipped.json` # removed too many features, buildings were missing
+
+
+> `tippecanoe --drop-densest-as-needed -z 14 -y CD -y shape_area -y BldgClass -y heightroof -y LandUse -n building-with-lots-tileset -l building-layer -f -o tileset-buildings-with-lots_y.mbtiles ../mongoOutput/buildings_with_lots.geojson`
