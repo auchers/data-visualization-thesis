@@ -93,5 +93,6 @@
 
   svg{
     flex: 1 1 auto;
+    overflow: visible;
   }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div id="header">
-    <h1>{{title}}</h1>
+    <p>{{title}}</p>
   </div>
 </template>
 
@@ -12,7 +12,7 @@
     name: 'Header',
     data () {
       return {
-        title: 'Exploring the Potential of Green Roofs in NYC'
+        title: 'Green Roofs in New York City'
       }
     },
     mounted(){
@@ -22,10 +22,14 @@
 </script>
 
 <style>
-
-  #header {
+  #header{
     text-align: left;
-    padding-left: 1rem;
+    font-weight: bolder;
+  }
+
+  #header > p {
+    opacity: .7;
+
   }
 
 </style>

@@ -1,11 +1,5 @@
 <template>
-  <div id="app">
-      <Header/>
-    <div id="grid-wrapper">
-      <Map/>
-      <RightPanel/>
-    </div>
-  </div>
+<router-view></router-view>
 </template>
 
 <script>
@@ -32,28 +26,19 @@ export default {
 </script>
 
 <style>
-
-  body{
-   height: 100vh;
-    background-color: rgb(242, 238, 232);
-  }
+  @import url('https://fonts.googleapis.com/css?family=Crimson+Text');
 
   #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    font-family: Avenir, Serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
-    color: #2c3e50;
-    margin-top: 60px;
     height: 100%;
   }
 
-  #grid-wrapper {
-    position: fixed;
-    top: 25%;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: 100vh;
-    margin: 1rem;
+  h1, header{
+    font-family: 'Electra LT Std', serif;
   }
+
+
 </style>
