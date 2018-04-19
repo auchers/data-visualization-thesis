@@ -1,24 +1,13 @@
 <template>
-  <div class="container">
-    <slot name="map"></slot>
-    <div class="right-panel">
-
-      <slot name="intro">
-        <story-section>
-          <header slot="header">{{header}}</header>
-          <p slot="text">{{div1Text}}</p>
-        </story-section>
-      </slot>
-
-        <main>
-          <slot name="main"></slot>
-        </main>
-      <div class="analysis">
-        <slot name="analysis">
-          <H2>Analysis: Histogram of Building Areas</H2>
-          <Histogram></Histogram>
+  <div class="story-wrapper">
+    <div class="intro">
+        <slot name="header">
+          <header>{{header}}</header>
         </slot>
-      </div>
+        <slot name="text">
+          <p>{{div1Text}}
+          </p>
+        </slot>
     </div>
   </div>
 </template>
@@ -29,13 +18,12 @@
   import Vue from 'vue';
   import VueWaypoint from 'vue-waypoint';
   import Histogram from "./Histogram";
-  import StorySection from './StorySection'
 
   Vue.use(VueWaypoint);
 
   export default {
     name: 'RightPanel',
-    components: {Histogram, StorySection},
+    components: {Histogram},
     data() {
       return {
         header: "Example Header",
@@ -53,30 +41,17 @@
 </script>
 
 <style>
-  .container{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-auto-rows: 200vh;
+
+  .story-wrapper{
+    min-height: 100vh;
+    position: relative;
   }
 
-  .right-panel{
-    padding: 1em;
-  }
-
-  .white-space{
-    height: 35vh;
-  }
-
-  .analysis{
+  .intro{
+    position: absolute;
+    top: 35vh;
     max-width: 500px;
     margin: 0 auto;
-    min-height: 100vh;
-
-  }
-
-  header{
-    font-size: 3em;
-    padding-bottom: .5em;
   }
 
 </style>

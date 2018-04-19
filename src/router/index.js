@@ -12,11 +12,11 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
-    {
-      path: '/',
-      name: 'LandingPage',
-      component: LandingPage
-    },
+    // {
+    //   path: '/',
+    //   name: 'LandingPage',
+    //   component: LandingPage
+    // },
     {
       path: '/story',
       name: 'Home',
@@ -33,7 +33,7 @@ export default new Router({
       component: Stormwater
     },
     {
-      path: '/systems',
+      path: '/',
       name: 'systems',
       component: Systems
     },
