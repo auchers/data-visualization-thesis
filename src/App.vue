@@ -4,14 +4,10 @@
 
 <script>
 
-import Map from "./components/Map";
 import {bus} from './main'
-import Header from "./components/Header";
-import RightPanel from "./components/RightPannel"
 
 export default {
   name: 'App',
-  components: {RightPanel, Header, Map},
 
   mounted(){
 
@@ -40,7 +36,7 @@ export default {
     font-family: 'Electra LT Std', serif;
   }
 
-  p{
+  p, table{
     font-family: Avenir, sans-serif;
   }
 

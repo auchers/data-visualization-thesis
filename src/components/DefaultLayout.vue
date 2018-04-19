@@ -53,7 +53,7 @@
   .container{
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-auto-rows: 900vh;
+    grid-auto-rows: 1000vh;
   }
 
   .right-panel{

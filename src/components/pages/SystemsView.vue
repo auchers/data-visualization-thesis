@@ -13,7 +13,8 @@
 
     <div slot="main">
 
-      <story-section v-for="(story, i) in storyText">
+      <story-section v-for="(story, i) in storyText"
+        v-bind:key="i">
         <header slot="header"
                 v-bind:id="i"
                 v-waypoint="{ active: true, callback: onWaypoint}">
@@ -28,8 +29,13 @@
 
     <div slot="analysis">
       <story-section>
-        <header slot="header">Analysis: Histogram of Building Areas</header>
-        <Histogram slot="text"></Histogram>
+        <header slot="header">Analysis:
+          <br>
+          Histogram of Building Areas</header>
+        <div slot="text">
+          <histogram></histogram>
+          <calculator></calculator>
+        </div>
       </story-section>
 
     </div>
@@ -46,13 +52,15 @@
   import Map from '../Map'
   import Histogram from '../Histogram'
   import StorySection from '../StorySection'
+  import Calculator from '../Calculator'
+
   import storyText from '../../assets/mainText'
 
   Vue.use(VueWaypoint);
 
   export default {
-    name: 'RightPanel',
-    components: {DefaultHeader, Map, Histogram, StorySection},
+    name: 'SystemsView',
+    components: {Calculator, DefaultHeader, Map, Histogram, StorySection},
     data() {
       return {
         title: "Exploring the Potential of Green Roofs in NYC",
