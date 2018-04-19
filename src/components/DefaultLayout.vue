@@ -44,10 +44,7 @@
     },
 
     methods: {
-      mounted() {
-
-      }
-    }
+    },
   }
 
 </script>
@@ -56,7 +53,7 @@
   .container{
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-auto-rows: 500vh;
+    grid-auto-rows: 900vh;
   }
 
   .right-panel{
