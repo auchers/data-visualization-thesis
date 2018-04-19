@@ -78,15 +78,6 @@
 </script>
 
 <style>
-  .story-section{
-    min-height: 100vh;
-    position: relative;
 
-  }
-
-  .story-text{
-    position: absolute;
-    top: 35vh;
-  }
 
 </style>
