@@ -40,6 +40,7 @@
     line-height: 20vh;
     font-size: 20vh;
     font-weight: lighter;
+    max-width: 800px;
   }
 
   .landing-page-button {

@@ -123,12 +123,10 @@ export default {
 <style>
 
   #mapbox{
-    /*position: sticky;*/
-    /*left: 3em;*/
-    /*top: 3em;*/
-    /*bottom: 0;*/
+    position: sticky;
+    top: 0;
     width: 100%;
-    height: 100%;
+    height: 100vh;
   }
 
   canvas.mapboxgl-canvas{

@@ -36,9 +36,12 @@ export default {
     height: 100%;
   }
 
-  h1, header{
+  h1, h2, header{
     font-family: 'Electra LT Std', serif;
   }
 
+  p{
+    font-family: Avenir, sans-serif;
+  }
 
 </style>

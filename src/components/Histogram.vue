@@ -88,7 +88,6 @@
     display: flex;
     flex-flow: column;
     margin-bottom: 1em;
-
   }
 
   svg{
