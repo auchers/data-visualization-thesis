@@ -2,9 +2,18 @@
   <div id="app">
     <div class="landing-page-wrapper">
       <h1>{{title}}</h1>
-      <button class="landing-page-button">
-        <router-link to="/urban-heat">Explore</router-link>
-      </button>
+      <div class="buttons-container">
+        Lenses:
+        <button class="landing-page-button">
+          <router-link to="/urban-heat">Urban Heat</router-link>
+        </button>
+        <button class="landing-page-button">
+          <router-link to="/stormwater">Rainwater Retention</router-link>
+        </button>
+        <button class="landing-page-button">
+          <router-link to="/systems">Combined - Systems View</router-link>
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -43,11 +52,16 @@
     max-width: 800px;
   }
 
-  .landing-page-button {
+  .buttons-container{
     position: absolute;
+    right: 2em;
+    margin-bottom: 2em;
+  }
+
+  .landing-page-button {
     height: 2em;
     padding: 2em;
-    right: 2em;
+    margin: 1em;
     bottom: 2em;
     cursor: zoom-in;
     background-color: unset;

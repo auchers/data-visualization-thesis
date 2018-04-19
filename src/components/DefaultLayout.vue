@@ -2,7 +2,8 @@
   <div class="container">
     <slot name="map"></slot>
     <div class="right-panel">
-      <div class="white-space"></div>
+      <div class="intro">
+        <div class="white-space"></div>
         <header>
           <slot name="header">
             {{header}}
@@ -11,6 +12,7 @@
         <main>
           <slot name="main"><p>{{div1Text}}</p></slot>
         </main>
+      </div>
       <div class="analysis">
         <slot name="analysis">
           <H2>Analysis: Histogram of Building Areas</H2>
@@ -52,7 +54,7 @@
 <style>
   .container{
     display: grid;
-    grid-template-columns: auto minmax(100px, 500px);
+    grid-template-columns: auto minmax(100px, max-content);
     grid-auto-rows: 200vh;
   }
 
@@ -64,14 +66,19 @@
     height: 35vh;
   }
 
+  .intro{
+    max-width: 500px;
+    margin: 0 auto;
+    min-height: 100vh;
+
+  }
+
   header{
     font-size: 3em;
     padding-bottom: .5em;
   }
 
   .analysis{
-    position: sticky;
-    top: 100vh;
     padding-top: 2em;
   }
 
