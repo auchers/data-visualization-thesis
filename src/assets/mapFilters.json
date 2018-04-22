@@ -1,0 +1,40 @@
+{
+  "full_green_roof_potential": {
+    "id": "green-roof-potential",
+    "name": "gr-potential",
+    "type": "fill-extrusion",
+    "source": {
+      "type": "vector",
+      "url": "mapbox://aucher.2u35uvcm"
+    },
+    "source-layer": "building-layer",
+    "filter": ["has", "shape_area"],
+    "paint":{
+      "fill-extrusion-color":
+      [
+        "step",
+        ["log10", ["get", "shape_area"]],
+        "rgba(68,1,84,255)",
+        1, "rgba(64,67,135,255)",
+        2, "rgba(41,120,142,255)",
+        3, "rgba(34,168,132,255)",
+        4, "rgba(122,210,81,255)",
+        5, "rgba(253,231,37,255)",
+        6, "rgba(99,82,136,255)"
+      ]
+    }
+  },
+  "existing_green_roofs": {
+    "id": "existing-green-roof",
+    "type": "fill",
+    "source": {
+      "type": "vector",
+      "url": "mapbox://aucher.1kik7pca"
+    },
+    "source-layer": "green_roofs-d1x6o7",
+    "filter": ["has", "Id"],
+    "paint":{
+      "fill-color": "#df00d2"
+    }
+  }
+}

@@ -10,22 +10,19 @@ import * as d3 from 'd3';
 
 import '../../node_modules/mapbox-gl/dist/mapbox-gl.css';
 
+import mapFilters from '../assets/mapFilters';
+
 export default {
   name: 'Map',
   data () {
     return {
-      msg: 'This is the Map Component'
+      msg: 'This is the Map Component',
+      filter: '',
     }
   },
   mounted(){
     var store = this.$store
     mapboxgl.accessToken = 'pk.eyJ1IjoiYXVjaGVyIiwiYSI6ImNqODd4NnBndzFjZDQyd3FocnM4Njc2NWQifQ.dql4s6oWRANbYGt44i6n9A';
-
-    // // Set bounds to New York, New York
-    // var bounds = [
-    //   [-74.04728500751165, 40.68392799015035], // Southwest coordinates
-    //   [-73.91058699000139, 40.87764500765852]  // Northeast coordinates
-    // ];
 
     let map = new mapboxgl.Map({
       style: 'mapbox://styles/aucher/cj87xa4nv3xb02ro4j9o2hatb',
@@ -33,68 +30,32 @@ export default {
       zoom: 13,
       pitch: 60,
       bearing: 32.8,
-      hash: true,
+      // hash: true,
       container: 'mapbox',
-      // maxBounds: bounds // Sets bounds as max
     });
 
     map.on('load', function(){
       // insert layers beneath any symbol layer
       let layers = map.getStyle().layers;
 
-      let labelLayerId;
+      let labelLayerId; // find the label layer to put on top
       for (var i = 0; i < layers.length; i++){
         if (layers[i].type === 'symbol' && layers[i].layout['text-field']){
           labelLayerId = layers[i].id;
           break
         }
       }
-
       // building footprints
-      map.addLayer({
-        "id": 'green-roof-potential',
-        "name": 'gr-potential',
-        "type": 'fill-extrusion',
-        'source': {
-          'type': 'vector',
-          'url': 'mapbox://aucher.2u35uvcm' //MapID from bottom of tileset page
-        },
-        'source-layer': 'building-layer',
-        "filter": ["has", "shape_area"],
-        'paint':{
-          'fill-extrusion-color':
-          [
-            "step",
-            ["log10", ["get", "shape_area"]],
-            "rgba(68,1,84,255)",
-            1, "rgba(64,67,135,255)",
-            2, "rgba(41,120,142,255)",
-            3, "rgba(34,168,132,255)",
-            4, "rgba(122,210,81,255)",
-            5, "rgba(253,231,37,255)",
-            6, "rgba(99,82,136,255)",
-          ]
-        }
-        })
-    // TODO move colors out to store (use them for histograms as well)
+      map.addLayer(mapFilters.full_green_roof_potential, labelLayerId);
+
       // existing green roofs
-      map.addLayer({
-        "id": 'existing-green-roof',
-        "type": 'fill',
-        'source': {
-          'type': 'vector',
-          'url': 'mapbox://aucher.1kik7pca' //MapID from bottom of tileset page
-        },
-        'source-layer': 'green_roofs-d1x6o7',
-        "filter": ["has", "Id"],
-        'paint':{
-          'fill-color': '#df00d2'
-        }
-      })
+      map.addLayer(mapFilters.existing_green_roofs);
 
       map.on('click', function (e) {
         // !! returns layer properties!!
         // let features = map.queryRenderedFeatures(e.point);
+
+        // TODO: handle this: "Because features come from tiled vector data or GeoJSON data that is converted to tiles internally, feature geometries may be split or duplicated across tile boundaries"
         let options = { layers: ['green-roof-potential'] };
         let features = map.queryRenderedFeatures(options);
 
