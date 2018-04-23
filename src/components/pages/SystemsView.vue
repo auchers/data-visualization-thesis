@@ -44,7 +44,7 @@
 </template>
 
 <script>
-  import * as d3 from 'd3';
+  import {bus} from '../../main'
   import Vue from 'vue';
   import VueWaypoint from 'vue-waypoint';
 
@@ -78,6 +78,7 @@
         // direction: top, right, bottom, left
         if (going === this.$waypointMap.GOING_IN) {
           console.log('waypoint going in!', el.id)
+          bus.$emit('waypoint', {el: el.id, direction: direction});
         }
 
         // if (direction === this.$waypointMap.DIRECTION_TOP) {

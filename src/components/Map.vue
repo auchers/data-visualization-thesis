@@ -18,46 +18,61 @@ export default {
     return {
       msg: 'This is the Map Component',
       filter: '',
+      layers: '',
+      labelLayerId: '',
+      map: {}
     }
   },
   mounted(){
-    var store = this.$store
+    let self = this;
     mapboxgl.accessToken = 'pk.eyJ1IjoiYXVjaGVyIiwiYSI6ImNqODd4NnBndzFjZDQyd3FocnM4Njc2NWQifQ.dql4s6oWRANbYGt44i6n9A';
 
-    let map = new mapboxgl.Map({
-      style: 'mapbox://styles/aucher/cj87xa4nv3xb02ro4j9o2hatb',
-      center: [-74.0066, 40.7135],
-      zoom: 13,
-      pitch: 60,
-      bearing: 32.8,
-      // hash: true,
-      container: 'mapbox',
-    });
+    this.map = new mapboxgl.Map(mapFilters.styles.initial);
+    let map = this.map;
 
-    map.on('load', function(){
+    this.map.on('load', function(){
       // insert layers beneath any symbol layer
-      let layers = map.getStyle().layers;
+      self.layers = map.getStyle().layers;
 
-      let labelLayerId; // find the label layer to put on top
-      for (var i = 0; i < layers.length; i++){
-        if (layers[i].type === 'symbol' && layers[i].layout['text-field']){
-          labelLayerId = layers[i].id;
+      // let labelLayerId; // find the label layer to put on top
+      for (var i = 0; i < self.layers.length; i++){
+        if (self.layers[i].type === 'symbol' && self.layers[i].layout['text-field']){
+          self.labelLayerId = self.layers[i].id;
           break
         }
       }
       // building footprints
-      map.addLayer(mapFilters.full_green_roof_potential, labelLayerId);
+      map.addLayer(mapFilters.layers.full_green_roof_potential, self.labelLayerId);
 
       // existing green roofs
-      map.addLayer(mapFilters.existing_green_roofs);
+      map.addLayer(mapFilters.layers.existing_green_roofs);
+    })
 
-      map.on('click', function (e) {
-        // !! returns layer properties!!
-        // let features = map.queryRenderedFeatures(e.point);
+    map.on('click', self.getFeaturesInView);
 
+    bus.$on('waypoint', obj => { //TODO: research style transitions
+      if (obj.direction){
+
+        if (obj.el === "0"){
+          if (obj.direction === "top") {
+            // map.getStyle();
+            this.layers.forEach(function(layer) {
+               map.setLayoutProperty(layer.id, 'visibility', 'none')
+            })
+          } else {
+            this.layers.forEach(function(layer) {
+              map.setLayoutProperty(layer.id, 'visibility', 'visible')
+            })
+          }
+        }
+      }
+    });
+  },
+  methods:{
+    getFeaturesInView: function (e){
         // TODO: handle this: "Because features come from tiled vector data or GeoJSON data that is converted to tiles internally, feature geometries may be split or duplicated across tile boundaries"
         let options = { layers: ['green-roof-potential'] };
-        let features = map.queryRenderedFeatures(options);
+        let features = this.map.queryRenderedFeatures(options);
 
         // calculate histogram bins for features returned
         let bins = d3.histogram()
@@ -71,12 +86,9 @@ export default {
           return accum
         }, {cnt: 0, total_area: 0});
 
-        store.commit('storeSummary', summary_stats);
-        store.commit('storeHistogramBins', bins);
-
-      });
-
-    })
+        this.$store.commit('storeSummary', summary_stats);
+        this.$store.commit('storeHistogramBins', bins);
+    }
   }
 }
 </script>
