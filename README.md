@@ -1,6 +1,6 @@
 # msdv-thesis
 
-> thesis for M.Sc. in Data Visualization from Parson School of Design
+> [WORK IN PROGRESS] thesis for M.Sc. in Data Visualization from Parson School of Design
 
 # Exploring the Potential of Green Roofs in NYC
 ## Abstract
