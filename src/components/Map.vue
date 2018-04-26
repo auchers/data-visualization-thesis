@@ -17,7 +17,6 @@ export default {
   data () {
     return {
       msg: 'This is the Map Component',
-      filter: '',
       layers: '',
       labelLayerId: '',
       map: {}
@@ -51,19 +50,38 @@ export default {
     map.on('click', self.getFeaturesInView);
 
     bus.$on('waypoint', obj => { //TODO: research style transitions
-      if (obj.direction){
+      if (obj.direction){ // rule out events triggered by page load
+        if (obj.el){ // if within narrative
 
-        if (obj.el === "0"){
-          if (obj.direction === "top") {
-            // map.getStyle();
-            this.layers.forEach(function(layer) {
-               map.setLayoutProperty(layer.id, 'visibility', 'none')
-            })
-          } else {
-            this.layers.forEach(function(layer) {
-              map.setLayoutProperty(layer.id, 'visibility', 'visible')
-            })
+          if (obj.el === "0"){ // URBAN HEAT - remove map
+            // if (obj.direction === "top") {
+            //   this.layers.forEach(function(layer) {
+            //      map.setLayoutProperty(layer.id, 'visibility', 'none')
+            //   })
+            // }
+          } else if (obj.el === "1"){ // FILTER 1 -- remove height
+            if (obj.direction === "top"){
+              let filter =  ["all",
+                ["has", "shape_area"],
+                ["<=", "heightroof", 200]
+              ];
+              map.setFilter(mapFilters.layers.full_green_roof_potential.id, filter)
+            }
+          } else if (obj.el === "2"){ // FILTER 2 -- log of area
+            if (obj.direction === "top"){
+              let filter =  ["all",
+                ["has", "shape_area"],
+                ["<=", "heightroof", 200],
+                [">=", "shape_area", 10000]
+              ];
+              map.setFilter(mapFilters.layers.full_green_roof_potential.id, filter)
+            }
           }
+
+        } else {
+          this.layers.forEach(function(layer) {
+            map.setLayoutProperty(layer.id, 'visibility', 'visible')
+          })
         }
       }
     });
@@ -71,7 +89,7 @@ export default {
   methods:{
     getFeaturesInView: function (e){
         // TODO: handle this: "Because features come from tiled vector data or GeoJSON data that is converted to tiles internally, feature geometries may be split or duplicated across tile boundaries"
-        let options = { layers: ['green-roof-potential'] };
+        let options = { layers: ['full-green-roof-potential'] };
         let features = this.map.queryRenderedFeatures(options);
 
         // calculate histogram bins for features returned

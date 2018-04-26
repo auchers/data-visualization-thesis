@@ -20,7 +20,7 @@
 
   "layers": {
     "full_green_roof_potential": {
-      "id": "green-roof-potential",
+      "id": "full-green-roof-potential",
       "name": "gr-potential",
       "type": "fill-extrusion",
       "source": {
