@@ -47,8 +47,6 @@ export default {
       map.addLayer(mapFilters.layers.existing_green_roofs);
     })
 
-    map.on('click', self.getFeaturesInView);
-
     bus.$on('waypoint', obj => { //TODO: research style transitions
       if (obj.direction){ // rule out events triggered by page load
         if (obj.el){ // if within narrative
@@ -76,6 +74,8 @@ export default {
               ];
               map.setFilter(mapFilters.layers.full_green_roof_potential.id, filter)
             }
+          } else if (obj.el === "4"){ // FILTER 2 -- log of area
+              map.on('click', self.getFeaturesInView);
           }
 
         } else {
@@ -96,6 +96,8 @@ export default {
         let bins = d3.histogram()
           .value(d => Math.log(d.properties.shape_area))
           (features);
+
+        console.log(features);
 
         // get total counts and sums
         let summary_stats = features.reduce( (accum, feature) => {
