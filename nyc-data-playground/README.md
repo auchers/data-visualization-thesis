@@ -166,6 +166,9 @@ Re-add the header to make the file a valid GeoJSON:
 >`echo '{ "type": "FeatureCollection","features":'  >> buildings_lots_neighborhoods.geojson ; cat  buildings_lots_neighborhoods.json >> buildings_lots_neighborhoods.geojson ; echo '}' >> buildings_lots_neighborhoods.geojson`
 
 ## Step 6: Convert to MBTILES
+Our final step is to convert our geojson file into a format that mapbox can treat as a map layer. The best way to do this is using [tippecanoe](https://github.com/mapbox/tippecanoe), which offers many options for how to convert a vector tileset to MBTILES.
+
+The main issue with this type of data is that it is above the size that mapbox is willing to serve. Therefore, depending on the zoom level (and how much detail is within view) tippecanoe knows to drop the features that are least relevant. They do have a few options depending on what your priorities are.
 
 `--drop-fraction-as-needed` vs `-pd`
 
@@ -175,7 +178,4 @@ Re-add the header to make the file a valid GeoJSON:
 
 I ultimately went with using the `-y` flag to specify the fields that I wanted in conjunction with `--drop-fraction-as-needed` because I didn't want to miss any buildings.
 
-> `tippecanoe -pd -z 14 -n 3d-building-tileset -l building-layer -f -o tileset-phoenix-buildings.mbtiles ../clippedBuildings/clipped.json` # removed too many features, buildings were missing
-
-
-> `tippecanoe --drop-densest-as-needed -z 14 -y CD -y shape_area -y BldgClass -y heightroof -y LandUse -n building-with-lots-tileset -l building-layer -f -o tileset-buildings-with-lots_y.mbtiles ../mongoOutput/buildings_with_lots.geojson`
+> `tippecanoe --drop-densest-as-needed -z 14 -y CD -y shape_area -y BldgClass -y heightroof -y LandUse -y NTACode -n building-with-lots-tileset -l building-layer -f -o tileset-buildings-with-lots_y.mbtiles ../mongoOutput/buildings_with_lots.geojson`
