@@ -58,7 +58,9 @@ To get just the 'features' we can use `jq` utility ([helpful link](https://shape
 
 > `jq  ".features" --compact-output lots_with_buffer.geojson > lots_with_buffer.json`
 
-now when we run `buildings.json` we should see:
+> `jq ".features" --compact-output neighborhoods.geojson >neighborhoods.json`
+
+now when we run `less buildings.json` we should see:
 ![](./imgs/json.png) (see? only section within 'features' with no header)
 
 Now these are ready to load into MongoDB!
@@ -74,13 +76,15 @@ Create empty collections in MongoDB before importing the data (from the mongo sh
 > `db.buildings.createIndex({"geometry":"2dsphere"})
 db.lots_with_buffer.createIndex({"geometry":"2dsphere"})
 db.green_roofs.createIndex({"geometry":"2dsphere"})
+db.neighborhoods.createIndex({"geometry":"2dsphere"})`
 `
 
 Import json files into mongo collections (from regular terminal window located in the directory holding your json files)
 
 > `mongoimport --db thesis -c buildings --file "buildings.json" --jsonArray
 mongoimport --db thesis -c lots_with_buffer --file "lots_buffer.json" --jsonArray
-mongoimport --db thesis -c green_roofs --file "green_roofs.json" --jsonArray`
+mongoimport --db thesis -c green_roofs --file "green_roofs.json" --jsonArray
+mongoimport --db thesis -c neighborhoods --file "neighborhoods.json" --jsonArray`
 
 We can compare the documents loaded to the original file by checking:
 
@@ -106,14 +110,17 @@ db.green_roofs.ensureIndex({"geometry":"2dsphere"})`
 
 ### Database schema
 DB name: 'thesis'
+
 **Collections**:
 
-Collection Name | Data | Code (if applicable)
+Collection Name | Data
 ----- |-----|-----
-buildings | NYC building Footprints |
-lots_with_buffers | PLUTO lots with buffers (from step 1) |
-green_roofs | GreenRoofs |
-buildings_in_lots | spatial join of 'buildings' with 'lots_with_buffers' |
+buildings | NYC building Footprints
+lots_with_buffers | PLUTO lots with buffers (from step 1)
+green_roofs | GreenRoofs
+neighborhoods | Neighborhood vector files
+buildings_with_lots | spatial join of 'buildings' with 'lots_with_buffers'
+buildings_lots_neighborhoods | spatial join of 'buildings_with_lots' and 'neighborhoods'
 
 ### Add Green Roof Column to Green Roof Data
 
@@ -130,7 +137,7 @@ To add our new field to the whole collection, we'll run:
 Now when we check `db.green_roofs.find({},{"properties": 1}).limit(10)` again, we should see our new field there.
 
 ## Step 3: First Spatial Join (Lot properties into Buildings)
-For this project, we will be using the spatial join brilliantly developed [here](https://github.com/UrbanSystemsLab/spatial-join-mongodb).
+For this project, we will be using the multi-threaded spatial join brilliantly developed [here](https://github.com/UrbanSystemsLab/spatial-join-mongodb). This join is attempting to bring information from PLUTO into our building footprint polygons. PLUTO holds many of the interesting building specific features such as information about the owner, the district, the land use class, and building class.
 
 To view the fields we have in our PLUTO lots data we can run:
 
@@ -140,18 +147,26 @@ Fields from PLUTO lots to merge into Buildings:
 
 > `node init.js --db 'mongodb://localhost:27017/thesis' --innerLayer buildings --outerLayer lots_with_buffer --outputLayer buildings_with_lots  --outerLayerAttributes "Address", "BldgArea", "BldgClass", "Block", "BoroCode", "LandUse", "LotArea", "NumFloors", "UnitsRes", "UnitsTotal", "OwnerName", "YearAlter1", "CD", "ResidFAR", "FacilFAR", "BuiltFAR", "CommFAR", "Landmark", "UnitsTotal", "AssessTot" `
 
+## Step 4: Second Spatial Join (Neighborhood Name into Buildings_With_Lots)
+Unfortunately, PLUTO does not provide information on the neighborhood name of a given building. This makes sense because neighborhoods are relatively fluid and dynamic conceptual entities that perhaps do not belong in a tax lot database.
+
+However, for this thesis, I really wanted to give users the opportunity to filter by their own neighborhood. To do that I needed some, even if imperfect mapping from building location to neighborhood name. I ended up finding a [Neighborhood Boundary](https://www1.nyc.gov/site/planning/data-maps/open-data/dwn-nynta.page) shapefile as part of NYC open data portal.
+
+Therefore, I took our most recently joined collection, `buildings_with_lots` and joined into it the neighborhood name. This probably is not perfect, but it at least maps some neighborhood name to the buildings so that we have some way of sorting.
+
+<`node init.js --db 'mongodb://localhost:27017/thesis' --innerLayer buildings_with_lots --outerLayer neighborhoods --outputLayer buildings_lots_neighborhoods --outerLayerAttributes "NTAName", "BoroCode", "NTACode"`
 
 ## Step 5: Export from MongoDB
-export and add geojson headers
+In order to get this data back into tileset form, we need to export it from mongoDB and ultimately convert it into MBTILES that we can load into Mapbox to later serve onto our final map. The first step is to export this newly joined data as a json file.
 
->`mongoexport --db thesis -c buildings_with_lots --out "buildings_with_lots.json" --jsonArray`
+>`mongoexport --db thesis -c buildings_lots_neighborhoods --out "buildings_lots_neighborhoods.json" --jsonArray`
 
 Re-add the header to make the file a valid GeoJSON:
 
->`echo '{ "type": "FeatureCollection","features":'  >> buildings_with_lots.geojson ; cat  buildings_with_lots.json >> buildings_with_lots.geojson ; echo '}' >> buildings_with_lots.geojson`
-
+>`echo '{ "type": "FeatureCollection","features":'  >> buildings_lots_neighborhoods.geojson ; cat  buildings_lots_neighborhoods.json >> buildings_lots_neighborhoods.geojson ; echo '}' >> buildings_lots_neighborhoods.geojson`
 
 ## Step 6: Convert to MBTILES
+
 `--drop-fraction-as-needed` vs `-pd`
 
 `-pd` creates really uneaven coverage at zoom levels lower than 14 (as in more zoomed out)
