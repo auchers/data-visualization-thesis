@@ -35,6 +35,13 @@
         <div slot="text">
           <histogram></histogram>
           <calculator></calculator>
+          <autocomplete
+            :source="neighborhoods"
+            results-value="NTAName"
+            resultsDisplay="NTAName"
+            name="neighborhood"
+          >
+          </autocomplete>
         </div>
       </story-section>
 
@@ -53,14 +60,16 @@
   import Histogram from '../Histogram'
   import StorySection from '../StorySection'
   import Calculator from '../Calculator'
+  import Autocomplete from 'vuejs-auto-complete'
 
   import storyText from '../../assets/mainText'
+  import neighborhoodMapping from '../../assets/neighborhoodMapping'
 
   Vue.use(VueWaypoint);
 
   export default {
     name: 'SystemsView',
-    components: {Calculator, DefaultHeader, Map, Histogram, StorySection},
+    components: {Calculator, DefaultHeader, Map, Histogram, StorySection, Autocomplete},
     data() {
       return {
         title: "Exploring the Potential of Green Roofs in NYC",
@@ -70,6 +79,8 @@
     },
     created(){
       this.storyText = storyText;
+      this.neighborhoods = neighborhoodMapping;
+      console.log(this.neighborhoods)
     },
 
     methods: {
@@ -85,6 +96,9 @@
         //   console.log('waypoint going top!', el.id)
         //   //todo emit event with div id that map listens to as well
         // }
+      },
+      formattedDisplay (result) {
+        return result.NTAName
       }
     }
   }

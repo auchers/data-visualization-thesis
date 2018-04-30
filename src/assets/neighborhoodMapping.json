@@ -1,0 +1,782 @@
+[
+  {
+    "NTACode": "BK88",
+    "NTAName": "Borough Park"
+  },
+  {
+    "NTACode": "QN52",
+    "NTAName": "East Flushing"
+  },
+  {
+    "NTACode": "QN48",
+    "NTAName": "Auburndale"
+  },
+  {
+    "NTACode": "QN51",
+    "NTAName": "Murray Hill"
+  },
+  {
+    "NTACode": "QN27",
+    "NTAName": "East Elmhurst"
+  },
+  {
+    "NTACode": "BX35",
+    "NTAName": "Morrisania-Melrose"
+  },
+  {
+    "NTACode": "QN07",
+    "NTAName": "Hollis"
+  },
+  {
+    "NTACode": "MN06",
+    "NTAName": "Manhattanville"
+  },
+  {
+    "NTACode": "QN02",
+    "NTAName": "Springfield Gardens North"
+  },
+  {
+    "NTACode": "QN46",
+    "NTAName": "Bayside-Bayside Hills"
+  },
+  {
+    "NTACode": "BK25",
+    "NTAName": "Homecrest"
+  },
+  {
+    "NTACode": "BX59",
+    "NTAName": "Westchester-Unionport"
+  },
+  {
+    "NTACode": "QN41",
+    "NTAName": "Fresh Meadows-Utopia"
+  },
+  {
+    "NTACode": "MN19",
+    "NTAName": "Turtle Bay-East Midtown"
+  },
+  {
+    "NTACode": "QN08",
+    "NTAName": "St. Albans"
+  },
+  {
+    "NTACode": "QN25",
+    "NTAName": "Corona"
+  },
+  {
+    "NTACode": "QN06",
+    "NTAName": "Jamaica Estates-Holliswood"
+  },
+  {
+    "NTACode": "BK44",
+    "NTAName": "Madison"
+  },
+  {
+    "NTACode": "BK41",
+    "NTAName": "Kensington-Ocean Parkway"
+  },
+  {
+    "NTACode": "BK95",
+    "NTAName": "Erasmus"
+  },
+  {
+    "NTACode": "BX33",
+    "NTAName": "Longwood"
+  },
+  {
+    "NTACode": "BK69",
+    "NTAName": "Clinton Hill"
+  },
+  {
+    "NTACode": "BK17",
+    "NTAName": "Sheepshead Bay-Gerritsen Beach-Manhattan Beach"
+  },
+  {
+    "NTACode": "QN61",
+    "NTAName": "Jamaica"
+  },
+  {
+    "NTACode": "QN01",
+    "NTAName": "South Jamaica"
+  },
+  {
+    "NTACode": "BX10",
+    "NTAName": "Pelham Bay-Country Club-City Island"
+  },
+  {
+    "NTACode": "QN33",
+    "NTAName": "Cambria Heights"
+  },
+  {
+    "NTACode": "QN70",
+    "NTAName": "Astoria"
+  },
+  {
+    "NTACode": "BK43",
+    "NTAName": "Midwood"
+  },
+  {
+    "NTACode": "BK26",
+    "NTAName": "Gravesend"
+  },
+  {
+    "NTACode": "BK29",
+    "NTAName": "Bensonhurst East"
+  },
+  {
+    "NTACode": "BK72",
+    "NTAName": "Williamsburg"
+  },
+  {
+    "NTACode": "BK75",
+    "NTAName": "Bedford"
+  },
+  {
+    "NTACode": "BK35",
+    "NTAName": "Stuyvesant Heights"
+  },
+  {
+    "NTACode": "BK79",
+    "NTAName": "Ocean Hill"
+  },
+  {
+    "NTACode": "BK61",
+    "NTAName": "Crown Heights North"
+  },
+  {
+    "NTACode": "BK63",
+    "NTAName": "Crown Heights South"
+  },
+  {
+    "NTACode": "BK96",
+    "NTAName": "Rugby-Remsen Village"
+  },
+  {
+    "NTACode": "BX31",
+    "NTAName": "Allerton-Pelham Gardens"
+  },
+  {
+    "NTACode": "BK93",
+    "NTAName": "Starrett City"
+  },
+  {
+    "NTACode": "BK91",
+    "NTAName": "East Flatbush-Farragut"
+  },
+  {
+    "NTACode": "BK78",
+    "NTAName": "Bushwick South"
+  },
+  {
+    "NTACode": "BK77",
+    "NTAName": "Bushwick North"
+  },
+  {
+    "NTACode": "QN20",
+    "NTAName": "Ridgewood"
+  },
+  {
+    "NTACode": "BX41",
+    "NTAName": "Mount Hope"
+  },
+  {
+    "NTACode": "BK46",
+    "NTAName": "Ocean Parkway South"
+  },
+  {
+    "NTACode": "BX37",
+    "NTAName": "Van Nest-Morris Park-Westchester Square"
+  },
+  {
+    "NTACode": "BK68",
+    "NTAName": "Fort Greene"
+  },
+  {
+    "NTACode": "BX40",
+    "NTAName": "Fordham South"
+  },
+  {
+    "NTACode": "MN31",
+    "NTAName": "Lenox Hill-Roosevelt Island"
+  },
+  {
+    "NTACode": "QN68",
+    "NTAName": "Queensbridge-Ravenswood-Long Island City"
+  },
+  {
+    "NTACode": "QN42",
+    "NTAName": "Oakland Gardens"
+  },
+  {
+    "NTACode": "BX49",
+    "NTAName": "Pelham Parkway"
+  },
+  {
+    "NTACode": "BX08",
+    "NTAName": "West Farms-Bronx River"
+  },
+  {
+    "NTACode": "BX46",
+    "NTAName": "Parkchester"
+  },
+  {
+    "NTACode": "BX55",
+    "NTAName": "Soundview-Bruckner"
+  },
+  {
+    "NTACode": "BX05",
+    "NTAName": "Bedford Park-Fordham North"
+  },
+  {
+    "NTACode": "BX43",
+    "NTAName": "Norwood"
+  },
+  {
+    "NTACode": "SI08",
+    "NTAName": "Grymes Hill-Clifton-Fox Hills"
+  },
+  {
+    "NTACode": "BK30",
+    "NTAName": "Dyker Heights"
+  },
+  {
+    "NTACode": "MN04",
+    "NTAName": "Hamilton Heights"
+  },
+  {
+    "NTACode": "BK23",
+    "NTAName": "West Brighton"
+  },
+  {
+    "NTACode": "QN19",
+    "NTAName": "Glendale"
+  },
+  {
+    "NTACode": "BX06",
+    "NTAName": "Belmont"
+  },
+  {
+    "NTACode": "BX28",
+    "NTAName": "Van Cortlandt Village"
+  },
+  {
+    "NTACode": "BX63",
+    "NTAName": "West Concourse"
+  },
+  {
+    "NTACode": "QN71",
+    "NTAName": "Old Astoria"
+  },
+  {
+    "NTACode": "QN38",
+    "NTAName": "Pomonok-Flushing Heights-Hillcrest"
+  },
+  {
+    "NTACode": "BK09",
+    "NTAName": "Brooklyn Heights-Cobble Hill"
+  },
+  {
+    "NTACode": "SI99",
+    "NTAName": "park-cemetery-etc-Staten Island"
+  },
+  {
+    "NTACode": "MN15",
+    "NTAName": "Clinton"
+  },
+  {
+    "NTACode": "QN18",
+    "NTAName": "Rego Park"
+  },
+  {
+    "NTACode": "QN26",
+    "NTAName": "North Corona"
+  },
+  {
+    "NTACode": "QN34",
+    "NTAName": "Queens Village"
+  },
+  {
+    "NTACode": "QN43",
+    "NTAName": "Bellerose"
+  },
+  {
+    "NTACode": "QN21",
+    "NTAName": "Middle Village"
+  },
+  {
+    "NTACode": "QN29",
+    "NTAName": "Elmhurst"
+  },
+  {
+    "NTACode": "QN66",
+    "NTAName": "Laurelton"
+  },
+  {
+    "NTACode": "BX62",
+    "NTAName": "Woodlawn-Wakefield"
+  },
+  {
+    "NTACode": "QN10",
+    "NTAName": "Breezy Point-Belle Harbor-Rockaway Park-Broad Channel"
+  },
+  {
+    "NTACode": "QN47",
+    "NTAName": "Ft. Totten-Bay Terrace-Clearview"
+  },
+  {
+    "NTACode": "QN49",
+    "NTAName": "Whitestone"
+  },
+  {
+    "NTACode": "QN12",
+    "NTAName": "Hammels-Arverne-Edgemere"
+  },
+  {
+    "NTACode": "QN15",
+    "NTAName": "Far Rockaway-Bayswater"
+  },
+  {
+    "NTACode": "BX07",
+    "NTAName": "Bronxdale"
+  },
+  {
+    "NTACode": "BK85",
+    "NTAName": "East New York (Pennsylvania Ave)"
+  },
+  {
+    "NTACode": "QN55",
+    "NTAName": "South Ozone Park"
+  },
+  {
+    "NTACode": "BK27",
+    "NTAName": "Bath Beach"
+  },
+  {
+    "NTACode": "BK28",
+    "NTAName": "Bensonhurst West"
+  },
+  {
+    "NTACode": "QN76",
+    "NTAName": "Baisley Park"
+  },
+  {
+    "NTACode": "QN30",
+    "NTAName": "Maspeth"
+  },
+  {
+    "NTACode": "QN50",
+    "NTAName": "Elmhurst-Maspeth"
+  },
+  {
+    "NTACode": "QN23",
+    "NTAName": "College Point"
+  },
+  {
+    "NTACode": "QN37",
+    "NTAName": "Kew Gardens Hills"
+  },
+  {
+    "NTACode": "BK76",
+    "NTAName": "Greenpoint"
+  },
+  {
+    "NTACode": "QN63",
+    "NTAName": "Woodside"
+  },
+  {
+    "NTACode": "BX30",
+    "NTAName": "Kingsbridge Heights"
+  },
+  {
+    "NTACode": "BX36",
+    "NTAName": "University Heights-Morris Heights"
+  },
+  {
+    "NTACode": "BX98",
+    "NTAName": "Rikers Island"
+  },
+  {
+    "NTACode": "BK83",
+    "NTAName": "Cypress Hills-City Line"
+  },
+  {
+    "NTACode": "SI12",
+    "NTAName": "Mariner's Harbor-Arlington-Port Ivory-Graniteville"
+  },
+  {
+    "NTACode": "MN24",
+    "NTAName": "SoHo-TriBeCa-Civic Center-Little Italy"
+  },
+  {
+    "NTACode": "SI48",
+    "NTAName": "Arden Heights"
+  },
+  {
+    "NTACode": "MN34",
+    "NTAName": "East Harlem North"
+  },
+  {
+    "NTACode": "SI36",
+    "NTAName": "Old Town-Dongan Hills-South Beach"
+  },
+  {
+    "NTACode": "BX44",
+    "NTAName": "Williamsbridge-Olinville"
+  },
+  {
+    "NTACode": "SI28",
+    "NTAName": "Port Richmond"
+  },
+  {
+    "NTACode": "BK73",
+    "NTAName": "North Side-South Side"
+  },
+  {
+    "NTACode": "BK81",
+    "NTAName": "Brownsville"
+  },
+  {
+    "NTACode": "SI07",
+    "NTAName": "Westerleigh"
+  },
+  {
+    "NTACode": "BX52",
+    "NTAName": "Schuylerville-Throgs Neck-Edgewater Park"
+  },
+  {
+    "NTACode": "QN54",
+    "NTAName": "Richmond Hill"
+  },
+  {
+    "NTACode": "QN22",
+    "NTAName": "Flushing"
+  },
+  {
+    "NTACode": "QN62",
+    "NTAName": "Queensboro Hill"
+  },
+  {
+    "NTACode": "MN27",
+    "NTAName": "Chinatown"
+  },
+  {
+    "NTACode": "MN35",
+    "NTAName": "Washington Heights North"
+  },
+  {
+    "NTACode": "QN72",
+    "NTAName": "Steinway"
+  },
+  {
+    "NTACode": "SI01",
+    "NTAName": "Annadale-Huguenot-Prince's Bay-Eltingville"
+  },
+  {
+    "NTACode": "MN25",
+    "NTAName": "Battery Park City-Lower Manhattan"
+  },
+  {
+    "NTACode": "QN17",
+    "NTAName": "Forest Hills"
+  },
+  {
+    "NTACode": "QN99",
+    "NTAName": "park-cemetery-etc-Queens"
+  },
+  {
+    "NTACode": "MN14",
+    "NTAName": "Lincoln Square"
+  },
+  {
+    "NTACode": "MN17",
+    "NTAName": "Midtown-Midtown South"
+  },
+  {
+    "NTACode": "MN13",
+    "NTAName": "Hudson Yards-Chelsea-Flatiron-Union Square"
+  },
+  {
+    "NTACode": "MN32",
+    "NTAName": "Yorkville"
+  },
+  {
+    "NTACode": "MN40",
+    "NTAName": "Upper East Side-Carnegie Hill"
+  },
+  {
+    "NTACode": "BK34",
+    "NTAName": "Sunset Park East"
+  },
+  {
+    "NTACode": "QN53",
+    "NTAName": "Woodhaven"
+  },
+  {
+    "NTACode": "QN56",
+    "NTAName": "Ozone Park"
+  },
+  {
+    "NTACode": "SI25",
+    "NTAName": "Oakwood-Oakwood Beach"
+  },
+  {
+    "NTACode": "SI54",
+    "NTAName": "Great Kills"
+  },
+  {
+    "NTACode": "BK60",
+    "NTAName": "Prospect Lefferts Gardens-Wingate"
+  },
+  {
+    "NTACode": "BX26",
+    "NTAName": "Highbridge"
+  },
+  {
+    "NTACode": "MN11",
+    "NTAName": "Central Harlem South"
+  },
+  {
+    "NTACode": "BK19",
+    "NTAName": "Brighton Beach"
+  },
+  {
+    "NTACode": "BK21",
+    "NTAName": "Seagate-Coney Island"
+  },
+  {
+    "NTACode": "SI45",
+    "NTAName": "New Dorp-Midland Beach"
+  },
+  {
+    "NTACode": "MN50",
+    "NTAName": "Stuyvesant Town-Cooper Village"
+  },
+  {
+    "NTACode": "SI05",
+    "NTAName": "New Springville-Bloomfield-Travis"
+  },
+  {
+    "NTACode": "SI24",
+    "NTAName": "Todt Hill-Emerson Hill-Heartland Village-Lighthouse Hill"
+  },
+  {
+    "NTACode": "BK38",
+    "NTAName": "DUMBO-Vinegar Hill-Downtown Brooklyn-Boerum Hill"
+  },
+  {
+    "NTACode": "SI22",
+    "NTAName": "West New Brighton-New Brighton-St. George"
+  },
+  {
+    "NTACode": "SI35",
+    "NTAName": "New Brighton-Silver Lake"
+  },
+  {
+    "NTACode": "BK82",
+    "NTAName": "East New York"
+  },
+  {
+    "NTACode": "QN57",
+    "NTAName": "Lindenwood-Howard Beach"
+  },
+  {
+    "NTACode": "BX01",
+    "NTAName": "Claremont-Bathgate"
+  },
+  {
+    "NTACode": "BX22",
+    "NTAName": "North Riverdale-Fieldston-Riverdale"
+  },
+  {
+    "NTACode": "BX29",
+    "NTAName": "Spuyten Duyvil-Kingsbridge"
+  },
+  {
+    "NTACode": "BX34",
+    "NTAName": "Melrose South-Mott Haven North"
+  },
+  {
+    "NTACode": "BX39",
+    "NTAName": "Mott Haven-Port Morris"
+  },
+  {
+    "NTACode": "BX03",
+    "NTAName": "Eastchester-Edenwald-Baychester"
+  },
+  {
+    "NTACode": "BX13",
+    "NTAName": "Co-op City"
+  },
+  {
+    "NTACode": "BK40",
+    "NTAName": "Windsor Terrace"
+  },
+  {
+    "NTACode": "BK99",
+    "NTAName": "park-cemetery-etc-Brooklyn"
+  },
+  {
+    "NTACode": "BK64",
+    "NTAName": "Prospect Heights"
+  },
+  {
+    "NTACode": "MN01",
+    "NTAName": "Marble Hill-Inwood"
+  },
+  {
+    "NTACode": "BX27",
+    "NTAName": "Hunts Point"
+  },
+  {
+    "NTACode": "BX14",
+    "NTAName": "East Concourse-Concourse Village"
+  },
+  {
+    "NTACode": "BK45",
+    "NTAName": "Georgetown-Marine Park-Bergen Beach-Mill Basin"
+  },
+  {
+    "NTACode": "BK50",
+    "NTAName": "Canarsie"
+  },
+  {
+    "NTACode": "BK42",
+    "NTAName": "Flatbush"
+  },
+  {
+    "NTACode": "BK58",
+    "NTAName": "Flatlands"
+  },
+  {
+    "NTACode": "BK31",
+    "NTAName": "Bay Ridge"
+  },
+  {
+    "NTACode": "BK32",
+    "NTAName": "Sunset Park West"
+  },
+  {
+    "NTACode": "QN44",
+    "NTAName": "Glen Oaks-Floral Park-New Hyde Park"
+  },
+  {
+    "NTACode": "QN45",
+    "NTAName": "Douglas Manor-Douglaston-Little Neck"
+  },
+  {
+    "NTACode": "QN35",
+    "NTAName": "Briarwood-Jamaica Hills"
+  },
+  {
+    "NTACode": "QN60",
+    "NTAName": "Kew Gardens"
+  },
+  {
+    "NTACode": "BX17",
+    "NTAName": "East Tremont"
+  },
+  {
+    "NTACode": "BX75",
+    "NTAName": "Crotona Park East"
+  },
+  {
+    "NTACode": "MN23",
+    "NTAName": "West Village"
+  },
+  {
+    "NTACode": "BX09",
+    "NTAName": "Soundview-Castle Hill-Clason Point-Harding Park"
+  },
+  {
+    "NTACode": "BX99",
+    "NTAName": "park-cemetery-etc-Bronx"
+  },
+  {
+    "NTACode": "QN28",
+    "NTAName": "Jackson Heights"
+  },
+  {
+    "NTACode": "QN98",
+    "NTAName": "Airport"
+  },
+  {
+    "NTACode": "SI14",
+    "NTAName": "Grasmere-Arrochar-Ft. Wadsworth"
+  },
+  {
+    "NTACode": "SI37",
+    "NTAName": "Stapleton-Rosebank"
+  },
+  {
+    "NTACode": "BK33",
+    "NTAName": "Carroll Gardens-Columbia Street-Red Hook"
+  },
+  {
+    "NTACode": "BK37",
+    "NTAName": "Park Slope-Gowanus"
+  },
+  {
+    "NTACode": "QN03",
+    "NTAName": "Springfield Gardens South-Brookville"
+  },
+  {
+    "NTACode": "QN05",
+    "NTAName": "Rosedale"
+  },
+  {
+    "NTACode": "BK90",
+    "NTAName": "East Williamsburg"
+  },
+  {
+    "NTACode": "QN31",
+    "NTAName": "Hunters Point-Sunnyside-West Maspeth"
+  },
+  {
+    "NTACode": "MN20",
+    "NTAName": "Murray Hill-Kips Bay"
+  },
+  {
+    "NTACode": "MN21",
+    "NTAName": "Gramercy"
+  },
+  {
+    "NTACode": "MN33",
+    "NTAName": "East Harlem South"
+  },
+  {
+    "NTACode": "MN22",
+    "NTAName": "East Village"
+  },
+  {
+    "NTACode": "MN28",
+    "NTAName": "Lower East Side"
+  },
+  {
+    "NTACode": "MN09",
+    "NTAName": "Morningside Heights"
+  },
+  {
+    "NTACode": "MN12",
+    "NTAName": "Upper West Side"
+  },
+  {
+    "NTACode": "SI11",
+    "NTAName": "Charleston-Richmond Valley-Tottenville"
+  },
+  {
+    "NTACode": "SI32",
+    "NTAName": "Rossville-Woodrow"
+  },
+  {
+    "NTACode": "MN03",
+    "NTAName": "Central Harlem North-Polo Grounds"
+  },
+  {
+    "NTACode": "MN36",
+    "NTAName": "Washington Heights South"
+  },
+  {
+    "NTACode": "MN99",
+    "NTAName": "park-cemetery-etc-Manhattan"
+  }
+]
