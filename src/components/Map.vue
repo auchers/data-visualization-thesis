@@ -74,7 +74,7 @@ export default {
               ];
               map.setFilter(mapFilters.layers.full_green_roof_potential.id, filter)
             }
-          } else if (obj.el === "4"){ // FILTER 2 -- log of area
+          } else if (obj.el === "3"){ // FILTER 2 -- log of area
               map.on('click', self.getFeaturesInView);
           }
 
