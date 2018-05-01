@@ -6,7 +6,8 @@
       "zoom": 13,
       "pitch": 60,
       "bearing": 32.8,
-      "container": "mapbox"
+      "container": "mapbox",
+      "minZoom": 12
       },
       "empty": {
         "style": "mapbox://styles/aucher/cjgbaufzv1cw62qo7y8ln5bzj",
@@ -19,14 +20,29 @@
 },
 
   "layers": {
+    "building_extrusions": {
+     "id": "3d-buildings",
+     "source": "composite",
+     "source-layer": "building-layer",
+      "filter": ["has", "heightroof"],
+     "type": "fill-extrusion",
+     "paint":{
+       "fill-extrusion-color": "#aaa",
+       "fill-extrusion-height": {
+         "property": "heightroof",
+         "type": "identity"
+       },
+       "fill-extrusion-base": {
+         "property": "min_height",
+         "type": "identity"},
+       "fill-extrusion-opacity": 0.8
+     }
+   },
     "full_green_roof_potential": {
       "id": "full-green-roof-potential",
       "name": "gr-potential",
       "type": "fill-extrusion",
-      "source": {
-        "type": "vector",
-        "url": "mapbox://aucher.2u35uvcm"
-      },
+      "source": "composite",
       "source-layer": "building-layer",
       "filter": [
         "has",

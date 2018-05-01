@@ -27,6 +27,7 @@ export default {
     mapboxgl.accessToken = 'pk.eyJ1IjoiYXVjaGVyIiwiYSI6ImNqODd4NnBndzFjZDQyd3FocnM4Njc2NWQifQ.dql4s6oWRANbYGt44i6n9A';
 
     this.map = new mapboxgl.Map(mapFilters.styles.initial);
+
     let map = this.map;
 
     this.map.on('load', function(){
@@ -40,6 +41,9 @@ export default {
           break
         }
       }
+      // building extrusions
+      // map.addLayer(mapFilters.layers.building_extrusions);
+
       // building footprints
       map.addLayer(mapFilters.layers.full_green_roof_potential, self.labelLayerId);
 
@@ -51,12 +55,14 @@ export default {
       if (obj.direction){ // rule out events triggered by page load
         if (obj.el){ // if within narrative
 
-          if (obj.el === "0"){ // URBAN HEAT - remove map
-            // if (obj.direction === "top") {
-            //   this.layers.forEach(function(layer) {
-            //      map.setLayoutProperty(layer.id, 'visibility', 'none')
-            //   })
-            // }
+          if (obj.el === "0"){ // Change pitch
+            if (obj.direction === "top") {
+              map.easeTo({"pitch": 0, "speed": 0.001});
+              // this.layers.forEach(function(layer) {
+              //    map.setLayoutProperty(layer.id, 'visibility', 'none')
+              // })
+            } else  map.easeTo({"pitch": mapFilters.styles.initial.pitch, "speed": 0.1})
+
           } else if (obj.el === "1"){ // FILTER 1 -- remove height
             if (obj.direction === "top"){
               let filter =  ["all",
@@ -88,7 +94,7 @@ export default {
   },
   methods:{
     getFeaturesInView: function (e){
-        // TODO: handle this: "Because features come from tiled vector data or GeoJSON data that is converted to tiles internally, feature geometries may be split or duplicated across tile boundaries"
+        // TODO: deal with duplicate buildinds"
         let options = { layers: ['full-green-roof-potential'] };
         let features = this.map.queryRenderedFeatures(options);
 
