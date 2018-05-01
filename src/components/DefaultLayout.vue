@@ -2,14 +2,12 @@
   <div class="container">
     <slot name="map"></slot>
     <div class="right-panel">
-
       <slot name="intro">
         <story-section>
           <header slot="header">{{header}}</header>
           <p slot="text">{{div1Text}}</p>
         </story-section>
       </slot>
-
         <main>
           <slot name="main"></slot>
         </main>
@@ -69,11 +67,6 @@
     margin: 0 auto;
     min-height: 100vh;
 
-  }
-
-  header{
-    font-size: 3em;
-    padding-bottom: .5em;
   }
 
 </style>

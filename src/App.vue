@@ -33,11 +33,16 @@ export default {
   }
 
   h1, h2, header{
-    font-family: 'Electra LT Std', serif;
+    font-family: 'Century', serif;
+    font-weight: 500;
+    font-size: 2em;
+    line-height:.95em;
+    padding-left: 40px;
   }
 
   p, table{
-    font-family: Avenir, sans-serif;
+    font-family: "Century", sans-serif;
+    font-weight:500;
   }
 
 </style>
