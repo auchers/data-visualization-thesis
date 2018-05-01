@@ -61,8 +61,7 @@ export default {
               // this.layers.forEach(function(layer) {
               //    map.setLayoutProperty(layer.id, 'visibility', 'none')
               // })
-            } else  map.easeTo({"pitch": mapFilters.styles.initial.pitch, "speed": 0.1})
-
+            }
           } else if (obj.el === "1"){ // FILTER 1 -- remove height
             if (obj.direction === "top"){
               let filter =  ["all",
@@ -85,12 +84,21 @@ export default {
           }
 
         } else {
-          this.layers.forEach(function(layer) {
-            map.setLayoutProperty(layer.id, 'visibility', 'visible')
-          })
+          map.easeTo({"pitch": mapFilters.styles.initial.pitch, "speed": 0.1})
         }
       }
     });
+
+    bus.$on('neighborhood-select', payload => {
+      let filter =  ["all",
+        ["has", "shape_area"],
+        ["<=", "heightroof", 200],
+        [">=", "shape_area", 10000],
+        ["==", "NTACode", payload]
+      ];
+      map.setFilter(mapFilters.layers.full_green_roof_potential.id, filter)
+      console.log(payload)
+    })
   },
   methods:{
     getFeaturesInView: function (e){

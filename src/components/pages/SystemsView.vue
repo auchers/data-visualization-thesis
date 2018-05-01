@@ -40,6 +40,7 @@
             results-value="NTAName"
             resultsDisplay="NTAName"
             name="neighborhood"
+            @selected="handleNeighborhoodSelect"
           >
           </autocomplete>
         </div>
@@ -97,8 +98,9 @@
         //   //todo emit event with div id that map listens to as well
         // }
       },
-      formattedDisplay (result) {
-        return result.NTAName
+      handleNeighborhoodSelect (result) {
+        // console.log(result)
+        bus.$emit('neighborhood-select', result.selectedObject.NTACode)
       }
     }
   }

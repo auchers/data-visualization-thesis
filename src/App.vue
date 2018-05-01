@@ -35,9 +35,9 @@ export default {
   h1, h2, header{
     font-family: 'Century', serif;
     font-weight: 500;
-    font-size: 2em;
-    line-height:.95em;
-    padding-left: 40px;
+    font-size: 3em;
+    line-height: 1em;
+    /*padding-left: 40px;*/
   }
 
   p, table{

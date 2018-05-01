@@ -1,7 +1,6 @@
 <template>
   <div class="story-wrapper">
     <div class="intro">
-      <div class="white-space"></div>
         <slot name="header">
           <header>{{header}}</header>
         </slot>
@@ -42,8 +41,8 @@
 </script>
 
 <style>
-  .white-space{
-    height: 40vh;
+  .intro{
+    padding-top: 2em;
   }
 
   .story-wrapper{
