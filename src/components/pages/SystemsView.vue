@@ -27,18 +27,16 @@
 
     </div>
 
-    <div slot="analysis">
+    <div slot="analysis" id="analysis" v-waypoint="{ active: true, callback: onWaypoint}">
       <story-section>
-        <header slot="header">Analysis:
-          <br>
-          Histogram of Building Areas</header>
+        <header slot="header">Future Potential</header>
         <div slot="text">
           <histogram></histogram>
           <calculator></calculator>
           <autocomplete
             :source="neighborhoods"
-            results-value="NTAName"
             resultsDisplay="NTAName"
+            placeholder="Search Your Neighborhood"
             name="neighborhood"
             @selected="handleNeighborhoodSelect"
           >

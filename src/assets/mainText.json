@@ -16,7 +16,6 @@
       ["==", "BldgClass", "F5"],
       ["==", "BldgClass", "F8"],
       ["==", "BldgClass", "F9"],
-      ["==", "BldgClass", "E7"],
       ["<=", "cnstrct_yr", 1970]
       ]
   },
@@ -24,7 +23,16 @@
   "text": "Here we restrict our search to buildings with a footprint over 10,000 square feet. Although in this study we are less concerned with agricultural economic viability, we maintained this criteria as by looking at the data it seemed to classify roofs with a roof area ‘worth’ the investment",
   "filter": ["all",
     ["has", "shape_area"],
-    [">=", "shape_area", 10000]
+    [">=", "shape_area", 10000],
+    ["any",
+      ["==", "BldgClass", "F1"],
+      ["==", "BldgClass", "F2"],
+      ["==", "BldgClass", "F4"],
+      ["==", "BldgClass", "F5"],
+      ["==", "BldgClass", "F8"],
+      ["==", "BldgClass", "F9"],
+      ["<=", "cnstrct_yr", 1970]
+    ]
   ]
   },
   {
@@ -33,7 +41,16 @@
     "filter": ["all",
       ["has", "shape_area"],
       ["<=", "heightroof", 200],
-      [">=", "shape_area", 10000]
+      [">=", "shape_area", 10000],
+      ["any",
+        ["==", "BldgClass", "F1"],
+        ["==", "BldgClass", "F2"],
+        ["==", "BldgClass", "F4"],
+        ["==", "BldgClass", "F5"],
+        ["==", "BldgClass", "F8"],
+        ["==", "BldgClass", "F9"],
+        ["<=", "cnstrct_yr", 1970]
+      ]
     ]
   },
   {
@@ -42,7 +59,16 @@
     "filter": ["all",
       ["has", "shape_area"],
       ["<=", "heightroof", 200],
-      [">=", "shape_area", 10000]
+      [">=", "shape_area", 10000],
+      ["any",
+        ["==", "BldgClass", "F1"],
+        ["==", "BldgClass", "F2"],
+        ["==", "BldgClass", "F4"],
+        ["==", "BldgClass", "F5"],
+        ["==", "BldgClass", "F8"],
+        ["==", "BldgClass", "F9"],
+        ["<=", "cnstrct_yr", 1970]
+      ]
     ]
   }
 ]

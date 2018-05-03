@@ -53,39 +53,52 @@ export default {
       map.addLayer(mapStyles.layers.existing_green_roofs);
     })
 
-    bus.$on('waypoint', obj => { //TODO: research style transitions
+    bus.$on('waypoint', obj => {
       if (obj.direction){ // rule out events triggered by page load
         if (obj.el){ // if within narrative
 
-          if (obj.el === "0"){ // Change pitch remove styles
+          if (obj.el === "0"){ // EXISTING INFRASTRUCTURE - Change pitch remove styles
             if (obj.direction === "top") {
               map.easeTo({"pitch": 0, "speed": 0.001});
               map.setLayoutProperty(mapStyles.layers.full_green_roof_potential.id, 'visibility', 'none')
               map.setLayoutProperty(mapStyles.layers.existing_green_roofs.id, 'visibility', 'none')
               map.setLayoutProperty(mapStyles.layers.building_extrusions.id, 'visibility', 'visible')
             } else map.setFilter(mapStyles.layers.building_extrusions.id, mainText[obj.el].filter)
-          } else if (obj.el === "1"){ // FILTER 1 -- remove height
-            if (obj.direction === "top"){
-              // let filter =  ["all",
-              //   ["has", "shape_area"],
-              //   ["<=", "heightroof", 200]
-              // ];
+
+          } else if (obj.el === "1"){ // FILTER 1 -- Weight Bearing Capacity
+            // if (obj.direction === "top"){
               map.setFilter(mapStyles.layers.building_extrusions.id, mainText[obj.el].filter)
+            // } else map.setFilter(mapStyles.layers.building_extrusions.id, mainText[obj.el].filter)
+
+          } else if (obj.el === "2"){ // FILTER 2 -- Available Roof Area
+            // if (obj.direction === "top"){
+              map.setFilter(mapStyles.layers.building_extrusions.id, mainText[obj.el].filter)
+            // } else map.setFilter(mapStyles.layers.building_extrusions.id, mainText[obj.el-1].filter)
+
+          } else if (obj.el === "3"){ // FILTER 3 -- Building Height
+              map.setFilter(mapStyles.layers.building_extrusions.id, mainText[obj.el].filter)
+              if (obj.direction === "bottom") {
+                map.setLayoutProperty(mapStyles.layers.existing_green_roofs.id, 'visibility', 'none')
+              }
+
+          } else if (obj.el === "4") { // Existing Green Roofs
+              map.setLayoutProperty(mapStyles.layers.existing_green_roofs.id, 'visibility', 'visible')
+            if (obj.direction === "bottom") {
+              map.setPaintProperty(mapStyles.layers.building_extrusions.id, "fill-extrusion-height",{
+                "property": "heightroof",
+                "type": "identity"
+              })
+              map.setPaintProperty(mapStyles.layers.building_extrusions.id, "fill-extrusion-color", "#aaa")
             }
-          } else if (obj.el === "2"){ // FILTER 2 -- log of area
-            if (obj.direction === "top"){
-              let filter =  ["all",
-                ["has", "shape_area"],
-                ["<=", "heightroof", 200],
-                [">=", "shape_area", 10000]
-              ];
-              map.setFilter(mapStyles.layers.building_extrusions.id, filter)
-            }
-          } else if (obj.el === "3"){ // FILTER 2 -- log of area
-              map.on('click', self.getFeaturesInView);
+
+          } else if (obj.el === "analysis"){ // ANALYSIS
+            map.on('click', self.getFeaturesInView);
+            map.setPaintProperty(mapStyles.layers.building_extrusions.id, "fill-extrusion-height", 0)
+            map.setPaintProperty(mapStyles.layers.building_extrusions.id, "fill-extrusion-color", "#85d251")
           }
 
-        } else {
+
+        } else { // RESET MAP - when scrolling to top
           map.easeTo({"pitch": mapStyles.styles.initial.pitch, "speed": 0.1})
           map.setLayoutProperty(mapStyles.layers.building_extrusions.id, 'visibility', 'none')
           map.setLayoutProperty(mapStyles.layers.full_green_roof_potential.id, 'visibility', 'visible')
