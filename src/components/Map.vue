@@ -7,10 +7,12 @@
 import {bus} from '../main'
 import mapboxgl from 'mapbox-gl';
 import * as d3 from 'd3';
+import _ from 'lodash';
 
 import '../../node_modules/mapbox-gl/dist/mapbox-gl.css';
 
-import mapFilters from '../assets/mapFilters';
+import mapStyles from '../assets/mapStyles';
+import mainText from '../assets/mainText';
 
 export default {
   name: 'Map',
@@ -26,7 +28,7 @@ export default {
     let self = this;
     mapboxgl.accessToken = 'pk.eyJ1IjoiYXVjaGVyIiwiYSI6ImNqODd4NnBndzFjZDQyd3FocnM4Njc2NWQifQ.dql4s6oWRANbYGt44i6n9A';
 
-    this.map = new mapboxgl.Map(mapFilters.styles.initial);
+    this.map = new mapboxgl.Map(mapStyles.styles.initial);
 
     let map = this.map;
 
@@ -42,33 +44,33 @@ export default {
         }
       }
       // building extrusions
-      // map.addLayer(mapFilters.layers.building_extrusions);
+      map.addLayer(mapStyles.layers.building_extrusions);
 
       // building footprints
-      map.addLayer(mapFilters.layers.full_green_roof_potential, self.labelLayerId);
+      map.addLayer(mapStyles.layers.full_green_roof_potential, self.labelLayerId);
 
       // existing green roofs
-      map.addLayer(mapFilters.layers.existing_green_roofs);
+      map.addLayer(mapStyles.layers.existing_green_roofs);
     })
 
     bus.$on('waypoint', obj => { //TODO: research style transitions
       if (obj.direction){ // rule out events triggered by page load
         if (obj.el){ // if within narrative
 
-          if (obj.el === "0"){ // Change pitch
+          if (obj.el === "0"){ // Change pitch remove styles
             if (obj.direction === "top") {
               map.easeTo({"pitch": 0, "speed": 0.001});
-              // this.layers.forEach(function(layer) {
-              //    map.setLayoutProperty(layer.id, 'visibility', 'none')
-              // })
-            }
+              map.setLayoutProperty(mapStyles.layers.full_green_roof_potential.id, 'visibility', 'none')
+              map.setLayoutProperty(mapStyles.layers.existing_green_roofs.id, 'visibility', 'none')
+              map.setLayoutProperty(mapStyles.layers.building_extrusions.id, 'visibility', 'visible')
+            } else map.setFilter(mapStyles.layers.building_extrusions.id, mainText[obj.el].filter)
           } else if (obj.el === "1"){ // FILTER 1 -- remove height
             if (obj.direction === "top"){
-              let filter =  ["all",
-                ["has", "shape_area"],
-                ["<=", "heightroof", 200]
-              ];
-              map.setFilter(mapFilters.layers.full_green_roof_potential.id, filter)
+              // let filter =  ["all",
+              //   ["has", "shape_area"],
+              //   ["<=", "heightroof", 200]
+              // ];
+              map.setFilter(mapStyles.layers.building_extrusions.id, mainText[obj.el].filter)
             }
           } else if (obj.el === "2"){ // FILTER 2 -- log of area
             if (obj.direction === "top"){
@@ -77,35 +79,40 @@ export default {
                 ["<=", "heightroof", 200],
                 [">=", "shape_area", 10000]
               ];
-              map.setFilter(mapFilters.layers.full_green_roof_potential.id, filter)
+              map.setFilter(mapStyles.layers.building_extrusions.id, filter)
             }
           } else if (obj.el === "3"){ // FILTER 2 -- log of area
               map.on('click', self.getFeaturesInView);
           }
 
         } else {
-          map.easeTo({"pitch": mapFilters.styles.initial.pitch, "speed": 0.1})
+          map.easeTo({"pitch": mapStyles.styles.initial.pitch, "speed": 0.1})
+          map.setLayoutProperty(mapStyles.layers.building_extrusions.id, 'visibility', 'none')
+          map.setLayoutProperty(mapStyles.layers.full_green_roof_potential.id, 'visibility', 'visible')
+          map.setLayoutProperty(mapStyles.layers.existing_green_roofs.id, 'visibility', 'visible')
         }
       }
     });
 
+    // receive event for neighborhood selection and fly there
     bus.$on('neighborhood-select', payload => {
-      let filter =  ["all",
-        ["has", "shape_area"],
-        ["<=", "heightroof", 200],
-        [">=", "shape_area", 10000],
-        ["==", "NTACode", payload]
-      ];
-      map.setFilter(mapFilters.layers.full_green_roof_potential.id, filter)
-      console.log(payload)
+      // let filter =  ["all",
+      //   ["has", "shape_area"],
+      //   ["<=", "heightroof", 200],
+      //   [">=", "shape_area", 10000],
+      //   ["==", "NTACode", payload.NTACode]
+      // ];
+      // map.setFilter(mapStyles.layers.building_extrusions.id, filter)
+      map.flyTo({center: payload.center, zoom: 14, speed: .5})
+      self.getFeaturesInView();
     })
   },
   methods:{
     getFeaturesInView: function (e){
         // TODO: deal with duplicate buildinds"
-        let options = { layers: ['full-green-roof-potential'] };
+        let options = { layers: ['3d-buildings'] };
         let features = this.map.queryRenderedFeatures(options);
-
+        features = _.uniqBy(features, 'properties.doitt_id');
         // calculate histogram bins for features returned
         let bins = d3.histogram()
           .value(d => Math.log(d.properties.shape_area))
@@ -141,29 +148,3 @@ export default {
     width: 100% !important;
   }
 </style>
-
-// // extrusions
-// map.addLayer({
-//   'id': '3d-buildings',
-//   'source': 'composite',
-//   'source-layer': 'building',
-//   'filter': ['==', 'extrude', 'true'],
-//   'type': 'fill-extrusion',
-//   'minzoom': 14,
-//   'paint':{
-//     'fill-extrusion-color': '#aaa',
-//     'fill-extrusion-height': [
-//       "interpolate", ["linear"], ["zoom"],
-//       15, 0,
-//       15.05, ["get", 'height']
-//     ],
-//     'fill-extrusion-base': [
-//       "interpolate", ["linear"], ["zoom"],
-//       15, 0,
-//       15.05, ["get", "min_height"]
-//     ],
-//     'fill-extrusion-opacity': .6
-//   }
-// },
-//   labelLayerId); // adds the layer label on top so that visible above extrusions
-// },

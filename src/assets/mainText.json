@@ -1,15 +1,48 @@
 
-[{"header": "The Sky's The Limit?",
+[
+  {"header": "Existing Infrastructure",
+"text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent quis facilisis nibh, sed blandit ligula. Phasellus sodales sapien non tincidunt volutpat. Maecenas eu malesuada lacus. Pellentesque vitae velit vel elit varius tristique vel sit amet dolor. Fusce scelerisque metus odio, quis eleifend lorem interdum tempor. Etiam semper sit amet leo in pellentesque. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.",
+    "filter": ["all",
+      ["has", "shape_area"]
+    ]
+},
+  {"header": "Weight Bearing Capacity",
   "src": "",
-"text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent quis facilisis nibh, sed blandit ligula. Phasellus sodales sapien non tincidunt volutpat. Maecenas eu malesuada lacus. Pellentesque vitae velit vel elit varius tristique vel sit amet dolor. Fusce scelerisque metus odio, quis eleifend lorem interdum tempor. Etiam semper sit amet leo in pellentesque. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos."
+  "text": "Buildings built between 1900 and 1970 were mandated to comply with building codes that required greater roof live loads. Generally, buildings build pre-1970 were constructed to withstand up to 50 lbs./s.f. of rooftop live load. Since then regulations have been relaxed. That said, we also included the roofs of industrial classed buildings even if they were build post-1970 with the assumption that industrial buildings would be constructed with more robust structural integrity.",
+    "filter": ["any",
+      ["==", "BldgClass", "F1"],
+      ["==", "BldgClass", "F2"],
+      ["==", "BldgClass", "F4"],
+      ["==", "BldgClass", "F5"],
+      ["==", "BldgClass", "F8"],
+      ["==", "BldgClass", "F9"],
+      ["==", "BldgClass", "E7"],
+      ["<=", "cnstrct_yr", 1970]
+      ]
   },
-  {"header": "Creating Set of Eligible Roofs 2: Min Roof Area",
-  "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent quis facilisis nibh, sed blandit ligula. Phasellus sodales sapien non tincidunt volutpat. Maecenas eu malesuada lacus. Pellentesque vitae velit vel elit varius tristique vel sit amet dolor. Fusce scelerisque metus odio, quis eleifend lorem interdum tempor. Etiam semper sit amet leo in pellentesque. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos."
+  {"header": "Available Roof Area",
+  "text": "Here we restrict our search to buildings with a footprint over 10,000 square feet. Although in this study we are less concerned with agricultural economic viability, we maintained this criteria as by looking at the data it seemed to classify roofs with a roof area ‘worth’ the investment",
+  "filter": ["all",
+    ["has", "shape_area"],
+    [">=", "shape_area", 10000]
+  ]
   },
   {
-    "header": "Creating Set of Eligible Roofs 3: Distance from other roofs",
-    "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent quis facilisis nibh, sed blandit ligula. Phasellus sodales sapien non tincidunt volutpat. Maecenas eu malesuada lacus. Pellentesque vitae velit vel elit varius tristique vel sit amet dolor. Fusce scelerisque metus odio, quis eleifend lorem interdum tempor. Etiam semper sit amet leo in pellentesque. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos."
+    "header": "Building Height",
+    "text": "We restricted our set to buildings lower than 10 floors since above this, climate conditions become inhospitable for plants and people. It also becomes difficult to transport growth media and equipment.",
+    "filter": ["all",
+      ["has", "shape_area"],
+      ["<=", "heightroof", 200],
+      [">=", "shape_area", 10000]
+    ]
   },
-  {"header": "Goals",
-"text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent quis facilisis nibh, sed blandit ligula. Phasellus sodales sapien non tincidunt volutpat. Maecenas eu malesuada lacus. Pellentesque vitae velit vel elit varius tristique vel sit amet dolor. Fusce scelerisque metus odio, quis eleifend lorem interdum tempor. Etiam semper sit amet leo in pellentesque. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos."
-}]
+  {
+    "header": "Existing Green Roofs",
+    "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent quis facilisis nibh, sed blandit ligula. Phasellus sodales sapien non tincidunt volutpat. Maecenas eu malesuada lacus. Pellentesque vitae velit vel elit varius tristique vel sit amet dolor. Fusce scelerisque metus odio, quis eleifend lorem interdum tempor. Etiam semper sit amet leo in pellentesque. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.",
+    "filter": ["all",
+      ["has", "shape_area"],
+      ["<=", "heightroof", 200],
+      [">=", "shape_area", 10000]
+    ]
+  }
+]

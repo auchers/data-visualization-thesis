@@ -24,6 +24,9 @@
      "id": "3d-buildings",
      "source": "composite",
      "source-layer": "building-layer",
+      "layout": {
+        "visibility": "none"
+      },
       "filter": ["has", "heightroof"],
      "type": "fill-extrusion",
      "paint":{

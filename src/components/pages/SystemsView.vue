@@ -81,7 +81,6 @@
     created(){
       this.storyText = storyText;
       this.neighborhoods = neighborhoodMapping;
-      console.log(this.neighborhoods)
     },
 
     methods: {
@@ -100,7 +99,7 @@
       },
       handleNeighborhoodSelect (result) {
         // console.log(result)
-        bus.$emit('neighborhood-select', result.selectedObject.NTACode)
+        bus.$emit('neighborhood-select', result.selectedObject)
       }
     }
   }
