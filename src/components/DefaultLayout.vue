@@ -66,7 +66,29 @@
     max-width: 500px;
     margin: 0 auto;
     min-height: 100vh;
+  }
 
+  @media only screen and (max-width: 400px) {
+    .container{
+      grid-template-columns: 100%;
+      grid-template-rows: 50vh 50vh;
+      position: fixed;
+      top: 0;
+    }
+
+    .right-panel{
+      overflow: scroll;
+      background-color: white;
+      z-index: 1;
+    }
+
+    .analysis{
+      min-height: unset;
+    }
+
+    div{
+      /*background-color: white;*/
+    }
   }
 
 </style>
