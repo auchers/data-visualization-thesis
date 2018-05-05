@@ -21,7 +21,7 @@
 
   "layers": {
     "building_extrusions": {
-     "id": "3d-buildings",
+     "id": "buildings_for_filtering",
      "source": "composite",
      "source-layer": "building-layer",
       "layout": {
@@ -42,9 +42,9 @@
      }
    },
     "full_green_roof_potential": {
-      "id": "full-green-roof-potential",
+      "id": "roofs_complete",
       "name": "gr-potential",
-      "type": "fill-extrusion",
+      "type": "fill",
       "source": "composite",
       "source-layer": "building-layer",
       "filter": [
@@ -52,7 +52,7 @@
         "shape_area"
       ],
       "paint": {
-        "fill-extrusion-color": [
+        "fill-color": [
           "step",
           [
             "log10",

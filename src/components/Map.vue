@@ -60,20 +60,18 @@ export default {
           if (obj.el === "0"){ // EXISTING INFRASTRUCTURE - Change pitch remove styles
             if (obj.direction === "top") {
               map.easeTo({"pitch": 0, "speed": 0.001});
-              map.setLayoutProperty(mapStyles.layers.full_green_roof_potential.id, 'visibility', 'none')
+              map.setPaintProperty(mapStyles.layers.full_green_roof_potential.id, "fill-opacity", 0)
               map.setLayoutProperty(mapStyles.layers.existing_green_roofs.id, 'visibility', 'none')
               map.setLayoutProperty(mapStyles.layers.building_extrusions.id, 'visibility', 'visible')
-            } else map.setFilter(mapStyles.layers.building_extrusions.id, mainText[obj.el].filter)
+            } else if (obj.direction === "bottom") {
+              map.setFilter(mapStyles.layers.building_extrusions.id, mainText[obj.el].filter)
+            }
 
           } else if (obj.el === "1"){ // FILTER 1 -- Weight Bearing Capacity
-            // if (obj.direction === "top"){
               map.setFilter(mapStyles.layers.building_extrusions.id, mainText[obj.el].filter)
-            // } else map.setFilter(mapStyles.layers.building_extrusions.id, mainText[obj.el].filter)
 
           } else if (obj.el === "2"){ // FILTER 2 -- Available Roof Area
-            // if (obj.direction === "top"){
               map.setFilter(mapStyles.layers.building_extrusions.id, mainText[obj.el].filter)
-            // } else map.setFilter(mapStyles.layers.building_extrusions.id, mainText[obj.el-1].filter)
 
           } else if (obj.el === "3"){ // FILTER 3 -- Building Height
               map.setFilter(mapStyles.layers.building_extrusions.id, mainText[obj.el].filter)
@@ -84,10 +82,7 @@ export default {
           } else if (obj.el === "4") { // Existing Green Roofs
               map.setLayoutProperty(mapStyles.layers.existing_green_roofs.id, 'visibility', 'visible')
             if (obj.direction === "bottom") {
-              map.setPaintProperty(mapStyles.layers.building_extrusions.id, "fill-extrusion-height",{
-                "property": "heightroof",
-                "type": "identity"
-              })
+              map.setPaintProperty(mapStyles.layers.building_extrusions.id, "fill-extrusion-height",{"property": "heightroof","type": "identity"})
               map.setPaintProperty(mapStyles.layers.building_extrusions.id, "fill-extrusion-color", "#aaa")
             }
 
@@ -97,11 +92,10 @@ export default {
             map.setPaintProperty(mapStyles.layers.building_extrusions.id, "fill-extrusion-color", "#85d251")
           }
 
-
         } else { // RESET MAP - when scrolling to top
           map.easeTo({"pitch": mapStyles.styles.initial.pitch, "speed": 0.1})
           map.setLayoutProperty(mapStyles.layers.building_extrusions.id, 'visibility', 'none')
-          map.setLayoutProperty(mapStyles.layers.full_green_roof_potential.id, 'visibility', 'visible')
+          map.setPaintProperty(mapStyles.layers.full_green_roof_potential.id, 'fill-opacity', 1)
           map.setLayoutProperty(mapStyles.layers.existing_green_roofs.id, 'visibility', 'visible')
         }
       }
@@ -109,36 +103,63 @@ export default {
 
     // receive event for neighborhood selection and fly there
     bus.$on('neighborhood-select', payload => {
-      // let filter =  ["all",
-      //   ["has", "shape_area"],
-      //   ["<=", "heightroof", 200],
-      //   [">=", "shape_area", 10000],
-      //   ["==", "NTACode", payload.NTACode]
-      // ];
-      // map.setFilter(mapStyles.layers.building_extrusions.id, filter)
       map.flyTo({center: payload.center, zoom: 14, speed: .5})
       self.getFeaturesInView();
     })
   },
   methods:{
     getFeaturesInView: function (e){
-        // TODO: deal with duplicate buildinds"
-        let options = { layers: ['3d-buildings'] };
+        let options = { layers: [mapStyles.layers.building_extrusions.id, mapStyles.layers.full_green_roof_potential.id] };
         let features = this.map.queryRenderedFeatures(options);
-        features = _.uniqBy(features, 'properties.doitt_id');
-        // calculate histogram bins for features returned
+        features = _.chain(features)
+          .sortBy([(o) => {return o.layer.id}]) //gets the filtered green roof first
+          .uniqBy('properties.doitt_id') // pulls first entry for each doitt_id
+          .value()
+
         let bins = d3.histogram()
           .value(d => Math.log(d.properties.shape_area))
           (features);
 
-        console.log(features);
+        let summary_obj = {
+          total: {
+            count: 0,
+            area: 0,
+            low: 0,
+            mid: 0,
+            high: 0
+          },
+          gr: {
+            count: 0,
+            area: 0,
+            low: 0,
+            mid: 0,
+            high: 0
+          }
+        };
 
         // get total counts and sums
-        let summary_stats = features.reduce( (accum, feature) => {
-          accum.cnt = accum.cnt + 1;
-          accum.total_area = accum.total_area + feature.properties.shape_area;
+        let summary_stats = features.reduce( (accum, f) => {
+          accum.total.count = accum.total.count + 1;
+          accum.total.area = accum.total.area + f.properties.shape_area;
+
+          accum.total.low = (f.properties.heightroof <= 30 ) ? accum.total.low + f.properties.shape_area : accum.total.low;
+          accum.total.mid = (f.properties.heightroof > 30 && f.properties.heightroof <=70) ? accum.total.mid + f.properties.shape_area : accum.total.mid;
+          accum.total.high = (f.properties.heightroof > 70 ) ? accum.total.high + f.properties.shape_area : accum.total.high;
+
+          if (f.layer.id === mapStyles.layers.building_extrusions.id) { // all the eligible buildings
+            accum.gr.count = accum.gr.count + 1;
+            accum.gr.area = accum.gr.area + f.properties.shape_area;
+          }
+          else { // for all the non-eligible buildings
+            accum.gr.low = (f.properties.heightroof <= 30 ) ? accum.gr.low + f.properties.shape_area : accum.gr.low;
+            accum.gr.mid = (f.properties.heightroof > 30 && f.properties.heightroof <=70) ? accum.gr.mid + f.properties.shape_area : accum.gr.mid;
+            accum.gr.high = (f.properties.heightroof > 70 ) ? accum.gr.high + f.properties.shape_area : accum.gr.high;
+          }
+
           return accum
-        }, {cnt: 0, total_area: 0});
+        }, summary_obj);
+
+        console.log(summary_stats)
 
         this.$store.commit('storeSummary', summary_stats);
         this.$store.commit('storeHistogramBins', bins);
