@@ -9,26 +9,45 @@
           <th>Total</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody v-if="summary">
         <tr>
-          <th>Heat Reduction (Avg. Temp Delta)</th>
-          <td>{{heatReductionWithinView.c.toFixed(2)}}˚C / {{heatReductionWithinView.f.toFixed(2)}}˚F</td>
-        </tr>
-       <tr>
-          <th>StormWater Retention (# Gallons)</th>
-        </tr>
-        <tr>
-          <th>Square Area of Eligible Roof Space</th>
-          <td>{{Math.round(summary.gr.area)}}</td>
+          <th>Eligible Roof Space
+            <p>(Square Feet)</p>
+          </th>
+          <td>{{formatArea(Math.round(summary.gr.area))}} ft<sup>2</sup>
+            <p>({{((summary.gr.area)/centralPark).toFixed(2)}} Central Parks)</p>
+          </td>
         </tr>
         <tr>
-          <th>Number of Buildings</th>
+          <th>Eligible Building
+            <p>(Count)</p>
+          </th>
           <td>{{summary.gr.count}}</td>
         </tr>
         <tr>
-          <th>Cost</th>
+          <th>Heat Reduction
+            <p>(Avg. Temp Delta)</p>
+          </th>
+          <td>{{heatReductionWithinView.f.toFixed(2)}}˚F / {{heatReductionWithinView.c.toFixed(2)}}˚C </td>
         </tr>
+       <tr>
+          <th>StormWater Retention
+            <p>(# Gallons)</p>
+          </th>
+        </tr>
+        <tr>
+          <th>Potential Habitat
+            <p>(Square Feet)</p>
+          </th>
+          <td>{{formatArea(Math.round(summary.gr.area * roofEfficiency))}} ft<sup>2</sup>
+          <p>({{((summary.gr.area * roofEfficiency)/centralPark).toFixed(2)}} Central Parks)</p>
+          </td>
+        </tr>
+        <!--<tr>-->
+          <!--<th>Cost</th>-->
+        <!--</tr>-->
       </tbody>
+      <h4 v-else> Click on Map to get information on buildings within view</h4>
     </table>
   </div>
 </template>
@@ -41,6 +60,8 @@
     name: 'Calculator',
     data () {
       return {
+        roofEfficiency: 0.75,
+        centralPark: 36721080,
       }
     },
     computed: {
@@ -65,12 +86,15 @@
       }
       },
     methods:{
-
+        formatArea(n) {
+          let f = new Intl.NumberFormat()
+          return f.format(n)
+        }
       },
   }
 </script>
 
-<style>
+<style scoped>
   #histogram{
     height: 50vh;
     display: flex;
@@ -94,6 +118,12 @@
   }
 
   thead{
-    text-align: center;
+    text-align: left;
   }
+
+  p{
+    margin-top: .2em;
+    font-size: smaller;
+  }
+
 </style>

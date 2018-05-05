@@ -8,7 +8,7 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
   state: {
     debug : true,
-    summary: [],
+    summary: false,
     histogram_bins: [],
   },
 
