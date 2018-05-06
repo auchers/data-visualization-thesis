@@ -80,6 +80,12 @@
       overflow: scroll;
       background-color: white;
       z-index: 1;
+      position:relative;
+      top:50%;
+    }
+
+    #mapbox{
+      height: 50vh;
     }
 
     .analysis{
