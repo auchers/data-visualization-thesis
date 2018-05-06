@@ -14,7 +14,7 @@
           <th>Eligible Roof Space
             <p>(Square Feet)</p>
           </th>
-          <td>{{formatArea(Math.round(summary.gr.area))}} ft<sup>2</sup>
+          <td>{{formatNumber(Math.round(summary.gr.area))}} ft<sup>2</sup>
             <p>({{((summary.gr.area)/centralPark).toFixed(2)}} Central Parks)</p>
           </td>
         </tr>
@@ -31,15 +31,19 @@
           <td>{{heatReductionWithinView.f.toFixed(2)}}˚F / {{heatReductionWithinView.c.toFixed(2)}}˚C </td>
         </tr>
        <tr>
-          <th>StormWater Retention
+          <th>Annual Stormwater Retention
             <p>(# Gallons)</p>
           </th>
+         <td>{{formatNumber(stormwaterRetentionWithinView.toFixed(0))}} gallons
+          <p>({{formatLargeNumber(stormwaterRetentionWithinView/galPerBathtub)}} bathtubs)</p>
+         </td>
+       </tr>
         </tr>
         <tr>
           <th>Potential Habitat
             <p>(Square Feet)</p>
           </th>
-          <td>{{formatArea(Math.round(summary.gr.area * roofEfficiency))}} ft<sup>2</sup>
+          <td>{{formatNumber(Math.round(summary.gr.area * roofEfficiency))}} ft<sup>2</sup>
           <p>({{((summary.gr.area * roofEfficiency)/centralPark).toFixed(2)}} Central Parks)</p>
           </td>
         </tr>
@@ -62,6 +66,9 @@
       return {
         roofEfficiency: 0.75,
         centralPark: 36721080,
+        gallonsPerSqFoot: 0.47,
+        avgAnnualRainfall: 49.6,
+        galPerBathtub: 50
       }
     },
     computed: {
@@ -82,14 +89,22 @@
           return {c: diff, f: (diff * (9/5))};
         },
       stormwaterRetentionWithinView () {
-
+        let sum = this.$store.getters.getSummary
+        return sum.gr.area * this.roofEfficiency * this.gallonsPerSqFoot * this.avgAnnualRainfall
       }
       },
     methods:{
-        formatArea(n) {
+        formatNumber(n) {
           let f = new Intl.NumberFormat()
           return f.format(n)
-        }
+        },
+      formatLargeNumber(n){
+          if (n > 999999){
+            return 'roughly ' + (n/1000000).toFixed(0) + ' million'
+          } else if (n > 999) {
+            return 'roughly ' + (n/1000).toFixed(0) + 'k'
+          } else return n
+      }
       },
   }
 </script>
