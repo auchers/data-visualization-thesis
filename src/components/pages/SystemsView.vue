@@ -1,6 +1,9 @@
 <template>
   <default-header>
     <Map slot="map"></Map>
+    <div slot="navBar" v-show="navActive">
+      <NavBar></NavBar>
+    </div>
     <div slot="intro"  class="snap">
       <story-section>
         <header slot="header"
@@ -28,9 +31,8 @@
     </div>
     <div slot="analysis">
       <story-section class="snap">
-        <header slot="header" id="analysis" v-waypoint="{ active: true, callback: onWaypoint}">Future Potential</header>
+        <header slot="header" id="analysis" v-waypoint="{ active: true, callback: onWaypoint}"></header>
         <div slot="text">
-          <histogram></histogram>
           <calculator></calculator>
           <autocomplete
             :source="neighborhoods"
@@ -40,6 +42,7 @@
             @selected="handleNeighborhoodSelect"
           >
           </autocomplete>
+          <histogram></histogram>
         </div>
       </story-section>
 
@@ -64,14 +67,16 @@
 
   import storyText from '../../assets/mainText'
   import neighborhoodMapping from '../../assets/neighborhoodMapping'
+  import NavBar from "../Navbar";
 
   Vue.use(VueWaypoint);
 
   export default {
     name: 'SystemsView',
-    components: {Calculator, DefaultHeader, Map, Histogram, StorySection, Autocomplete},
+    components: {NavBar, Calculator, DefaultHeader, Map, Histogram, StorySection, Autocomplete},
     data() {
       return {
+        navActive: false,
         title: "Exploring the Potential of Green Roofs in NYC",
         intro: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent quis facilisis nibh, sed blandit ligula. Phasellus sodales sapien non tincidunt volutpat. Maecenas eu malesuada lacus. Pellentesque vitae velit vel elit varius tristique vel sit amet dolor. Fusce scelerisque metus odio, quis eleifend lorem interdum tempor. Etiam semper sit amet leo in pellentesque. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.",
         storyText: {}
@@ -99,6 +104,9 @@
           console.log('waypoint going in!', el.id)
           let i = parseInt(el.id.replace('s', ''))
           bus.$emit('waypoint', {el: el.id, i: i, direction: direction});
+          if (el.id){ // if after the first intro section
+            this.navActive = true;
+          } else this.navActive = false;
         }
       },
       handleNeighborhoodSelect (result) {

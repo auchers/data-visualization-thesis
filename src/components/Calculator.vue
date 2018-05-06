@@ -1,6 +1,6 @@
 <template>
   <div id="calculator">
-    <header>Benefit Calculator</header>
+    <header>Potential Benefit Calculator</header>
     <table>
       <thead>
         <tr>

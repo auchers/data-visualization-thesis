@@ -2,6 +2,7 @@
   <div class="container">
     <slot name="map"></slot>
     <div class="right-panel">
+      <slot name="navBar"></slot>
       <slot name="intro">
         <story-section>
           <header slot="header">{{header}}</header>
