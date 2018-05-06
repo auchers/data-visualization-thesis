@@ -107,8 +107,8 @@
     "NTACode": "MN19",
     "NTAName": "Turtle Bay-East Midtown",
     "center": [
-      0,
-      0
+      -73.9797334,
+      40.7561918
     ]
   },
   {
@@ -123,8 +123,8 @@
     "NTACode": "QN25",
     "NTAName": "Corona",
     "center": [
-      0,
-      0
+      -73.8626558,
+      40.7409358
     ]
   },
   {
@@ -203,8 +203,8 @@
     "NTACode": "BX10",
     "NTAName": "Pelham Bay-Country Club-City Island",
     "center": [
-      0,
-      0
+      -73.8151364,
+      40.8569941
     ]
   },
   {
@@ -315,8 +315,8 @@
     "NTACode": "BK93",
     "NTAName": "Starrett City",
     "center": [
-      0,
-      0
+      -73.8930697,
+      40.6507051
     ]
   },
   {
@@ -395,8 +395,8 @@
     "NTACode": "MN31",
     "NTAName": "Lenox Hill-Roosevelt Island",
     "center": [
-      0,
-      0
+      -73.969891,
+      40.7673654
     ]
   },
   {
@@ -555,8 +555,8 @@
     "NTACode": "SI99",
     "NTAName": "park-cemetery-etc-Staten Island",
     "center": [
-      0,
-      0
+      -74.1378397,
+      40.564282
     ]
   },
   {
@@ -635,8 +635,8 @@
     "NTACode": "QN10",
     "NTAName": "Breezy Point-Belle Harbor-Rockaway Park-Broad Channel",
     "center": [
-      0,
-      0
+      -73.936092,
+      40.5719625
     ]
   },
   {
@@ -739,8 +739,8 @@
     "NTACode": "QN23",
     "NTAName": "College Point",
     "center": [
-      0,
-      0
+      -73.8753514,
+      40.7808772
     ]
   },
   {
@@ -803,8 +803,8 @@
     "NTACode": "SI12",
     "NTAName": "Mariner's Harbor-Arlington-Port Ivory-Graniteville",
     "center": [
-      0,
-      0
+      -74.1976829,
+      40.6244642
     ]
   },
   {
@@ -827,8 +827,8 @@
     "NTACode": "MN34",
     "NTAName": "East Harlem North",
     "center": [
-      0,
-      0
+      -73.977268,
+      40.8004302
     ]
   },
   {
@@ -851,8 +851,8 @@
     "NTACode": "SI28",
     "NTAName": "Port Richmond",
     "center": [
-      0,
-      0
+      -74.1404491,
+      40.6351177
     ]
   },
   {
@@ -883,8 +883,8 @@
     "NTACode": "BX52",
     "NTAName": "Schuylerville-Throgs Neck-Edgewater Park",
     "center": [
-      0,
-      0
+      -73.8515132,
+      40.8368277
     ]
   },
   {
@@ -947,8 +947,8 @@
     "NTACode": "MN25",
     "NTAName": "Battery Park City-Lower Manhattan",
     "center": [
-      0,
-      0
+      -74.0248437,
+      40.7116212
     ]
   },
   {
@@ -963,8 +963,8 @@
     "NTACode": "QN99",
     "NTAName": "park-cemetery-etc-Queens",
     "center": [
-      0,
-      0
+      -73.9114563,
+      40.6856369
     ]
   },
   {
@@ -995,8 +995,8 @@
     "NTACode": "MN32",
     "NTAName": "Yorkville",
     "center": [
-      0,
-      0
+      -73.9583879,
+      40.7777184
     ]
   },
   {
@@ -1099,8 +1099,8 @@
     "NTACode": "MN50",
     "NTAName": "Stuyvesant Town-Cooper Village",
     "center": [
-      0,
-      0
+      -73.9867576,
+      40.7317118
     ]
   },
   {
@@ -1155,8 +1155,8 @@
     "NTACode": "QN57",
     "NTAName": "Lindenwood-Howard Beach",
     "center": [
-      0,
-      0
+      -73.8660751,
+      40.6565685
     ]
   },
   {
@@ -1195,8 +1195,8 @@
     "NTACode": "BX39",
     "NTAName": "Mott Haven-Port Morris",
     "center": [
-      0,
-      0
+      -73.9528114,
+      40.8092343
     ]
   },
   {
@@ -1227,8 +1227,8 @@
     "NTACode": "BK99",
     "NTAName": "park-cemetery-etc-Brooklyn",
     "center": [
-      0,
-      0
+      -74.0578752,
+      40.8091443
     ]
   },
   {
@@ -1243,8 +1243,8 @@
     "NTACode": "MN01",
     "NTAName": "Marble Hill-Inwood",
     "center": [
-      0,
-      0
+      -73.9116391,
+      40.8764177
     ]
   },
   {
@@ -1275,8 +1275,8 @@
     "NTACode": "BK50",
     "NTAName": "Canarsie",
     "center": [
-      0,
-      0
+      -73.9349757,
+      40.6396155
     ]
   },
   {
@@ -1371,16 +1371,16 @@
     "NTACode": "BX09",
     "NTAName": "Soundview-Castle Hill-Clason Point-Harding Park",
     "center": [
-      0,
-      0
+      -73.8572589,
+      40.8171431
     ]
   },
   {
     "NTACode": "BX99",
     "NTAName": "park-cemetery-etc-Bronx",
     "center": [
-      0,
-      0
+      -73.8956146,
+      40.8016847
     ]
   },
   {
@@ -1395,8 +1395,8 @@
     "NTACode": "QN98",
     "NTAName": "Airport",
     "center": [
-      0,
-      0
+      -74.0181881,
+      40.8015987
     ]
   },
   {
@@ -1467,8 +1467,8 @@
     "NTACode": "MN20",
     "NTAName": "Murray Hill-Kips Bay",
     "center": [
-      0,
-      0
+      -73.9851738,
+      40.7482968
     ]
   },
   {
@@ -1499,8 +1499,8 @@
     "NTACode": "MN28",
     "NTAName": "Lower East Side",
     "center": [
-      0,
-      0
+      -74.0023005,
+      40.7166172
     ]
   },
   {
@@ -1555,8 +1555,8 @@
     "NTACode": "MN99",
     "NTAName": "park-cemetery-etc-Manhattan",
     "center": [
-      0,
-      0
+      -74.006586,
+      40.7145049
     ]
   }
 ]
