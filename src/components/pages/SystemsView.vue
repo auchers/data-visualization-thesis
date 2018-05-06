@@ -34,15 +34,8 @@
         <header slot="header" id="analysis" v-waypoint="{ active: true, callback: onWaypoint}"></header>
         <div slot="text">
           <calculator></calculator>
-          <autocomplete
-            :source="neighborhoods"
-            resultsDisplay="NTAName"
-            placeholder="Search Your Neighborhood"
-            name="neighborhood"
-            @selected="handleNeighborhoodSelect"
-          >
-          </autocomplete>
           <histogram></histogram>
+          <neighborhood-search></neighborhood-search>
         </div>
       </story-section>
 
@@ -63,17 +56,16 @@
   import Histogram from '../Histogram'
   import StorySection from '../StorySection'
   import Calculator from '../Calculator'
-  import Autocomplete from 'vuejs-auto-complete'
 
   import storyText from '../../assets/mainText'
-  import neighborhoodMapping from '../../assets/neighborhoodMapping'
   import NavBar from "../Navbar";
+  import NeighborhoodSearch from '../NeighborhoodSearch'
 
   Vue.use(VueWaypoint);
 
   export default {
     name: 'SystemsView',
-    components: {NavBar, Calculator, DefaultHeader, Map, Histogram, StorySection, Autocomplete},
+    components: {NavBar, Calculator, DefaultHeader, Map, Histogram, StorySection, NeighborhoodSearch},
     data() {
       return {
         navActive: false,
@@ -84,7 +76,6 @@
     },
     created(){
       this.storyText = storyText;
-      this.neighborhoods = neighborhoodMapping;
     },
     mounted(){
       window.scrollTo({
@@ -109,10 +100,6 @@
           } else this.navActive = false;
         }
       },
-      handleNeighborhoodSelect (result) {
-        // console.log(result)
-        bus.$emit('neighborhood-select', result.selectedObject)
-      }
     }
   }
 </script>
