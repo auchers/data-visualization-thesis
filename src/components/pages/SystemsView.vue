@@ -80,6 +80,12 @@
       this.storyText = storyText;
       this.neighborhoods = neighborhoodMapping;
     },
+    mounted(){
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    },
 
     methods: {
       onWaypoint ({el, going, direction}) {

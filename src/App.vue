@@ -8,16 +8,6 @@ import {bus} from './main'
 
 export default {
   name: 'App',
-
-  mounted(){
-
-    // testing out event bus
-    bus.$on('clicked-map', (payload) => {
-      console.log('payload: ', payload)
-    })
-  }
-
-
 }
 </script>
 
