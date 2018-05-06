@@ -1,7 +1,7 @@
 <template>
   <default-header>
     <Map slot="map"></Map>
-    <div slot="intro">
+    <div slot="intro"  class="snap">
       <story-section>
         <header slot="header"
                 v-waypoint="{ active: true, callback: onWaypoint}">
@@ -13,10 +13,10 @@
 
     <div slot="main">
 
-      <story-section v-for="(story, i) in storyText"
+      <story-section v-for="(story, i) in storyText" class="snap"
         v-bind:key="i">
         <header slot="header"
-                v-bind:id="i"
+                v-bind:id="'s'+i"
                 v-waypoint="{ active: true, callback: onWaypoint}">
           {{story.header}}
         </header>
@@ -26,10 +26,9 @@
       </story-section>
 
     </div>
-
-    <div slot="analysis" id="analysis" v-waypoint="{ active: true, callback: onWaypoint}">
-      <story-section>
-        <header slot="header">Future Potential</header>
+    <div slot="analysis">
+      <story-section class="snap">
+        <header slot="header" id="analysis" v-waypoint="{ active: true, callback: onWaypoint}">Future Potential</header>
         <div slot="text">
           <histogram></histogram>
           <calculator></calculator>
@@ -53,6 +52,8 @@
   import {bus} from '../../main'
   import Vue from 'vue';
   import VueWaypoint from 'vue-waypoint';
+  import scrollify from 'jquery-scrollify';
+  import $ from 'jquery'
 
   import DefaultHeader from '../DefaultLayout'
   import Map from '../Map'
@@ -85,21 +86,20 @@
         top: 0,
         behavior: "smooth"
       });
+      $(function () {
+        $.scrollify({
+          section: ".snap"
+        })
+      })
     },
 
     methods: {
       onWaypoint ({el, going, direction}) {
-        // going: in, out
-        // direction: top, right, bottom, left
         if (going === this.$waypointMap.GOING_IN) {
           console.log('waypoint going in!', el.id)
-          bus.$emit('waypoint', {el: el.id, direction: direction});
+          let i = parseInt(el.id.replace('s', ''))
+          bus.$emit('waypoint', {el: el.id, i: i, direction: direction});
         }
-
-        // if (direction === this.$waypointMap.DIRECTION_TOP) {
-        //   console.log('waypoint going top!', el.id)
-        //   //todo emit event with div id that map listens to as well
-        // }
       },
       handleNeighborhoodSelect (result) {
         // console.log(result)
