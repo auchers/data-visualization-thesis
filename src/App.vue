@@ -12,8 +12,6 @@ export default {
 </script>
 
 <style>
-  @import url('https://fonts.googleapis.com/css?family=Crimson+Text');
-
   #app {
     font-family: Avenir, Serif;
     -webkit-font-smoothing: antialiased;
