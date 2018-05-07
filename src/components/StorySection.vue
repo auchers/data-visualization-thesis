@@ -49,7 +49,7 @@
   .intro{
     /*position: absolute;*/
     /*top: 35vh;*/
-    padding-top: 3em;
+    padding-top: 4em;
     max-width: 500px;
     margin: 0 auto;
   }
