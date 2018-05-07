@@ -41,10 +41,6 @@
 </script>
 
 <style>
-  .intro{
-    padding-top: 3em;
-  }
-
   .story-wrapper{
     min-height: 100vh;
     position: relative;
@@ -53,6 +49,7 @@
   .intro{
     /*position: absolute;*/
     /*top: 35vh;*/
+    padding-top: 3em;
     max-width: 500px;
     margin: 0 auto;
   }
