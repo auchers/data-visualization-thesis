@@ -35,13 +35,12 @@
         <div slot="text">
           <calculator></calculator>
           <histogram></histogram>
+            <div id="neighborhood"
+                 v-waypoint="{ active: true, callback: onWaypoint}">
+              <neighborhood-search></neighborhood-search>
+          </div>
         </div>
       </story-section>
-    </div>
-    <div slot="neighborhood-search"
-         id="neighborhood"
-         v-waypoint="{ active: true, callback: onWaypoint}">
-      <neighborhood-search></neighborhood-search>
     </div>
   </default-layout>
 </template>
