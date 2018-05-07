@@ -52,7 +52,7 @@
         <!--</tr>-->
       </tbody>
     </table>
-    <!--<p v-else> Click on Map to get information on buildings within view</p>-->
+    <p v-else> click anywhere on the map to get information on buildings within view</p>
   </div>
 </template>
 
@@ -137,7 +137,7 @@
   }
 
   p{
-    margin-top: .2em;
+    /*margin-top: .2em;*/
     font-size: smaller;
   }
 
