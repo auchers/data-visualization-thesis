@@ -1,10 +1,11 @@
 <template>
   <div class="nav-header">
     <div class="nav-container">
-      <span class="nav-section">Intro</span>
-      <span class="nav-section">Section2</span>
-      <span class="nav-section">Section3</span>
-      <span class="nav-section">Section4</span>
+      <span v-for="(s, i) in sections">
+      <div class="nav-section" v-bind:class="{active: isActive[i]}">{{s.title}}
+      </div>
+      <div class="arrow" v-if="i < sections.length-1"> > </div>
+      </span>
     </div>
   </div>
 </template>
@@ -19,7 +20,54 @@
     components: {},
     data() {
       return {
+        activeEl: '',
+        sections: [{
+          title: ' 1. ',
+          hoverText: 'Introduction',
+          scrollToEl: 'introduction'
+        },
+          {
+            title: ' 2. ',
+            hoverText: 'Existing Infrastructure',
+            scrollToEl: 's0'
+          },
+          {
+            title: ' 3.1 ',
+            hoverText: 'Determining Eligibility: Weight Bearing Capacity',
+            scrollToEl: 's1'
+          },
+          {
+            title: ' 3.2 ',
+            hoverText: 'Determining Eligibility: Available Roof Area',
+            scrollToEl: 's2'
+          },
+          {
+            title: ' 3.3 ',
+            hoverText: 'Determining Eligibility: Building Height',
+            scrollToEl: 's3'
+          },
+          {
+            title: ' 4. ',
+            hoverText: 'Existing Green Roofs',
+            scrollToEl: 's4'
+          },
+          {
+            title: ' 5. ',
+            hoverText: 'Calculate Potential benefits',
+            scrollToEl: 'analysis'
+          },
+        ],
       }
+    },
+    computed: {
+      isActive (){ //todo make all 3.s light up when third is active
+        return this.sections.map( x => {return (x.scrollToEl === this.activeEl)})
+      }
+    },
+    mounted(){
+      bus.$on('waypoint', obj => {
+        this.activeEl = obj.el
+      })
     },
     methods: {
 
@@ -29,8 +77,34 @@
 </script>
 
 <style>
-.nav-header{
-  position: fixed;
-  top: 1em;
-}
+  .nav-header{
+    position: fixed;
+    top: 1em;
+  }
+
+  .nav-container{
+    z-index:5;
+  }
+
+  .nav-container * {
+    display: inline-block;
+  }
+
+  .nav-section{
+    border-top: gray solid 2px;
+    opacity: .5;
+    width: 1.5em;
+    margin-left: .5rem;
+  }
+
+  .nav-section.active, .nav-section:hover{
+    border-top-color: green;
+    opacity: .7;
+  }
+
+  .arrow{
+    text-decoration: none;
+    opacity: 0;
+    margin: 0;
+  }
 </style>

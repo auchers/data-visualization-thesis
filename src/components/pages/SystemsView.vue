@@ -1,14 +1,13 @@
 <template>
   <default-header>
     <Map slot="map"></Map>
-    <div slot="navBar" v-show="navActive">
+    <div slot="navBar" class="navBar" v-show="navActive">
       <NavBar></NavBar>
     </div>
-    <div slot="intro"  class="snap">
+    <div slot="intro" id="introduction" class="snap">
       <story-section>
         <header slot="header"
-                v-waypoint="{ active: true, callback: onWaypoint}">
-          {{title}}
+                v-waypoint="{ active: true, callback: onWaypoint}">{{title}}
         </header>
         <p slot="text">{{intro}}</p>
       </story-section>
@@ -78,10 +77,13 @@
       this.storyText = storyText;
     },
     mounted(){
+      // on refresh scroll to top
       window.scrollTo({
         top: 0,
         behavior: "smooth"
       });
+
+      // snap to all sections with class 'snap'
       $(function () {
         $.scrollify({
           section: ".snap"
@@ -93,11 +95,13 @@
       onWaypoint ({el, going, direction}) {
         if (going === this.$waypointMap.GOING_IN) {
           console.log('waypoint going in!', el.id)
+
+          // get number to be able to use for index in mainText.filters
           let i = parseInt(el.id.replace('s', ''))
           bus.$emit('waypoint', {el: el.id, i: i, direction: direction});
-          if (el.id){ // if after the first intro section
-            this.navActive = true;
-          } else this.navActive = false;
+
+          // if after the first intro section
+          (el.id && (el.id !== "introduction")) ? this.navActive = true : this.navActive = false;
         }
       },
     }
