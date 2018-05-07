@@ -12,15 +12,15 @@
         <main>
           <slot name="main"></slot>
         </main>
-      <div class="analysis">
-        <slot name="analysis">
-          <H2>Analysis: Histogram of Building Areas</H2>
-          <Histogram></Histogram>
-        </slot>
-      </div>
-      <div class="neighborhood-search">
-        <slot name="neighborhood-search"></slot>
-      </div>
+      <!--<div class="analysis">-->
+        <!--<slot name="analysis">-->
+          <!--<H2>Analysis: Histogram of Building Areas</H2>-->
+          <!--<Histogram></Histogram>-->
+        <!--</slot>-->
+      <!--</div>-->
+      <!--<div class="neighborhood-search">-->
+        <!--<slot name="neighborhood-search"></slot>-->
+      <!--</div>-->
     </div>
   </div>
 </template>
@@ -62,15 +62,15 @@
     padding: 1em;
   }
 
-  .white-space{
-    height: 35vh;
-  }
+  /*.white-space{*/
+    /*height: 35vh;*/
+  /*}*/
 
-  .analysis{
-    max-width: 500px;
-    margin: 0 auto;
-    min-height: 100vh;
-  }
+  /*.analysis{*/
+    /*max-width: 500px;*/
+    /*!*margin: 0 auto;*!*/
+    /*!*min-height: 100vh;*!*/
+  /*}*/
 
   .navBar{
     max-width: 500px;

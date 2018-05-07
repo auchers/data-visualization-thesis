@@ -1,12 +1,15 @@
 <template>
   <default-layout>
     <Map slot="map"></Map>
+
     <div slot="navBar" class="navBar" v-show="navActive">
       <NavBar></NavBar>
     </div>
-    <div slot="intro" id="introduction" class="snap introduction">
+
+    <div slot="intro" class="snap introduction">
       <story-section>
         <header slot="header"
+                id="introduction"
                 v-waypoint="{ active: true, callback: onWaypoint}">{{title}}
         </header>
         <p slot="text">{{intro}}</p>
@@ -23,25 +26,28 @@
                 v-waypoint="{ active: true, callback: onWaypoint}">
           {{story.header}}
         </header>
-        <p slot="text">
-          {{story.text}}
-        </p>
+        <p slot="text">{{story.text}}</p>
+      </story-section>
+
+      <story-section class="snap analysis">
+        <header slot="header"
+                id="analysis"
+                v-waypoint="{ active: true, callback: onWaypoint}"></header>
+        <div slot="text">
+          <calculator></calculator>
+          <!--<histogram></histogram>-->
+        </div>
+      </story-section>
+
+      <story-section class="snap neighborhood">
+        <header slot="header"
+                id="neighborhood"
+                v-waypoint="{ active: true, callback: onWaypoint}">Find Your Neighborhood</header>
+      <neighborhood-search slot="text"></neighborhood-search>
       </story-section>
 
     </div>
-    <div slot="analysis">
-      <story-section class="snap analysis">
-        <header slot="header" id="analysis" v-waypoint="{ active: true, callback: onWaypoint}"></header>
-        <div slot="text">
-          <calculator></calculator>
-          <histogram></histogram>
-            <div id="neighborhood"
-                 v-waypoint="{ active: true, callback: onWaypoint}">
-              <neighborhood-search></neighborhood-search>
-          </div>
-        </div>
-      </story-section>
-    </div>
+
   </default-layout>
 </template>
 

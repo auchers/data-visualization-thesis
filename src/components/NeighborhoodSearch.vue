@@ -1,7 +1,6 @@
 <template>
-  <story-section class="snap neighborhood">
-    <header slot="header">Find Your Neighborhood</header>
-    <div slot="text" class="autocomplete">
+
+  <div class="autocomplete">
     <autocomplete
       :source="neighborhoods"
       resultsDisplay="NTAName"
@@ -10,8 +9,7 @@
       @selected="handleNeighborhoodSelect"
     >
     </autocomplete>
-    </div>
-  </story-section>
+  </div>
 </template>
 
 <script>
