@@ -95,7 +95,8 @@
       $(function () {
         $.scrollify({
           section: ".snap",
-          standardScrollElements: '#mapbox'
+          standardScrollElements: '#mapbox',
+          updateHash: false,
         })
       })
     },
