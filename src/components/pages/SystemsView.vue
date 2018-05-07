@@ -4,7 +4,7 @@
     <div slot="navBar" class="navBar" v-show="navActive">
       <NavBar></NavBar>
     </div>
-    <div slot="intro" id="introduction" class="snap">
+    <div slot="intro" id="introduction" class="snap introduction">
       <story-section>
         <header slot="header"
                 v-waypoint="{ active: true, callback: onWaypoint}">{{title}}
@@ -16,7 +16,8 @@
     <div slot="main">
 
       <story-section v-for="(story, i) in storyText" class="snap"
-        v-bind:key="i">
+        v-bind:key="i"
+        v-bind:class="'s'+i">
         <header slot="header"
                 v-bind:id="'s'+i"
                 v-waypoint="{ active: true, callback: onWaypoint}">
@@ -29,7 +30,7 @@
 
     </div>
     <div slot="analysis">
-      <story-section class="snap">
+      <story-section class="snap analysis">
         <header slot="header" id="analysis" v-waypoint="{ active: true, callback: onWaypoint}"></header>
         <div slot="text">
           <calculator></calculator>

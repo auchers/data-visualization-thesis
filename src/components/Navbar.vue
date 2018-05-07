@@ -4,7 +4,7 @@
       <span v-for="(s, i) in sections">
       <a class="nav-section"
            v-bind:class="{active: isActive[i]}"
-            href="#" v-scroll-to="'#' + s.scrollToEl"
+            href="#" v-scroll-to="'.' + s.scrollToEl"
             v-bind:title="s.hoverText">
         {{s.title}}
       </a>
@@ -23,7 +23,7 @@
   Vue.use(VueScrollTo, {
     container: "body",
       duration: 500,
-      easing: "ease",
+      easing: "ease-in",
       offset: 0,
       cancelable: true,
       onStart: false,
