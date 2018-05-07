@@ -55,7 +55,7 @@ export default {
 
     bus.$on('waypoint', obj => {
       if (obj.direction){ // rule out events triggered by page load
-        if (obj.el){ // if within narrative
+        if (obj.el !== "introduction"){ // if within narrative
 
           if (obj.el === "s0"){ // EXISTING INFRASTRUCTURE - Change pitch remove styles
             if (obj.direction === "top") {
