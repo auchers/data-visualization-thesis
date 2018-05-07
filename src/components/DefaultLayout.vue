@@ -18,6 +18,9 @@
           <Histogram></Histogram>
         </slot>
       </div>
+      <div class="neighborhood-search">
+        <slot name="neighborhood-search"></slot>
+      </div>
     </div>
   </div>
 </template>

@@ -1,7 +1,7 @@
 <template>
   <div id="calculator">
     <header>Potential Benefit Calculator</header>
-    <table>
+    <table v-if="summary">
       <thead>
         <tr>
           <th>Benefit</th>
@@ -9,7 +9,7 @@
           <th>Total</th>
         </tr>
       </thead>
-      <tbody v-if="summary">
+      <tbody>
         <tr>
           <th>Eligible Roof Space
             <p>(Square Feet)</p>
@@ -35,7 +35,7 @@
             <p>(# Gallons)</p>
           </th>
          <td>{{formatNumber(stormwaterRetentionWithinView.toFixed(0))}} gallons
-          <p>({{formatLargeNumber(stormwaterRetentionWithinView/galPerBathtub)}} bathtubs)</p>
+          <!--<p>({{formatLargeNumber(stormwaterRetentionWithinView/galPerBathtub)}} bathtubs)</p>-->
          </td>
        </tr>
         </tr>
@@ -51,8 +51,8 @@
           <!--<th>Cost</th>-->
         <!--</tr>-->
       </tbody>
-      <h4 v-else> Click on Map to get information on buildings within view</h4>
     </table>
+    <!--<p v-else> Click on Map to get information on buildings within view</p>-->
   </div>
 </template>
 

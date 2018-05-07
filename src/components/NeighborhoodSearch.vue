@@ -1,5 +1,5 @@
 <template>
-  <story-section class="snap">
+  <story-section class="snap neighborhood">
     <header slot="header">Find Your Neighborhood</header>
     <div slot="text" class="autocomplete">
     <autocomplete

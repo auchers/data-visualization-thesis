@@ -1,5 +1,5 @@
 <template>
-  <default-header>
+  <default-layout>
     <Map slot="map"></Map>
     <div slot="navBar" class="navBar" v-show="navActive">
       <NavBar></NavBar>
@@ -35,13 +35,15 @@
         <div slot="text">
           <calculator></calculator>
           <histogram></histogram>
-          <neighborhood-search></neighborhood-search>
         </div>
       </story-section>
-
     </div>
-
-  </default-header>
+    <div slot="neighborhood-search"
+         id="neighborhood"
+         v-waypoint="{ active: true, callback: onWaypoint}">
+      <neighborhood-search></neighborhood-search>
+    </div>
+  </default-layout>
 </template>
 
 <script>
@@ -51,7 +53,7 @@
   import scrollify from 'jquery-scrollify';
   import $ from 'jquery'
 
-  import DefaultHeader from '../DefaultLayout'
+  import DefaultLayout from '../DefaultLayout'
   import Map from '../Map'
   import Histogram from '../Histogram'
   import StorySection from '../StorySection'
@@ -65,7 +67,7 @@
 
   export default {
     name: 'SystemsView',
-    components: {NavBar, Calculator, DefaultHeader, Map, Histogram, StorySection, NeighborhoodSearch},
+    components: {NavBar, Calculator, DefaultLayout, Map, Histogram, StorySection, NeighborhoodSearch},
     data() {
       return {
         navActive: false,
