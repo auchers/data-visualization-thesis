@@ -88,7 +88,8 @@
       // snap to all sections with class 'snap'
       $(function () {
         $.scrollify({
-          section: ".snap"
+          section: ".snap",
+          standardScrollElements: '#mapbox'
         })
       })
     },
