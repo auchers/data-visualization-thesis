@@ -72,6 +72,11 @@
     min-height: 100vh;
   }
 
+  .navBar{
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
   @media only screen and (max-width: 400px) {
     .container{
       grid-template-columns: 100%;
