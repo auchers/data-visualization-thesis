@@ -2,8 +2,12 @@
   <div class="nav-header">
     <div class="nav-container">
       <span v-for="(s, i) in sections">
-      <div class="nav-section" v-bind:class="{active: isActive[i]}">{{s.title}}
-      </div>
+      <a class="nav-section"
+           v-bind:class="{active: isActive[i]}"
+            href="#" v-scroll-to="'#' + s.scrollToEl"
+            v-bind:title="s.hoverText">
+        {{s.title}}
+      </a>
       <div class="arrow" v-if="i < sections.length-1"> > </div>
       </span>
     </div>
@@ -14,6 +18,20 @@
   import {bus} from '../main'
   import * as d3 from 'd3';
   import Vue from 'vue';
+  import VueScrollTo from 'vue-scrollto'
+
+  Vue.use(VueScrollTo, {
+    container: "body",
+      duration: 500,
+      easing: "ease",
+      offset: 0,
+      cancelable: true,
+      onStart: false,
+      onDone: false,
+      onCancel: false,
+      x: false,
+      y: true
+  });
 
   export default {
     name: 'NavBar',
@@ -70,7 +88,6 @@
       })
     },
     methods: {
-
     }
   }
 
@@ -80,10 +97,11 @@
   .nav-header{
     position: fixed;
     top: 1em;
+    z-index:5;
   }
 
   .nav-container{
-    z-index:5;
+
   }
 
   .nav-container * {
@@ -95,11 +113,17 @@
     opacity: .5;
     width: 1.5em;
     margin-left: .5rem;
+
   }
 
   .nav-section.active, .nav-section:hover{
     border-top-color: green;
     opacity: .7;
+  }
+
+  a{
+    text-decoration: none;
+    color: unset;
   }
 
   .arrow{
