@@ -14,6 +14,8 @@ import '../../node_modules/mapbox-gl/dist/mapbox-gl.css';
 import mapStyles from '../assets/mapStyles';
 import mainText from '../assets/mainText';
 
+let tns_coords= [-73.9943,40.7355];
+
 export default {
   name: 'Map',
   data () {
@@ -59,10 +61,11 @@ export default {
 
           if (obj.el === "s0"){ // EXISTING INFRASTRUCTURE - Change pitch remove styles
             if (obj.direction === "top") {
-              map.easeTo({"pitch": 0, "speed": 0.001});
+              map.easeTo({"pitch": 0, "speed": 0.02, center: tns_coords});
               map.setPaintProperty(mapStyles.layers.full_green_roof_potential.id, "fill-opacity", 0)
               map.setLayoutProperty(mapStyles.layers.existing_green_roofs.id, 'visibility', 'none')
-              map.setLayoutProperty(mapStyles.layers.building_extrusions.id, 'visibility', 'visible')
+              map.setPaintProperty(mapStyles.layers.building_extrusions.id, "fill-extrusion-opacity", .8)
+
             } else if (obj.direction === "bottom") {
               map.setFilter(mapStyles.layers.building_extrusions.id, mainText[obj.i].filter)
             }
@@ -93,10 +96,11 @@ export default {
           }
 
         } else { // RESET MAP - when scrolling to top
-          map.easeTo({"pitch": mapStyles.styles.initial.pitch, "speed": 0.1})
-          map.setLayoutProperty(mapStyles.layers.building_extrusions.id, 'visibility', 'none')
+          map.easeTo({"pitch": mapStyles.styles.initial.pitch, "speed": 0.1, "zoom": mapStyles.styles.initial.zoom, "center": mapStyles.styles.initial.center})
+          map.setPaintProperty(mapStyles.layers.building_extrusions.id, "fill-extrusion-opacity",0)
           map.setPaintProperty(mapStyles.layers.full_green_roof_potential.id, 'fill-opacity', 1)
           map.setLayoutProperty(mapStyles.layers.existing_green_roofs.id, 'visibility', 'visible')
+
         }
       }
     });

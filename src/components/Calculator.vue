@@ -1,6 +1,7 @@
 <template>
   <div id="calculator">
     <header>Potential Benefit Calculator</header>
+    <neighborhood-search></neighborhood-search>
     <table v-if="summary">
       <thead>
         <tr>
@@ -60,8 +61,11 @@
   import {bus} from '../main'
   import * as d3 from 'd3';
 
+  import NeighborhoodSearch from './NeighborhoodSearch'
+
   export default {
     name: 'Calculator',
+    components: {NeighborhoodSearch},
     data () {
       return {
         roofEfficiency: 0.75,

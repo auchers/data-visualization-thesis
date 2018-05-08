@@ -74,11 +74,6 @@
             hoverText: 'Calculate Potential benefits',
             scrollToEl: 'analysis'
           },
-          {
-            title: ' 6. ',
-            hoverText: 'Find Your Neighborhood',
-            scrollToEl: 'neighborhood'
-          },
         ],
       }
     },

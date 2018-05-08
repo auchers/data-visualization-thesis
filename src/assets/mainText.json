@@ -1,7 +1,7 @@
 
 [
   {"header": "Existing Infrastructure",
-"text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent quis facilisis nibh, sed blandit ligula. Phasellus sodales sapien non tincidunt volutpat. Maecenas eu malesuada lacus. Pellentesque vitae velit vel elit varius tristique vel sit amet dolor. Fusce scelerisque metus odio, quis eleifend lorem interdum tempor. Etiam semper sit amet leo in pellentesque. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.",
+  "text": "As our starting off point, we will try to identify underutilized roof spaces in New York City’s existing building infrastructure. We begin here with a view of all the buildings in the city and then throughout the next three sections we will filter this set down to the buildings most amenable for green roof development. The following building eligibility criteria are adaptations of <a href=\"http://urbandesignlab.columbia.edu/files/2015/04/4_urban_agriculture_nyc.pdf\">Ackerman et. al.’s</a> study on the potential for urban agriculture in New York. (Read more about our decisions and data handling methods <a href=\"https://github.com/auchers/data-visualization-thesis/tree/master/nyc-data-playground\">here</a>).",
     "filter": ["all",
       ["has", "shape_area"]
     ]

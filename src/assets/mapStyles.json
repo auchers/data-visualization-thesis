@@ -25,7 +25,6 @@
      "source": "composite",
      "source-layer": "building-layer",
       "layout": {
-        "visibility": "none"
       },
       "filter": ["has", "heightroof"],
      "type": "fill-extrusion",
@@ -35,10 +34,10 @@
          "property": "heightroof",
          "type": "identity"
        },
+       "fill-extrusion-opacity": 0,
        "fill-extrusion-base": {
          "property": "min_height",
-         "type": "identity"},
-       "fill-extrusion-opacity": 0.8
+         "type": "identity"}
      }
    },
     "full_green_roof_potential": {

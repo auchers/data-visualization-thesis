@@ -10,7 +10,8 @@
       <story-section>
         <header slot="header"
                 id="introduction"
-                v-waypoint="{ active: true, callback: onWaypoint}">{{title}}
+                v-waypoint="{ active: true, callback: onWaypoint}">Envisioning a <br> New Urban Jungle
+          <div class="subtitle">{{subtitle}}</div>
         </header>
         <p slot="text">{{intro}}</p>
       </story-section>
@@ -26,7 +27,7 @@
                 v-waypoint="{ active: true, callback: onWaypoint}">
           {{story.header}}
         </header>
-        <p slot="text">{{story.text}}</p>
+        <p slot="text" v-html="'<span> '+ story.text + '</span>'"></p>
       </story-section>
 
       <story-section class="snap analysis">
@@ -37,13 +38,6 @@
           <calculator></calculator>
           <!--<histogram></histogram>-->
         </div>
-      </story-section>
-
-      <story-section class="snap neighborhood">
-        <header slot="header"
-                id="neighborhood"
-                v-waypoint="{ active: true, callback: onWaypoint}">Find Your Neighborhood</header>
-      <neighborhood-search slot="text"></neighborhood-search>
       </story-section>
 
     </div>
@@ -66,18 +60,19 @@
 
   import storyText from '../../assets/mainText'
   import NavBar from "../Navbar";
-  import NeighborhoodSearch from '../NeighborhoodSearch'
+
 
   Vue.use(VueWaypoint);
 
   export default {
     name: 'SystemsView',
-    components: {NavBar, Calculator, DefaultLayout, Map, Histogram, StorySection, NeighborhoodSearch},
+    components: {NavBar, Calculator, DefaultLayout, Map, Histogram, StorySection, },
     data() {
       return {
         navActive: false,
-        title: "Exploring the Potential of Green Roofs in NYC",
-        intro: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent quis facilisis nibh, sed blandit ligula. Phasellus sodales sapien non tincidunt volutpat. Maecenas eu malesuada lacus. Pellentesque vitae velit vel elit varius tristique vel sit amet dolor. Fusce scelerisque metus odio, quis eleifend lorem interdum tempor. Etiam semper sit amet leo in pellentesque. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.",
+        // title: "Envisioning a New Urban Jungle",
+        subtitle: "Exploring the Potential of Green Roofs in NYC",
+        intro: "This project explores the ways in which covering rooftops with vegetation can help make our city more healthy, resilient, and beautiful. Dense urban centers like New York City face many ecological challenges due to the predominantly paved and impermeable nature of the landscape. These challenges, including stormwater management, urban heat mitigation, increased energy consumption, and loss of biodiversity are issues that green infrastructure projects are especially well suited to address. As interest continues to coalesce around green infrastructure developments and their potential for tackling urban challenges, green roofs have emerged as a particularly exciting way to utilize structures that already exist in the city to bring about significant social and ecological benefits.",
         storyText: {}
       }
     },
@@ -119,6 +114,16 @@
 </script>
 
 <style>
+  .subtitle{
+    font-size: .4em;
+    line-height: 1.2em;
+    margin-top: .5em;
+    margin-bottom: 1em;
+    opacity: .6;
+  }
 
+  .introduction{
+    margin-bottom: 1em;
+  }
 
 </style>
