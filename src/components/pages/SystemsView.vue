@@ -82,6 +82,10 @@
       this.storyText = storyText;
     },
     mounted(){
+      // on refresh scroll to top
+      window.onbeforeunload = function () {
+        window.scrollTo(0,0);
+      }
       // snap to all sections with class 'snap'
       $(function () {
         $.scrollify({
@@ -91,11 +95,6 @@
         })
       })
 
-      // on refresh scroll to top
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
 
     },
 
