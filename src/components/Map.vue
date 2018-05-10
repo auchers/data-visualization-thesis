@@ -23,7 +23,8 @@ export default {
       msg: 'This is the Map Component',
       layers: '',
       labelLayerId: '',
-      map: {}
+      map: {},
+      isLayerActive: {"heat-reduction": false, "stormwater": false, "habitat": false}
     }
   },
   mounted(){
@@ -90,7 +91,6 @@ export default {
             }
 
           } else if (obj.el === "analysis"){ // ANALYSIS
-            map.on('click', self.getFeaturesInView);
             map.setPaintProperty(mapStyles.layers.building_extrusions.id, "fill-extrusion-height", 0)
             map.setPaintProperty(mapStyles.layers.building_extrusions.id, "fill-extrusion-color", "#85d251")
           }
@@ -104,11 +104,24 @@ export default {
         }
       }
     });
+    bus.$on('features-click', x => {
+      console.log('clicked button')
+      self.getFeaturesInView();
+    })
 
     // receive event for neighborhood selection and fly there
     bus.$on('neighborhood-select', payload => {
       map.flyTo({center: payload.center, zoom: 14, speed: .5})
       self.getFeaturesInView();
+    });
+
+    bus.$on('add-layer', layerName => {
+      if (self.isLayerActive[layerName]){
+        map.removeLayer(mapStyles.layers[layerName].id)
+      } else {
+        map.addLayer(mapStyles.layers[layerName], mapStyles.layers.building_extrusions.id)
+      }
+      self.isLayerActive[layerName] = !self.isLayerActive[layerName]
     })
   },
   methods:{

@@ -91,6 +91,31 @@
       "paint": {
         "fill-color": "#31a354"
       }
+    },
+    "heat-reduction":{
+      "id": "ny-heat-risk",
+      "paint": {
+        "raster-opacity": 0.6
+      },
+      "source": "mapbox://aucher.9aon85bt",
+      "type": "raster"
+    },
+    "stormwater": {
+      "id": "csos",
+      "type": "circle",
+      "source": "composite",
+      "source-layer": "CSOs-d8v9k0",
+      "paint": {
+        "circle-color": "#000000"
+      }
+    },
+    "habitat":{
+      "id": "habitat",
+      "paint": {
+        "raster-opacity": 0.6
+      },
+      "source": "mapbox://mapbox.satellite",
+      "type": "raster"
     }
   }
 }

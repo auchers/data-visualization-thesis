@@ -1,6 +1,6 @@
 <template>
   <div id="histogram">
-    <p>{{msg}}</p>
+    <!--<p>{{msg}}</p>-->
     <svg ref="svg">
       <rect v-for="d in layout"
             class="bar"
@@ -23,7 +23,7 @@
     // props: ['height'],
     data () {
       return {
-        msg: 'click anywhere on the map to see how the roof areas are distributed within your current view',
+        // msg: 'click anywhere on the map to see how the roof areas are distributed within your current view',
         width: null,
         height: null,
         x: null,
@@ -75,9 +75,11 @@
     },
 
     mounted(){
-      this.width = this.$refs.svg.getBoundingClientRect().width;
-      this.height = this.$refs.svg.getBoundingClientRect().height;
+      // this.width = this.$refs.svg.getBoundingClientRect().width;
+      // this.height = this.$refs.svg.getBoundingClientRect().height;
 
+      this.width = this.$refs.svg.getBoundingClientRect().width;
+      this.height = 150;
     }
   }
 </script>
@@ -91,6 +93,7 @@
   }
 
   svg{
+    margin-top: 1.5em;
     flex: 1 1 auto;
     overflow: visible;
   }

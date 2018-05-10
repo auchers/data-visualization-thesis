@@ -7,7 +7,7 @@
         <tr>
           <th>Benefit</th>
           <th>Within View</th>
-          <th>Total</th>
+          <!--<th>Total</th>-->
         </tr>
       </thead>
       <tbody>
@@ -26,25 +26,25 @@
           <td>{{summary.gr.count}}</td>
         </tr>
         <tr>
-          <th>Heat Reduction
+          <th class="heat-reduction" v-on:click="addLayer">Heat Reduction
             <p>(Avg. Temp Delta)</p>
           </th>
-          <td>{{heatReductionWithinView.f.toFixed(2)}}˚F / {{heatReductionWithinView.c.toFixed(2)}}˚C </td>
+          <td class="heat-reduction" v-on:click="addLayer" >{{heatReductionWithinView.f.toFixed(2)}}˚F / {{heatReductionWithinView.c.toFixed(2)}}˚C </td>
         </tr>
        <tr>
-          <th>Annual Stormwater Retention
+          <th class="stormwater" v-on:click="addLayer">Annual Stormwater Retention
             <p>(# Gallons)</p>
           </th>
-         <td>{{formatNumber(stormwaterRetentionWithinView.toFixed(0))}} gallons
+         <td class="stormwater" v-on:click="addLayer">{{formatNumber(stormwaterRetentionWithinView.toFixed(0))}} gallons
           <!--<p>({{formatLargeNumber(stormwaterRetentionWithinView/galPerBathtub)}} bathtubs)</p>-->
          </td>
        </tr>
         </tr>
         <tr>
-          <th>Potential Habitat
+          <th class="habitat" v-on:click="addLayer">Potential Habitat
             <p>(Square Feet)</p>
           </th>
-          <td>{{formatNumber(Math.round(summary.gr.area * roofEfficiency))}} ft<sup>2</sup>
+          <td class="habitat" v-on:click="addLayer">{{formatNumber(Math.round(summary.gr.area * roofEfficiency))}} ft<sup>2</sup>
           <p>({{((summary.gr.area * roofEfficiency)/centralPark).toFixed(2)}} Central Parks)</p>
           </td>
         </tr>
@@ -53,7 +53,7 @@
         <!--</tr>-->
       </tbody>
     </table>
-    <p v-else> click anywhere on the map to get information on buildings within view</p>
+    <!--<p v-else> click anywhere on the map to get information on buildings within view</p>-->
   </div>
 </template>
 
@@ -108,8 +108,13 @@
           } else if (n > 999) {
             return 'roughly ' + (n/1000).toFixed(0) + 'k'
           } else return n
-      }
       },
+    addLayer(event){
+      console.log(event.toElement.classList[0])
+      bus.$emit('add-layer', event.toElement.classList[0])
+        }
+      },
+
   }
 </script>
 
@@ -127,13 +132,19 @@
   }
 
   table{
-    max-width: unset;
+    margin-top: 1em;
+    width: 100%;
     overflow: visible;
-    text-align: left;
+    text-align:  left;
   }
 
   th, tr, td{
-    padding: 10px;
+    padding-right: .5em;
+    vertical-align: baseline;
+  }
+
+  thead > tr > th{
+    padding-bottom: 1em;
   }
 
   thead{
@@ -142,7 +153,30 @@
 
   p{
     /*margin-top: .2em;*/
+    margin-top: .5em;
     font-size: smaller;
+  }
+
+  .heat-reduction, .stormwater, .habitat{
+    border-top-width: 3px;
+    border-top-style: solid;
+    border-collapse: collapse;
+  }
+
+  .heat-reduction:hover, .stormwater:hover, .habitat:hover{
+    border-top-width: 5px;
+  }
+
+  .heat-reduction{
+    border-top-color: rgba(159, 15, 0, 0.6);
+  }
+
+  .stormwater{
+    border-top-color: rgba(23, 73, 118, 0.6);
+  }
+
+  .habitat{
+    border-top-color: rgba(3, 118, 1, 0.6);
   }
 
 </style>

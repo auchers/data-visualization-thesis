@@ -36,7 +36,9 @@
                 v-waypoint="{ active: true, callback: onWaypoint}"></header>
         <div slot="text">
           <calculator></calculator>
-          <!--<histogram></histogram>-->
+          <button class="get-features"
+            v-on:click="featuresClick">Click to Get Info on Buildings In View</button>
+          <histogram></histogram>
         </div>
       </story-section>
 
@@ -80,12 +82,6 @@
       this.storyText = storyText;
     },
     mounted(){
-      // on refresh scroll to top
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-
       // snap to all sections with class 'snap'
       $(function () {
         $.scrollify({
@@ -94,6 +90,13 @@
           updateHash: false,
         })
       })
+
+      // on refresh scroll to top
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
     },
 
     methods: {
@@ -109,6 +112,9 @@
           (el.id && (el.id !== "introduction")) ? this.navActive = true : this.navActive = false;
         }
       },
+      featuresClick(){
+        bus.$emit('features-click');
+      }
     }
   }
 </script>
@@ -125,5 +131,18 @@
   .introduction{
     margin-bottom: 1em;
   }
+
+  .get-features{
+    display: block;
+    margin: 1em auto;
+    padding: .5em;
+    width: 150px;
+    font-family: Avenir;
+    font-size: small;
+    background: none;
+    cursor: pointer;
+  }
+
+  button:focus {outline:0;}
 
 </style>
