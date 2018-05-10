@@ -1,14 +1,14 @@
 
 [
   {"header": "Existing Infrastructure",
-  "text": "As our starting off point, we will try to identify underutilized roof spaces in New York City’s existing building infrastructure. We begin here with a view of all the buildings in the city and then throughout the next three sections we will filter this set down to the buildings most amenable for green roof development. The following building eligibility criteria are adaptations of <a href=\"http://urbandesignlab.columbia.edu/files/2015/04/4_urban_agriculture_nyc.pdf\">Ackerman et. al.’s</a> study on the potential for urban agriculture in New York. (Read more about our decisions and data handling methods <a href=\"https://github.com/auchers/data-visualization-thesis/tree/master/nyc-data-playground\">here</a>).",
+  "text": "What you see here are all the existing buildings in New York. <em>The map is alive</em> so feel free to pan around and explore the city. <p> Ideally it would be amazing if every single building in view covered its roof with vegetation. That said, this project will be more realistic and attempt to identify the buildings most favorable to green roof development. Through the next few sections, this set of buildings will be filtered down to isolate the most advantageous underutilized rooftops in the city. Building eligibility criteria are adaptations of <a href=\"http://urbandesignlab.columbia.edu/files/2015/04/4_urban_agriculture_nyc.pdf\">Ackerman et. al.’s</a> study on the potential for urban agriculture in New York. (Read more about our decisions and data handling methods <a href=\"https://github.com/auchers/data-visualization-thesis/tree/master/nyc-data-playground\">here</a>).</p>",
     "filter": ["all",
       ["has", "shape_area"]
     ]
 },
   {"header": "Weight Bearing Capacity",
   "src": "",
-  "text": "Buildings built between 1900 and 1970 were mandated to comply with building codes that required greater roof live loads. Generally, buildings build pre-1970 were constructed to withstand up to 50 lbs./s.f. of rooftop live load. Since then regulations have been relaxed. That said, we also included the roofs of industrial classed buildings even if they were build post-1970 with the assumption that industrial buildings would be constructed with more robust structural integrity.",
+  "text": "The first criteria deals with how much weight a given roof is able to hold. Green roofs come in all shapes and sizes, but here we are focusing on a type of called <em>intensive green roofs</em>. These types of roofs hold a deeper layer of vegetation and therefore can provide more benefits to the building and the city. However, due to their depth, they also require roofs that can bear more weight.<p><em> Buildings Built Pre-1970</em></p> <p>Buildings built between 1900 and 1970 were mandated to comply with building codes that required greater ‘roof live loads,’ meaning they can sustain more weight. Generally, buildings build pre-1970 were constructed to withstand up to 50 pounds per square foot. </p> <p><em>Industrial Use Buildings</em></p><p>Additionally, buildings built for industrial purposes are also included with the assumption that industrial buildings would be constructed with more robust structural integrity. </p>",
     "filter": ["any",
       ["==", "BldgClass", "F1"],
       ["==", "BldgClass", "F2"],
@@ -20,7 +20,7 @@
       ]
   },
   {"header": "Available Roof Area",
-  "text": "Here we restrict our search to buildings with a footprint over 10,000 square feet. Although in this study we are less concerned with agricultural economic viability, we maintained this criteria as by looking at the data it seemed to classify roofs with a roof area ‘worth’ the investment",
+  "text": "Since this project is primarily concerned with intensive green roofs, this next criteria looks whether a roof has enough available area to be a worthwhile investment for higher-maintenance green roof type. Many roofs in New York have rather limited available roof area since they hold water towers, large fans, storage units, etc. <p>For the purposes of this project, only buildings with a footprint <em>over 10,000 square feet</em> were selected.</p><p>It is worth noting that green roofs are possible on smaller roofs as well. There are green roof designs that can bring benefits for nearly any roof type. This work aims to highlight the roofs especially suited to bring large benefits and as such placed this criteria.</p>",
   "filter": ["all",
     ["has", "shape_area"],
     [">=", "shape_area", 10000],
@@ -37,7 +37,7 @@
   },
   {
     "header": "Building Height",
-    "text": "We restricted our set to buildings lower than 10 floors since above this, climate conditions become inhospitable for plants and people. It also becomes difficult to transport growth media and equipment.",
+    "text": "This final criteria only leaves in roofs that are <em>under 10 floors high</em> for a few reasons. First of all, above 10 floors, climate conditions become less hospitable for both plants and peoples. It also becomes increasingly difficult to transport growth media, equipment, and supplies to taller rooftops. <p>Another reason is relates to the potential benefit of surface temperature regulation. Low and mid rise buildings are actually <a href=\"https://www.sciencedirect.com/science/article/pii/S1470160X1500549X?via%3Dihub\">shown to be hotter</a> than high rise buildings. Additionally, it is unclear if the surface temperature regulating effects of a green roof will contribute to the surrounding area if the building is too high. </p><p>A final consideration looks at the ability of species to find and inhabit green spaces.<a href=\"http://grit.daniels.utoronto.ca/wp-content/uploads/2017/05/MacIvor-2016-TIEE.pdf\">This study</a>, for example, found that bees actually prefer buildings with fewer than 5 floors.</p>",
     "filter": ["all",
       ["has", "shape_area"],
       ["<=", "heightroof", 200],
@@ -55,7 +55,7 @@
   },
   {
     "header": "Existing Green Roofs",
-    "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent quis facilisis nibh, sed blandit ligula. Phasellus sodales sapien non tincidunt volutpat. Maecenas eu malesuada lacus. Pellentesque vitae velit vel elit varius tristique vel sit amet dolor. Fusce scelerisque metus odio, quis eleifend lorem interdum tempor. Etiam semper sit amet leo in pellentesque. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.",
+    "text": "This all leads to the question of how many green roofs already exist in New York. This data comes from <a href=\"https://github.com/tnc-ny-science/NYC_GreenRoofMapping/tree/master/greenroof_gisdata/20180403_greenroof_gte50px_0x5m/polygons\">The Nature Conservancy</a> who put together all available datasets on existing green roofs and used additional methods to identify previously unrecorded rooftop gardens using satellite imagery. <p>Shapes in <span class=\"dark-green\">dark green</span> show green roofs that are already growing and benefiting the city.</p>",
     "filter": ["all",
       ["has", "shape_area"],
       ["<=", "heightroof", 200],

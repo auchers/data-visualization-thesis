@@ -121,12 +121,6 @@
     opacity: .7;
   }
 
-  a{
-    text-decoration: none;
-    color: unset;
-    font-family: Avenir;
-  }
-
   .arrow{
     text-decoration: none;
     opacity: 0;

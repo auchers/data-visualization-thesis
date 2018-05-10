@@ -13,7 +13,7 @@
                 v-waypoint="{ active: true, callback: onWaypoint}">Envisioning a <br> New Urban Jungle
           <div class="subtitle">{{subtitle}}</div>
         </header>
-        <p slot="text">{{intro}}</p>
+        <p slot="text" v-html="'<span> '+ intro + '</span>'"></p>
       </story-section>
     </div>
 
@@ -37,7 +37,7 @@
         <div slot="text">
           <calculator></calculator>
           <button class="get-features"
-            v-on:click="featuresClick">Click to Get Info on Buildings In View</button>
+            v-on:click="featuresClick">Get Data on Buildings In View</button>
           <histogram></histogram>
         </div>
       </story-section>
@@ -74,7 +74,17 @@
         navActive: false,
         // title: "Envisioning a New Urban Jungle",
         subtitle: "Exploring the Potential of Green Roofs in NYC",
-        intro: "This project explores the ways in which covering rooftops with vegetation can help make our city more healthy, resilient, and beautiful. Dense urban centers like New York City face many ecological challenges due to the predominantly paved and impermeable nature of the landscape. These challenges, including stormwater management, urban heat mitigation, increased energy consumption, and loss of biodiversity are issues that green infrastructure projects are especially well suited to address. As interest continues to coalesce around green infrastructure developments and their potential for tackling urban challenges, green roofs have emerged as a particularly exciting way to utilize structures that already exist in the city to bring about significant social and ecological benefits.",
+        intro: "This project explores the ways in which green roofs can help make our city more healthy, resilient, and beautiful. Dense urban centers like New York City face many ecological challenges due to the mostly paved and built-up nature of the landscape. These challenges, including stormwater management, urban heat mitigation, increased energy consumption, and loss of biodiversity are issues that green infrastructure projects are especially well suited to address. <p> By covering a roof with a layer of vegetation, we can:</p> " +
+        "<ul>\n" +
+        "<li>Reduce the <em>surface temperature</em> of the surrounding area</li>\n" +
+        "<li>Capture <em>stormwater</em> and prevent it from overwhelming the city’s sewage system</li>\n" +
+        "<li>Create more habitat for birds, bees, and seeds to encourage and increase <em>biodiversity </em></li>\n" +
+        "<li>Save on building energy costs</li>\n" +
+        "<li>Protect the integrity of the roof</li>\n" +
+        "<li>Potentially even grow food</li>\n" +
+        "</ul>\n" +
+        "\n" +
+        "Green roofs are a particularly exciting <em> way to utilize structures that already exist</em> in the city to bring about significant social and ecological benefits.\n",
         storyText: {}
       }
     },
@@ -131,17 +141,5 @@
     margin-bottom: 1em;
   }
 
-  .get-features{
-    display: block;
-    margin: 1em auto;
-    padding: .5em;
-    width: 150px;
-    font-family: Avenir;
-    font-size: small;
-    background: none;
-    cursor: pointer;
-  }
-
-  button:focus {outline:0;}
 
 </style>
