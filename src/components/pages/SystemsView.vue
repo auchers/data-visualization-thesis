@@ -37,7 +37,7 @@
         <div slot="text">
           <calculator></calculator>
           <button class="get-features"
-            v-on:click="featuresClick">Get Data on Buildings In View</button>
+            v-on:click="featuresClick">Click to Get Data on Buildings In View</button>
           <histogram></histogram>
         </div>
       </story-section>
@@ -74,7 +74,7 @@
         navActive: false,
         // title: "Envisioning a New Urban Jungle",
         subtitle: "Exploring the Potential of Green Roofs in NYC",
-        intro: "This project explores the ways in which green roofs can help make our city more healthy, resilient, and beautiful. Dense urban centers like New York City face many ecological challenges due to the mostly paved and built-up nature of the landscape. These challenges, including stormwater management, urban heat mitigation, increased energy consumption, and loss of biodiversity are issues that green infrastructure projects are especially well suited to address. <p> Covering a roof with a layer of vegetation can:</p> " +
+        intro: "This project explores the ways in which green roofs can help make our city more healthy, resilient, and beautiful. Dense urban centers like New York City face many ecological challenges due to the mostly paved and built-up nature of the landscape. These challenges, including stormwater management, urban heat mitigation, increased energy consumption, and loss of biodiversity are issues that green infrastructure projects are especially well suited to address. <p>Benefits of green roofs include:</p> " +
         "<ul>\n" +
         "<li>Reduce the <em>surface temperature</em> of the surrounding area</li>\n" +
         "<li>Capture <em>stormwater</em> and prevent it from overwhelming the city’s sewage system</li>\n" +

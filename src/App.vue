@@ -53,7 +53,7 @@ export default {
 
   button {
     display: block;
-    margin: 1em auto;
+    /*margin: 1em;*/
     padding: .5em;
     /*width: 150px;*/
     font-family: Avenir;
@@ -61,11 +61,12 @@ export default {
     background: none;
     cursor: pointer;
     border:none;
-    border-top: 3px solid;
+    border-top: rgba(0, 0, 0, 0.5) 3px solid;
     /*border-top-color: green;*/
   }
 
   button:hover{
+    border: rgba(0, 0, 0, 0.5) 0.5px solid;
     border-top-width: 5px;
   }
 
