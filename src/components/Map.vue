@@ -107,17 +107,20 @@ export default {
         }
       }
     });
+
+    //GET FEATURES WITHIN VIEW
     bus.$on('features-click', x => {
       console.log('clicked button')
       self.getFeaturesInView();
     })
 
-    // receive event for neighborhood selection and fly there
+    // FLY TO NEIGHBORHOOD SELECTION
     bus.$on('neighborhood-select', payload => {
       map.flyTo({center: payload.center, zoom: 14, speed: .5})
       self.getFeaturesInView();
     });
 
+    // TOGGLE ECOLOGICAL LAYERS
     bus.$on('add-layer', layerName => {
       if (self.isLayerActive[layerName]){
         map.removeLayer(mapStyles.layers[layerName].id)
@@ -125,6 +128,11 @@ export default {
         map.addLayer(mapStyles.layers[layerName], mapStyles.layers.building_extrusions.id)
       }
       self.isLayerActive[layerName] = !self.isLayerActive[layerName]
+    })
+
+    // FLY TO BOROUGH
+    bus.$on('borough-select', options => {
+      map.flyTo({center: options.center, speed: .5})
     })
 
   },

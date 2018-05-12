@@ -17,6 +17,7 @@
         </div>
       </el-dialog>
 
+      <!--NAVIGATION BAR-->
       <div slot="navBar" class="navBar" v-show="navActive">
         <NavBar></NavBar>
       </div>
@@ -56,7 +57,7 @@
           <histogram></histogram>
         </div>
       </story-section>
-
+    <Footer slot="footer" class="footer" v-show="navActive"></Footer>
     </div>
 
   </default-layout>
@@ -77,13 +78,14 @@
 
   import storyText from '../../assets/mainText'
   import NavBar from "../Navbar";
+  import Footer from "../Footer";
 
 
   Vue.use(VueWaypoint);
 
   export default {
     name: 'SystemsView',
-    components: {NavBar, Calculator, DefaultLayout, Map, Histogram, StorySection},
+    components: {Footer, NavBar, Calculator, DefaultLayout, Map, Histogram, StorySection},
     data() {
       return {
         isNewlyOpened: true,

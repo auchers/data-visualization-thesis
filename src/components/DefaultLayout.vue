@@ -12,15 +12,7 @@
         <main>
           <slot name="main"></slot>
         </main>
-      <!--<div class="analysis">-->
-        <!--<slot name="analysis">-->
-          <!--<H2>Analysis: Histogram of Building Areas</H2>-->
-          <!--<Histogram></Histogram>-->
-        <!--</slot>-->
-      <!--</div>-->
-      <!--<div class="neighborhood-search">-->
-        <!--<slot name="neighborhood-search"></slot>-->
-      <!--</div>-->
+      <slot name="footer" class="footer"></slot>
     </div>
   </div>
 </template>
@@ -62,7 +54,7 @@
     padding: 1em;
   }
 
-  .navBar{
+  .navBar, .footer{
     max-width: 500px;
     margin: 0 auto;
   }
