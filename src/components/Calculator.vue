@@ -3,8 +3,8 @@
     <header>Potential Benefit Calculator</header>
     <div>
       <neighborhood-search></neighborhood-search>
-      <button class="get-features"
-            v-on:click="featuresClick">Get Data In View</button>
+      <el-button class="get-features"
+            v-on:click="featuresClick">Get Data In View</el-button>
     </div>
     <table v-if="summary">
       <thead>

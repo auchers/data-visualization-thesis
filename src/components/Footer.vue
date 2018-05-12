@@ -3,8 +3,7 @@
     <div class="footer-container">
       <!--<span v-for="(b, i) in boroughs">-->
       <el-button class="borough" v-for="(b, i) in boroughs"
-         v-bind:class="{active: isActive[i]}"
-                 v-on:click="selectBorough(b.options)">
+         v-bind:class="{active: isActive[i]}" v-bind:key="i" v-on:click="selectBorough(b.options)">
         {{b.name}}
       </el-button>
       <!--<div class="arrow" v-if="i < sections.length-1"> > </div>-->
@@ -28,7 +27,7 @@
         },
           {
             name: 'Brooklyn',
-            options: {center: [-73.9992082, 40.6584286], zoom: 13}
+            options: {center: [-73.9983067, 40.6440522], zoom: 13}
           },
           {
             name: 'Queens',
@@ -67,13 +66,13 @@
     z-index:5;
   }
 
-  .borough{
+  .el-button{
     padding: 0.5em;
     margin-right: 0.5em;
     color: rgba(63, 63, 63, 0.7);
   }
 
-  .borough:focus, .borough:hover {
+  .el-button:focus, .el-button:hover {
     color: rgba(63, 63, 63, 0.8);
     border-color: unset;
     /*background-color: #e9e9e9;*/

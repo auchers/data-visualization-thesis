@@ -5,19 +5,20 @@
 
     <div slot="intro" class="snap introduction">
       <!--TITLE PAGE only opens at beginning-->
-      <el-dialog id="opening"
-              :visible="isNewlyOpened"
-              :fullscreen="true">
-        <div class="landing-page-wrapper">
-          <h1>{{title}}</h1>
-          <h2>{{subtitle}}</h2>
-          <button class="landing-page-button" v-on:click="enterVis">
-            Click to Start
-          </button>
-        </div>
-      </el-dialog>
+      <!--<el-dialog id="opening"-->
+              <!--:visible="isNewlyOpened"-->
+              <!--:fullscreen="true">-->
+        <!--<div class="landing-page-wrapper">-->
+          <!--<h1>{{title}}</h1>-->
+          <!--<h2>{{subtitle}}</h2>-->
+          <!--<button class="landing-page-button" v-on:click="enterVis">-->
+            <!--Click to Start-->
+          <!--</button>-->
+        <!--</div>-->
+      <!--</el-dialog>-->
 
       <!--NAVIGATION BAR-->
+      <i class="icon el-icon-arrow-down"></i>
       <div slot="navBar" class="navBar" v-show="navActive">
         <NavBar></NavBar>
       </div>
@@ -54,7 +55,7 @@
                 v-waypoint="{ active: true, callback: onWaypoint}"></header>
         <div slot="text">
           <calculator></calculator>
-          <histogram></histogram>
+          <!--<histogram></histogram>-->
         </div>
       </story-section>
     <Footer slot="footer" class="footer" v-show="navActive"></Footer>
@@ -88,7 +89,7 @@
     components: {Footer, NavBar, Calculator, DefaultLayout, Map, Histogram, StorySection},
     data() {
       return {
-        isNewlyOpened: true,
+        // isNewlyOpened: true,
         navActive: false,
         title: "Envisioning a New Urban Jungle",
         subtitle: "Exploring the Potential of Green Roofs in NYC",
@@ -135,7 +136,7 @@
           bus.$emit('waypoint', {el: el.id, i: i, direction: direction});
 
           // if after the first intro section
-          (el.id && (el.id !== "introduction") && !this.isNewlyOpened) ? this.navActive = true : this.navActive = false;
+          (el.id && (el.id !== "introduction")) ? this.navActive = true : this.navActive = false;
         }
       },
       enterVis(){
@@ -194,4 +195,15 @@
     background-size: 100%;
   }
 
+  .icon{
+    position: fixed;
+    bottom: 1em;
+    right: 1em;
+    font-size:1.5em;
+  }
+
+  .el-icon-arrow-down:before{
+    font-size: 2em;
+    opacity: 0.6;
+  }
 </style>
