@@ -19,7 +19,7 @@ let tns_coords= [-73.9943,40.7355];
 
 export default {
   name: 'Map',
-  components:{VueResize},
+  components:{},
   data () {
     return {
       msg: 'This is the Map Component',
@@ -185,10 +185,6 @@ export default {
         this.$store.commit('storeSummary', summary_stats);
         this.$store.commit('storeHistogramBins', bins);
     },
-    // handleResize: function (){
-    //   console.log('resized')
-    //   this.map.resize();
-    // }
   }
 }
 </script>

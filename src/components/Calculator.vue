@@ -46,7 +46,7 @@
         </tr>
         <tr>
           <th>Potential Habitat
-            <div> <div class="habitat layer" v-on:click="addLayer" data-descr="click to see HR layer"></div><p>(Square Feet)</p></div>
+            <div> <div class="habitat layer" v-on:click="addLayer" data-descr="click to see satellite map"></div><p>(Square Feet)</p></div>
           </th>
           <td class="habitat" v-on:click="addLayer">{{formatNumber(Math.round(summary.gr.area * roofEfficiency))}} ft<sup>2</sup>
           <p>({{((summary.gr.area * roofEfficiency)/centralPark).toFixed(2)}} Central Parks)</p>

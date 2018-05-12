@@ -15,11 +15,6 @@ export default new Router({
       path: '/',
       name: 'systems',
       component: Systems
-    },
-    {
-      path:'/landing',
-      name: 'landing',
-      component: LandingPage
     }
   ]
 })

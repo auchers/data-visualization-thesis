@@ -89,7 +89,7 @@
     height: 50vh;
     display: flex;
     flex-flow: column;
-    margin-bottom: 1em;
+    margin-bottom: 5em;
   }
 
   svg{

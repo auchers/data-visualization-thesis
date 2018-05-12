@@ -2,12 +2,13 @@
   "styles": {
     "initial": {
       "style": "mapbox://styles/aucher/cj87xa4nv3xb02ro4j9o2hatb",
-      "center": {"lng": -74.0066, "lat": 40.7135},
+      "center": {"lng": -73.99645, "lat": 40.72021},
       "zoom": 13,
       "pitch": 60,
       "bearing": 32.8,
       "container": "mapbox",
-      "minZoom": 12
+      "minZoom": 12,
+      "hash": false
       },
       "empty": {
         "style": "mapbox://styles/aucher/cjgbaufzv1cw62qo7y8ln5bzj",
@@ -89,7 +90,8 @@
         "Id"
       ],
       "paint": {
-        "fill-color": "#31a354"
+        "fill-color": "#31a354",
+        "fill-outline-color": "#004d14"
       }
     },
     "heat-reduction":{
@@ -106,7 +108,16 @@
       "source": "composite",
       "source-layer": "CSOs-d8v9k0",
       "paint": {
-        "circle-color": "#000000"
+        "circle-color": "#1C7CB2",
+        "circle-radius": {
+          "property": "events_16",
+          "type": "exponential",
+          "stops": [
+            [17, 2],
+            [85, 20]
+          ]
+        },
+        "circle-opacity": 0.6
       }
     },
     "habitat":{
