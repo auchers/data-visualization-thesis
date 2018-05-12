@@ -13,6 +13,7 @@ export default {
 
 <style>
   #app {
+    box-sizing: border-box;
     font-family: Avenir, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -66,7 +67,7 @@ export default {
   }
 
   button:hover{
-    border: rgba(0, 0, 0, 0.5) 0.5px solid;
+    /*border: rgba(0, 0, 0, 0.5) 0.5px solid;*/
     border-top-width: 5px;
   }
 

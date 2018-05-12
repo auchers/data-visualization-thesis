@@ -1,19 +1,11 @@
 <template>
-  <div id="app">
+  <div id="opening">
+    <!--<Map></Map>-->
     <div class="landing-page-wrapper">
       <h1>{{title}}</h1>
-      <div class="buttons-container">
-        Lenses:
-        <button class="landing-page-button">
-          <router-link to="/urban-heat">Urban Heat</router-link>
+        <button class="landing-page-button">Enter the Visualization
         </button>
-        <button class="landing-page-button">
-          <router-link to="/stormwater">Rainwater Retention</router-link>
-        </button>
-        <button class="landing-page-button">
-          <router-link to="/systems">Combined - Systems View</router-link>
-        </button>
-      </div>
+      <!--</div>-->
     </div>
   </div>
 </template>
@@ -21,9 +13,11 @@
 <script>
 
   import {bus} from '../../main'
+  import Map from '../Map'
 
   export default {
     name: 'LandingPage',
+    components: {Map},
     data () {
       return {
         title: 'Green Roofs in New York City'
@@ -61,22 +55,23 @@
   .landing-page-button {
     height: 2em;
     padding: 2em;
+    padding-left: 0;
     margin: 1em;
     bottom: 2em;
-    cursor: zoom-in;
+    /*cursor: ;*/
     background-color: unset;
     border-color: black;
   }
 
   .landing-page-button > a {
-    vertical-align: middle;
+    /*vertical-align: middle;*/
     text-decoration: none;
     color: unset;
     font-size: 1.5em;
     position: relative;
     bottom: 1em;
-    cursor: zoom-in;
+    /*cursor: zoom-in;*/
+    text-align: left;
   }
-
 
 </style>

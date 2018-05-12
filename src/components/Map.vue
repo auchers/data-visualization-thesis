@@ -8,6 +8,7 @@ import {bus} from '../main'
 import mapboxgl from 'mapbox-gl';
 import * as d3 from 'd3';
 import _ from 'lodash';
+import VueResize from 'vue-resize';
 
 import '../../node_modules/mapbox-gl/dist/mapbox-gl.css';
 
@@ -18,13 +19,15 @@ let tns_coords= [-73.9943,40.7355];
 
 export default {
   name: 'Map',
+  components:{VueResize},
   data () {
     return {
       msg: 'This is the Map Component',
       layers: '',
       labelLayerId: '',
       map: {},
-      isLayerActive: {"heat-reduction": false, "stormwater": false, "habitat": false}
+      isLayerActive: {"heat-reduction": false, "stormwater": false, "habitat": false},
+      // containerWidth: 0,
     }
   },
   mounted(){
@@ -123,6 +126,7 @@ export default {
       }
       self.isLayerActive[layerName] = !self.isLayerActive[layerName]
     })
+
   },
   methods:{
     getFeaturesInView: function (e){
@@ -180,7 +184,11 @@ export default {
 
         this.$store.commit('storeSummary', summary_stats);
         this.$store.commit('storeHistogramBins', bins);
-    }
+    },
+    // handleResize: function (){
+    //   console.log('resized')
+    //   this.map.resize();
+    // }
   }
 }
 </script>

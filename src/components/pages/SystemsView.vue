@@ -1,12 +1,28 @@
 <template>
   <default-layout>
+    <!--MAP in DEFAULT LAYOUT SLOT-->
     <Map slot="map"></Map>
 
-    <div slot="navBar" class="navBar" v-show="navActive">
-      <NavBar></NavBar>
-    </div>
-
     <div slot="intro" class="snap introduction">
+      <!--TITLE PAGE only opens at beginning-->
+      <el-dialog id="opening"
+              :visible="isNewlyOpened"
+              :fullscreen="true">
+        <div class="landing-page-wrapper">
+          <!--<Map></Map>-->
+          <h1>{{title}}</h1>
+          <h2>{{subtitle}}</h2>
+          <button class="landing-page-button" v-on:click="enterVis">
+            Click to Enter Visualization
+          </button>
+        </div>
+      </el-dialog>
+
+      <div slot="navBar" class="navBar" v-show="navActive">
+        <NavBar></NavBar>
+      </div>
+
+      <!--BEGINNING OF SCROLLING STORY-->
       <story-section>
         <header slot="header"
                 id="introduction"
@@ -17,6 +33,7 @@
       </story-section>
     </div>
 
+    <!--MAIN BODY TEXT-->
     <div slot="main">
 
       <story-section v-for="(story, i) in storyText" class="snap"
@@ -30,6 +47,7 @@
         <p slot="text" v-html="'<span> '+ story.text + '</span>'"></p>
       </story-section>
 
+      <!--ANALYSIS SECTION-->
       <story-section class="snap analysis">
         <header slot="header"
                 id="analysis"
@@ -68,11 +86,12 @@
 
   export default {
     name: 'SystemsView',
-    components: {NavBar, Calculator, DefaultLayout, Map, Histogram, StorySection, },
+    components: {NavBar, Calculator, DefaultLayout, Map, Histogram, StorySection},
     data() {
       return {
+        isNewlyOpened: true,
         navActive: false,
-        // title: "Envisioning a New Urban Jungle",
+        title: "Envisioning a New Urban Jungle",
         subtitle: "Exploring the Potential of Green Roofs in NYC",
         intro: "This project explores the ways in which green roofs can help make our city more healthy, resilient, and beautiful. Dense urban centers like New York City face many ecological challenges due to the mostly paved and built-up nature of the landscape. These challenges, including stormwater management, urban heat mitigation, increased energy consumption, and loss of biodiversity are issues that green infrastructure projects are especially well suited to address. <p>Benefits of green roofs include:</p> " +
         "<ul>\n" +
@@ -118,11 +137,15 @@
           bus.$emit('waypoint', {el: el.id, i: i, direction: direction});
 
           // if after the first intro section
-          (el.id && (el.id !== "introduction")) ? this.navActive = true : this.navActive = false;
+          (el.id && (el.id !== "introduction") && !this.isNewlyOpened) ? this.navActive = true : this.navActive = false;
         }
       },
       featuresClick(){
         bus.$emit('features-click');
+      },
+      enterVis(){
+        this.isNewlyOpened = false;
+        window.scrollTo(0,0);
       }
     }
   }
@@ -141,5 +164,39 @@
     margin-bottom: 1em;
   }
 
+  .landing-page-wrapper{
+    box-sizing: border-box;
+    color: black;
+    width: 50vw;
+    padding: 2em;
+    position: relative;
+    left: 50vw;
+    background-color: rgba(252, 252, 252, 0.6);
+
+  }
+
+  .landing-page-button{
+    position: fixed;
+    bottom: 3rem;
+    right: 3rem;
+    color: black;
+    border-top: black 3px solid;
+    font-size: 1.25em;
+    font-weight: bold;
+    background-color: rgba(252, 252, 252, 0.6);
+  }
+
+  .landing-page-wrapper>h1{
+    font-size: 6em;
+  }
+
+  .landing-page-wrapper>h2{
+    font-size: 3em;
+  }
+
+  .el-dialog.is-fullscreen{
+    background-image: url('../../assets/images/background.png');
+    background-size: 100%;
+  }
 
 </style>
