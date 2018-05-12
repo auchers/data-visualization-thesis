@@ -1,7 +1,11 @@
 <template>
   <div id="calculator">
     <header>Potential Benefit Calculator</header>
-    <neighborhood-search></neighborhood-search>
+    <div>
+      <neighborhood-search></neighborhood-search>
+      <button class="get-features"
+            v-on:click="featuresClick">Get Data In View</button>
+    </div>
     <table v-if="summary">
       <thead>
         <tr>
@@ -26,14 +30,14 @@
           <td>{{summary.gr.count}}</td>
         </tr>
         <tr>
-          <th class="heat-reduction" v-on:click="addLayer">Heat Reduction
-            <p>(Avg. Temp Delta)</p>
+          <th>Heat Reduction
+           <div> <div class="heat-reduction layer" v-on:click="addLayer" data-descr="click to see surface temperatures"></div> <p>(Avg. Temp Delta)</p></div>
           </th>
           <td class="heat-reduction" v-on:click="addLayer" >{{heatReductionWithinView.f.toFixed(2)}}˚F / {{heatReductionWithinView.c.toFixed(2)}}˚C </td>
         </tr>
        <tr>
-          <th class="stormwater" v-on:click="addLayer">Annual Stormwater Retention
-            <p>(# Gallons)</p>
+          <th>Annual Stormwater Retention
+            <div> <div class="stormwater layer" v-on:click="addLayer" data-descr="click for combined sewage overflows"></div><p>(# Gallons)</p></div>
           </th>
          <td class="stormwater" v-on:click="addLayer">{{formatNumber(stormwaterRetentionWithinView.toFixed(0))}} gallons
           <!--<p>({{formatLargeNumber(stormwaterRetentionWithinView/galPerBathtub)}} bathtubs)</p>-->
@@ -41,8 +45,8 @@
        </tr>
         </tr>
         <tr>
-          <th class="habitat" v-on:click="addLayer">Potential Habitat
-            <p>(Square Feet)</p>
+          <th>Potential Habitat
+            <div> <div class="habitat layer" v-on:click="addLayer" data-descr="click to see HR layer"></div><p>(Square Feet)</p></div>
           </th>
           <td class="habitat" v-on:click="addLayer">{{formatNumber(Math.round(summary.gr.area * roofEfficiency))}} ft<sup>2</sup>
           <p>({{((summary.gr.area * roofEfficiency)/centralPark).toFixed(2)}} Central Parks)</p>
@@ -112,7 +116,10 @@
     addLayer(event){
       console.log(event.toElement.classList[0])
       bus.$emit('add-layer', event.toElement.classList[0])
-        }
+        },
+    featuresClick(){
+        bus.$emit('features-click');
+      }
       },
 
   }
@@ -157,26 +164,62 @@
     font-size: smaller;
   }
 
-  .heat-reduction, .stormwater, .habitat{
-    border-top-width: 3px;
-    border-top-style: solid;
-    border-collapse: collapse;
+  th > p, th > div > p{
+    margin-left: 1em;
+
   }
 
-  .heat-reduction:hover, .stormwater:hover, .habitat:hover{
-    border-top-width: 5px;
+  /*th.heat-reduction, th.stormwater, th.habitat{*/
+  .layer{
+    width: 5px;
+    height: 1.5em;
+    position: absolute;
+    z-index: 1;
+    display: inline-block;
+    transition: width 2s;
+    overflow: hidden;
+    text-overflow: unset;
+    vertical-align: text-top;
+    font-size: smaller;
   }
 
-  .heat-reduction{
-    border-top-color: rgba(159, 15, 0, 0.6);
+  /*th.heat-reduction:hover, th.stormwater:hover, th.habitat:hover{*/
+  .layer:hover{
+    width: 50%;
+    opacity: 1;
   }
 
-  .stormwater{
-    border-top-color: rgba(23, 73, 118, 0.6);
+  .layer:hover::after{
+    padding: 1em;
+    content: attr(data-descr);
+    line-height: 1.5em;
+    color: white;
   }
 
-  .habitat{
-    border-top-color: rgba(3, 118, 1, 0.6);
+  .heat-reduction.layer{
+    background: rgb(202, 91, 77);
+    /*opacity: 0.6;*/
   }
 
+  .stormwater.layer{
+    background: rgb(28, 124, 178);
+    /*opacity: 0.6;*/
+  }
+
+  .habitat.layer{
+    background: rgb(3, 166, 1);
+    /*opacity: 0.6;*/
+  }
+
+  .autocomplete{
+    width: 50%;
+    display: inline-block;
+  }
+
+  .get-features{
+    display: inline-block;
+    margin-left: 2em;
+    width: 40%;
+    /*width: auto;*/
+  }
 </style>

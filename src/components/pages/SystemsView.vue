@@ -9,11 +9,10 @@
               :visible="isNewlyOpened"
               :fullscreen="true">
         <div class="landing-page-wrapper">
-          <!--<Map></Map>-->
           <h1>{{title}}</h1>
           <h2>{{subtitle}}</h2>
           <button class="landing-page-button" v-on:click="enterVis">
-            Click to Enter Visualization
+            Click to Start
           </button>
         </div>
       </el-dialog>
@@ -54,8 +53,6 @@
                 v-waypoint="{ active: true, callback: onWaypoint}"></header>
         <div slot="text">
           <calculator></calculator>
-          <button class="get-features"
-            v-on:click="featuresClick">Click to Get Data on Buildings In View</button>
           <histogram></histogram>
         </div>
       </story-section>
@@ -93,16 +90,17 @@
         navActive: false,
         title: "Envisioning a New Urban Jungle",
         subtitle: "Exploring the Potential of Green Roofs in NYC",
-        intro: "This project explores the ways in which green roofs can help make our city more healthy, resilient, and beautiful. Dense urban centers like New York City face many ecological challenges due to the mostly paved and built-up nature of the landscape. These challenges, including stormwater management, urban heat mitigation, increased energy consumption, and loss of biodiversity are issues that green infrastructure projects are especially well suited to address. <p>Benefits of green roofs include:</p> " +
-        "<ul>\n" +
-        "<li>Reduce the <em>surface temperature</em> of the surrounding area</li>\n" +
-        "<li>Capture <em>stormwater</em> and prevent it from overwhelming the city’s sewage system</li>\n" +
-        "<li>Create more habitat for birds, bees, and seeds to encourage and increase <em>biodiversity </em></li>\n" +
-        "<li>Save on building energy costs</li>\n" +
-        "<li>Protect the integrity of the roof</li>\n" +
-        "<li>Potentially even grow food</li>\n" +
-        "</ul>\n" +
-        "\n" +
+        intro: "This project explores the ways in which green roofs can help make our city more healthy, resilient, and beautiful. Dense urban centers like New York City face many ecological challenges due to the mostly paved and built-up nature of the landscape. These challenges, including stormwater management, urban heat mitigation, increased energy consumption, and loss of biodiversity are issues that green infrastructure projects are especially well suited to address. " +
+        // "<p>Benefits of green roofs include:</p> " +
+        // "<ul>\n" +
+        // "<li>Reduce the <em>surface temperature</em> of the surrounding area</li>\n" +
+        // "<li>Capture <em>stormwater</em> and prevent it from overwhelming the city’s sewage system</li>\n" +
+        // "<li>Create more habitat for birds, bees, and seeds to encourage and increase <em>biodiversity </em></li>\n" +
+        // "<li>Save on building energy costs</li>\n" +
+        // "<li>Protect the integrity of the roof</li>\n" +
+        // "<li>Potentially even grow food</li>\n" +
+        // "</ul>\n" +
+        // "\n" +
         "Green roofs are a particularly exciting <em> way to utilize structures that already exist</em> in the city to bring about significant social and ecological benefits.\n",
         storyText: {}
       }
@@ -123,8 +121,6 @@
           updateHash: false,
         })
       })
-
-
     },
 
     methods: {
@@ -139,9 +135,6 @@
           // if after the first intro section
           (el.id && (el.id !== "introduction") && !this.isNewlyOpened) ? this.navActive = true : this.navActive = false;
         }
-      },
-      featuresClick(){
-        bus.$emit('features-click');
       },
       enterVis(){
         this.isNewlyOpened = false;

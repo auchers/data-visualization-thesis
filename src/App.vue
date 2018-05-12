@@ -54,7 +54,7 @@ export default {
 
   button {
     display: block;
-    /*margin: 1em;*/
+    margin-top: 1em;
     padding: .5em;
     /*width: 150px;*/
     font-family: Avenir;
@@ -75,6 +75,7 @@ export default {
 
   .dark-green{
     color: #31a354;
+    opacity: 1;
   }
 
 </style>

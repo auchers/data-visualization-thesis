@@ -55,22 +55,12 @@
   .container{
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-auto-rows: 1000vh;
+    grid-auto-rows: auto;
   }
 
   .right-panel{
     padding: 1em;
   }
-
-  /*.white-space{*/
-    /*height: 35vh;*/
-  /*}*/
-
-  /*.analysis{*/
-    /*max-width: 500px;*/
-    /*!*margin: 0 auto;*!*/
-    /*!*min-height: 100vh;*!*/
-  /*}*/
 
   .navBar{
     max-width: 500px;
