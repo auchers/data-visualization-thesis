@@ -10,11 +10,13 @@ export const store = new Vuex.Store({
     debug : true,
     summary: false,
     histogram_bins: [],
+    isLayerActive: {"heat-reduction": false, "stormwater": false, "habitat": false},
   },
 
   getters: {
     getSummary: (state) => {return state.summary},
-    getHistogramBins: (state) => {return state.histogram_bins}
+    getHistogramBins: (state) => {return state.histogram_bins},
+    getActiveLayers: (state) => {return state.isLayerActive}
   },
 
   actions: {
@@ -32,6 +34,14 @@ export const store = new Vuex.Store({
     storeHistogramBins: (state, payload) => {
       if (state.debug) console.log('storing histogram bins to store');
       state.histogram_bins = Object.assign({}, payload)
+    },
+
+    updateActiveLayers: (state, layerName) => {
+      let current = state.isLayerActive
+      current[layerName] = !current[layerName];
+      state.isLayerActive = Object.assign({}, current)
+      if (state.debug) console.log('updating active layers', state.isLayerActive);
+
     },
 
   }

@@ -28,7 +28,7 @@
           <td>{{summary.gr.count}}</td>
         </tr>
 
-        <tr v-for="(t, i) in text" v-bind:class="t.className" v-on:click="addLayer" v-on:mouseover="mouseOver(i)" v-on:mouseleave="mouseLeave(i)">
+        <tr v-for="(t, i) in text" v-bind:class="t.className" v-on:click.stop="addLayer" v-on:mouseover="mouseOver(i)" v-on:mouseleave="mouseLeave(i)">
           <th v-bind:class="t.className" >
             {{t.header}}
             <div>
@@ -62,7 +62,7 @@
         gallonsPerSqFoot: 0.47,
         avgAnnualRainfall: 49.6,
         galPerBathtub: 50,
-        sectionIsActive: [true, true, true]
+        sectionIsActive: [false, false, false]
       }
     },
     computed: {
@@ -133,15 +133,10 @@
         bus.$emit('features-click');
       },
       mouseOver(i){
-          console.log('mouseenter', i)
-          // this.sectionIsActive[i] = true;
           Vue.set(this.sectionIsActive, i, true)
-          console.log(this.sectionIsActive);
       },
       mouseLeave(i){
-        console.log('mouseleave', i)
         Vue.set(this.sectionIsActive, i, false)
-        console.log(this.sectionIsActive);
       }
     },
 

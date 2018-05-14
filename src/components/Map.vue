@@ -26,7 +26,7 @@ export default {
       layers: '',
       labelLayerId: '',
       map: {},
-      isLayerActive: {"heat-reduction": false, "stormwater": false, "habitat": false},
+      // isLayerActive: {"heat-reduction": false, "stormwater": false, "habitat": false},
       // containerWidth: 0,
     }
   },
@@ -122,12 +122,14 @@ export default {
 
     // TOGGLE ECOLOGICAL LAYERS
     bus.$on('add-layer', layerName => {
-      if (self.isLayerActive[layerName]){
+      let layers = this.$store.getters.getActiveLayers;
+
+      if (layers[layerName]){
         map.removeLayer(mapStyles.layers[layerName].id)
       } else {
         map.addLayer(mapStyles.layers[layerName], mapStyles.layers.building_extrusions.id)
       }
-      self.isLayerActive[layerName] = !self.isLayerActive[layerName]
+      this.$store.commit('updateActiveLayers', layerName);
     })
 
     // FLY TO BOROUGH
