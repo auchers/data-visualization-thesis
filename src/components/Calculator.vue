@@ -41,7 +41,7 @@
         </tr>
       </tbody>
     </table>
-    <neighborhood-search></neighborhood-search>
+    <!--<neighborhood-search></neighborhood-search>-->
   </div>
 </template>
 

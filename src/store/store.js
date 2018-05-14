@@ -41,7 +41,6 @@ export const store = new Vuex.Store({
       current[layerName] = !current[layerName];
       state.isLayerActive = Object.assign({}, current)
       if (state.debug) console.log('updating active layers', state.isLayerActive);
-
     },
 
   }
