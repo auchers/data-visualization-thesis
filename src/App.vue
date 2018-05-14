@@ -78,17 +78,23 @@ export default {
     opacity: 1;
   }
 
-  .el-button{
+  button.el-button{
     padding: 0.5em;
     margin-right: 0.5em;
     color: rgba(63, 63, 63, 0.7);
   }
 
-  .el-button:focus, .el-button:hover {
+  button.el-button:focus, button.el-button:hover {
     color: rgba(63, 63, 63, 0.8);
     border-color: unset;
     /*background-color: #e9e9e9;*/
     background-color: unset;
+  }
+
+  td p, th p{
+    /*margin-top: .2em;*/
+    margin-top: .5em;
+    font-size: smaller;
   }
 
 </style>

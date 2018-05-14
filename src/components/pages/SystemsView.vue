@@ -104,7 +104,7 @@
         // "<li>Potentially even grow food</li>\n" +
         // "</ul>\n" +
         // "\n" +
-        "Green roofs are a particularly exciting <em> way to utilize structures that already exist</em> in the city to bring about significant social and ecological benefits.\n",
+        "Green roofs are a particularly exciting way to utilize structures that already exist in the city to bring about significant social and ecological benefits.\n",
         storyText: {}
       }
     },

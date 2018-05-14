@@ -2,7 +2,6 @@
   <div id="calculator">
     <header>Potential Benefit Calculator</header>
     <div>
-      <neighborhood-search></neighborhood-search>
       <el-button class="get-features"
             v-on:click="featuresClick">Get Data In View</el-button>
     </div>
@@ -11,7 +10,6 @@
         <tr>
           <th>Benefit</th>
           <th>Within View</th>
-          <!--<th>Total</th>-->
         </tr>
       </thead>
       <tbody>
@@ -29,41 +27,28 @@
           </th>
           <td>{{summary.gr.count}}</td>
         </tr>
-        <tr>
-          <th>Heat Reduction
-           <div> <div class="heat-reduction layer" v-on:click="addLayer" data-descr="click to see surface temperatures"></div> <p>(Avg. Temp Delta)</p></div>
+
+        <tr v-for="(t, i) in text" v-bind:class="t.className" v-on:click="addLayer" v-on:mouseover="mouseOver(i)" v-on:mouseleave="mouseLeave(i)">
+          <th v-bind:class="t.className" >
+            {{t.header}}
+            <div>
+              <div v-bind:class="[t.className, ' layer', {wide : sectionIsActive[i]} ]" v-bind:data-descr="t.dataDescription"></div>
+              <p v-bind:class="t.className">{{t.unit}}</p>
+            </div>
           </th>
-          <td class="heat-reduction" v-on:click="addLayer" >{{heatReductionWithinView.f.toFixed(2)}}˚F / {{heatReductionWithinView.c.toFixed(2)}}˚C </td>
-        </tr>
-       <tr>
-          <th>Annual Stormwater Retention
-            <div> <div class="stormwater layer" v-on:click="addLayer" data-descr="click for combined sewage overflows"></div><p>(# Gallons)</p></div>
-          </th>
-         <td class="stormwater" v-on:click="addLayer">{{formatNumber(stormwaterRetentionWithinView.toFixed(0))}} gallons
-          <!--<p>({{formatLargeNumber(stormwaterRetentionWithinView/galPerBathtub)}} bathtubs)</p>-->
-         </td>
-       </tr>
-        </tr>
-        <tr>
-          <th>Potential Habitat
-            <div> <div class="habitat layer" v-on:click="addLayer" data-descr="click to see satellite map"></div><p>(Square Feet)</p></div>
-          </th>
-          <td class="habitat" v-on:click="addLayer">{{formatNumber(Math.round(summary.gr.area * roofEfficiency))}} ft<sup>2</sup>
-          <p>({{((summary.gr.area * roofEfficiency)/centralPark).toFixed(2)}} Central Parks)</p>
+          <td v-html="t.value">
           </td>
         </tr>
-        <!--<tr>-->
-          <!--<th>Cost</th>-->
-        <!--</tr>-->
       </tbody>
     </table>
-    <!--<p v-else> click anywhere on the map to get information on buildings within view</p>-->
+    <neighborhood-search></neighborhood-search>
   </div>
 </template>
 
 <script>
   import {bus} from '../main'
   import * as d3 from 'd3';
+  import Vue from 'vue';
 
   import NeighborhoodSearch from './NeighborhoodSearch'
 
@@ -76,7 +61,8 @@
         centralPark: 36721080,
         gallonsPerSqFoot: 0.47,
         avgAnnualRainfall: 49.6,
-        galPerBathtub: 50
+        galPerBathtub: 50,
+        sectionIsActive: [true, true, true]
       }
     },
     computed: {
@@ -99,7 +85,34 @@
       stormwaterRetentionWithinView () {
         let sum = this.$store.getters.getSummary
         return sum.gr.area * this.roofEfficiency * this.gallonsPerSqFoot * this.avgAnnualRainfall
-      }
+      },
+      text(){
+        return [{
+          header: "Heat Reduction",
+          unit: "(Avg. Temp Delta)",
+          active: false,
+          className: "heat-reduction",
+          dataDescription: "click to see surface temperatures",
+          value: this.heatReductionWithinView.f.toFixed(2) + '˚F / '+
+          this.heatReductionWithinView.c.toFixed(2) + '˚C'
+        },
+          {
+            header: "Annual Stormwater Retention",
+            unit: "(# Gallons)",
+            active: false,
+            className: "stormwater",
+            dataDescription: "click for combined sewage overflows",
+            value: this.formatNumber(this.stormwaterRetentionWithinView.toFixed(0))
+          },
+          {
+            header: "Potential Habitat",
+            unit: "(Square Feet)",
+            active: false,
+            className: "habitat",
+            dataDescription: "click to see satellite map",
+            value: this.formatNumber(Math.round(this.summary.gr.area * this.roofEfficiency)) +  'ft <sup>2</sup> <p>(' + ((this.summary.gr.area * this.roofEfficiency)/this.centralPark).toFixed(2) + ' Central Parks)</p>'
+          },
+        ]}
       },
     methods:{
         formatNumber(n) {
@@ -114,13 +127,23 @@
           } else return n
       },
     addLayer(event){
-      console.log(event.toElement.classList[0])
       bus.$emit('add-layer', event.toElement.classList[0])
         },
     featuresClick(){
         bus.$emit('features-click');
-      }
       },
+      mouseOver(i){
+          console.log('mouseenter', i)
+          // this.sectionIsActive[i] = true;
+          Vue.set(this.sectionIsActive, i, true)
+          console.log(this.sectionIsActive);
+      },
+      mouseLeave(i){
+        console.log('mouseleave', i)
+        Vue.set(this.sectionIsActive, i, false)
+        console.log(this.sectionIsActive);
+      }
+    },
 
   }
 </script>
@@ -158,11 +181,7 @@
     text-align: left;
   }
 
-  p{
-    /*margin-top: .2em;*/
-    margin-top: .5em;
-    font-size: smaller;
-  }
+
 
   th > p, th > div > p{
     margin-left: 1em;
@@ -183,18 +202,18 @@
     font-size: smaller;
   }
 
-  /*th.heat-reduction:hover, th.stormwater:hover, th.habitat:hover{*/
-  .layer:hover{
+  .wide.layer{
     width: 50%;
     opacity: 1;
   }
 
-  .layer:hover::after{
+  .wide.layer::after{
     padding: 1em;
     content: attr(data-descr);
     line-height: 1.5em;
     color: white;
   }
+
 
   .heat-reduction.layer{
     background: rgb(202, 91, 77);
@@ -218,7 +237,7 @@
 
   .get-features{
     display: inline-block;
-    margin-left: 2em;
+    margin-top: 1em;
     width: 40%;
     /*width: auto;*/
   }
