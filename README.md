@@ -9,14 +9,15 @@ This thesis explores the ways in which green roofs can be used to counteract thr
 [![preview](preview.png)](https://auchers.github.io/data-visualization-thesis/)
 
 ### Data sources
+Below is a table summarizing the datasources used in this work as well as where to find them. Further information about data processing specifics can be found [here](https://github.com/auchers/data-visualization-thesis/tree/master/nyc-data-playground).
 
 Data Source | Description
 ------|------
 [PLUTO tax lot database](https://www1.nyc.gov/site/planning/data-maps/open-data/dwn-pluto-mappluto.page) | This dataset details all of the tax lots in the 5 boroughs and details properties such as ‘owner,’ ‘building class’, ‘land class’, ‘address’, etc.
-[Building Footprints](https://data.cityofnewyork.us/Housing-Development/Building-Footprints/nqwf-w8eh) | PLUTO has a lot of amazing information, but unfortunately the lots are too large for our analysis -- we need information at the building level, so we also needed this shapefile of all 1 million+ NYC buildings
+[Building Footprints](https://data.cityofnewyork.us/Housing-Development/Building-Footprints/nqwf-w8eh) | Shapefile of all 1 million+ NYC buildings footprints. Used as main datasource for identifying potential buildings favorable to green roof development.
 [Existing Green Roofs](https://github.com/tnc-ny-science/NYC_GreenRoofMapping/tree/master/greenroof_gisdata/20180403_greenroof_gte50px_0x5m/polygons) | This dataset was expertly put together by Michael Treglia at The Nature Conservancy. He was able to use existing datasets, as well as satellite imagery to identify existing green roofs of NYC
 [NYC Neighborhood Boundaries](https://www1.nyc.gov/site/planning/data-maps/open-data/dwn-nynta.page) | This dataset contains a list of all Neighborhood Tabulation Areas (NTAs) and their associated geometries. This allowed me to get the neighborhood name for each building.  
-[Surface Temperatures]() | This is a raster data set of LANDSAT satellite remote sensors picking up surface temperatures in New York City for an average summer day in 2011. |
+[Surface Temperatures](http://urbansystemslab.com/publications/) | This is a raster data set of LANDSAT satellite remote sensors picking up surface temperatures in New York City for an average summer day in 2011. |
 [CSO Overflow Count](http://openseweratlas.tumblr.com/) | This data, which originally comes from NYC Department of Environmental Protections, was curated and pulled out of the original pdf reports and into [shapefiles](https://drive.google.com/file/d/1y8sBQiHD6gxS6dx6Civ0_vKXLdVzSNP6/view) by  ‘Open Sewer Atlas NYC.’  It includes the over 450 CSO outfalls, including the annual volume of CSO discharge and number of events per year, from 2006, 2013, 2014, 2015 and 2016 datasets (pulled from the 2014, 2015 and 2016 [NYC DEP reports](http://www.nyc.gov/html/dep/html/harborwater/spdes_bmp_report_2010.shtml)).
 Mapbox tilesets - [3D Building Data](https://www.mapbox.com/studio/tilesets/mapbox.mapbox-streets-v7/)  and   [Satellite Imagery](https://www.mapbox.com/studio/tilesets/mapbox.satellite/) | Used directly from Mapbox in order to give context to the work
 
@@ -40,11 +41,13 @@ More information regarding the step by step process for preparing the data for t
 ### Future Directions
 Keep an eye on [projects](https://github.com/auchers/data-visualization-thesis/projects) to see upcoming features and additions. Current thoughts include:
 
- - [ ] Building more engaging visualizations of building aggregates (histograms, demographics, etc.)
+ - [ ] Building more visualizations of building aggregates (histograms, demographics, etc.)
  - [ ] Incorporating more nuance regarding social demographics and vulnerability. Looking at who could most benefit from green roofs
 
 
 ### Acknowledgements
-This thesis would not have been possible without the tireless help of MSDV faculty, specifically Daniel Sauter and Aaron Hill.
+This thesis would not have been possible without the tireless help of Parsons MSDV faculty, specifically Daniel Sauter and Aaron Hill.
 
-This thesis was built and developed in close collaboration with the [Urban Systems Lab](http://urbansystemslab.com/). Specifically 
+This thesis was built and developed in close collaboration with the [Urban Systems Lab](http://urbansystemslab.com/). Very special thanks go out to Timon McPhearson, Jaskirat Randhawa, Rocio Carrero, Rositsa Ilieva, and Jason Mandel.
+
+Additionally, this project wouldn't be half of what it is without the support, encouragement, and inspiration from the rest of the 2018 MSDV cohort -- check out their amazing(!) work [here](http://visualizedata.github.io/thesis/).
