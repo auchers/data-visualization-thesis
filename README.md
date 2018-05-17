@@ -8,6 +8,7 @@
 - [Data Sources](#data-sources)
 - [Data Flow Overview](#data-flow-overview)
 - [Resources Used](#resources-used)
+- [Methodology](#methodology)
 - [Future Directions](#future-directions)
 - [Acknowledgements](#acknowledgements)
 
@@ -46,6 +47,54 @@ More information regarding the step by step process for preparing the data for t
 * [Vue.js](https://vuejs.org/) - open-source JavaScript framework for building user interfaces.
 * [Jupyter Notebooks](http://jupyter.org/) - Python interface used to process and analyze data. Feel free to take a look at my rough mid-process analyses [here](https://github.com/auchers/data-visualization-thesis/tree/master/nyc-data-playground/jupyter_notebooks)
 
+### Methodology:
+
+#### Rooftop Eligibility Criteria (adapted from [Ackerman et. al.](http://urbandesignlab.columbia.edu/files/2015/04/4_urban_agriculture_nyc.pdf)):
+
+
+Criteria | Rationale | Caveats
+-------|-------|------
+Built 1900-1970 or Industrial Building Class | This is meant to proxy the building’s roof live load capacity -- in other words addresses whether a roof will be able to hold the weight of an intensive green roof. | This is fairly conservative and there are most likely eligible buildings outside of this classification
+Building Footprint Area > 10,000 | Meant to determine roofs with available area large enough to justify large investment in an intensive roof. This also on removes many one or two family homes which often have sloped and unsuitable roofs.  | There are many smaller rooftops that would also be able to provide significant benefits.
+10 stories tall or lower (translated to <= 200 ‘heightroof’) | Above this, climate conditions become inhospitable for plants and people. It also becomes difficult to transport growth media and equipment.  | For certain benefits such as biodiversity connectivity, lower roofs are better as they allow for easier transference of species. For example, studies have shown that [bees prefer](http://dx.doi.org/10.1080/15659801.2015.1052635) buildings lower than 5 floors
+
+#### Benefit Calculator Formulas
+
+*Surface Temperature* - Drawing from [Hamstead et. al. (2016)](https://www.sciencedirect.com/science/article/pii/S1470160X1500549X)
+```sh
+1. Current Surface Temp Approximation = (
+[sum of lowrise building area] x 33
+[sum of midrise building area] x 32
+[sum of highrise building area] x 31)
+ /  [total building square footage]
+
+2.  Projected Surface Temp Approximation =  (
+[sum of lowrise building area] x 33
+[sum of midrise building area] x 32
+[sum of highrise building area] x 31
+[sum of eligible GR area] x 29)
+ /  [total building square footage]
+
+Delta = (1) - (2) (for Celsius)
+```
+
+*Potential Habitat* - Approximate Roof Vegetation Utilization
+```sh
+0.75
+# Assumption that not all of the roof area will be covered in vegetation
+```
+
+*Stormwater Retention* - Taking a conservative estimate of gallons per 1 inch of rainfall from [PlaNYC Stormwater Management Plan (2008)](http://www.nyc.gov/html/planyc/downloads/pdf/publications/nyc_sustainable_stormwater_management_plan_final.pdf) multiplied by the average inches of rainfall in NYC taken from [Central Park Monthly Precipitation](https://www.weather.gov/media/okx/Climate/CentralPark/monthlyannualprecip.pdf) (we took the average of last 10 years)
+```sh
+Gallons Retained per 1 inch of Rainfall =
+[Eligible Square Footage]
+* 0.75 [approx efficiency rate]
+* 0.47 [gallons per square footage in 1 inch of rainfall]
+
+Gallons Retained Annually =
+(formula above)
+* 49.6 [average inches of annual rainfall for NYC]
+```
 
 ### Future Directions
 Keep an eye on [projects](https://github.com/auchers/data-visualization-thesis/projects) to see upcoming features and additions. Current thoughts include:
