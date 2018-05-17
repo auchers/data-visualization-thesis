@@ -126,6 +126,9 @@
 
           // if after the first intro section
           (el.id && (el.id !== "introduction")) ? this.navActive = true : this.navActive = false;
+
+          // if at conclusion, remove arrove
+          (el.id === 'conclusion')? this.iconActive = false : this.iconActive = true;
         }
       },
       enterVis(){
