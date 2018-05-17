@@ -33,7 +33,7 @@ Mapbox tilesets - [3D Building Data](https://www.mapbox.com/studio/tilesets/mapb
 
 ### Data Flow Overview
 More information regarding the step by step process for preparing the data for this project can be found [here](https://github.com/auchers/data-visualization-thesis/tree/master/nyc-data-playground). Below is an overview of the entire data flow drawing from the data sources above.
-[![dataFlow](ThesisDataFlow.png)](https://github.com/auchers/data-visualization-thesis/tree/master/nyc-data-playground)
+[![dataFlow](ThesisDataFlow.png)](https://github.com/auchers/data-visualization-thesis/blob/master/ThesisDataFlow.png)
 
 #### Resources Used:
 
