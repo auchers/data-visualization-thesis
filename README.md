@@ -7,8 +7,8 @@
 - [Abstract](#abstract)
 - [Data Sources](#data-sources)
 - [Data Flow Overview](#data-flow-overview)
-- [Future Directions](#future-directions)
 - [Resources Used](#resources-used)
+- [Future Directions](#future-directions)
 - [Acknowledgements](#acknowledgements)
 
 
