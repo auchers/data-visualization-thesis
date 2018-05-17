@@ -4,12 +4,12 @@
 >> Masters Thesis in Data Visualization from Parsons School of Design, May 2018
 
 ### Table of Contents
-- [Abstract](#Abstract)
+- [Abstract](#abstract)
 - [Data Sources](#data-sources)
 - [Data Flow Overview](#data-flow-overview)
 - [Future Directions](#future-directions)
 - [Resources Used](#resources-used)
-- [Acknowledgements](#Acknowledgements)
+- [Acknowledgements](#acknowledgements)
 
 
 ### Abstract
