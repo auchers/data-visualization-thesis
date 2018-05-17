@@ -1,11 +1,8 @@
 <template>
   <div id="calculator">
     <header>Potential Benefit Calculator</header>
-    <div>
-      <el-button class="get-features"
-            v-on:click="featuresClick">Get Data In View</el-button>
-    </div>
-    <table v-if="summary">
+    <p>Press the 'Explore Potential' button below to pull data in from the eligible buildings within view and see what benefits may be possible. For more information about methodology click <a href="https://github.com/auchers/data-visualization-thesis#methodology">here</a>.</p>
+    <table>
       <thead>
         <tr>
           <th>Benefit</th>
@@ -17,7 +14,7 @@
           <th>Eligible Roof Space
             <p>(Square Feet)</p>
           </th>
-          <td>{{formatNumber(Math.round(summary.gr.area))}} ft<sup>2</sup>
+          <td v-if="summary">{{formatNumber(Math.round(summary.gr.area))}} ft<sup>2</sup>
             <p>({{((summary.gr.area)/centralPark).toFixed(2)}} Central Parks)</p>
           </td>
         </tr>
@@ -25,9 +22,8 @@
           <th>Eligible Building
             <p>(Count)</p>
           </th>
-          <td>{{summary.gr.count}}</td>
+          <td v-if="summary">{{summary.gr.count}}</td>
         </tr>
-
         <tr v-for="(t, i) in text" v-bind:class="t.className" v-on:click.stop="addLayer" v-on:mouseover="mouseOver(i)" v-on:mouseleave="mouseLeave(i)">
           <th v-bind:class="t.className" >
             {{t.header}}
@@ -36,11 +32,15 @@
               <p v-bind:class="t.className">{{t.unit}}</p>
             </div>
           </th>
-          <td v-html="t.value">
+          <td v-if="summary" v-html="t.value">
           </td>
         </tr>
       </tbody>
     </table>
+    <div>
+      <el-button class="get-features"
+                 v-on:click="featuresClick">Explore Potential</el-button>
+    </div>
     <!--<neighborhood-search></neighborhood-search>-->
   </div>
 </template>
@@ -62,7 +62,10 @@
         gallonsPerSqFoot: 0.47,
         avgAnnualRainfall: 49.6,
         galPerBathtub: 50,
-        sectionIsActive: [false, false, false]
+        sectionIsActive: [false, false, false],
+        headerText: {
+
+        }
       }
     },
     computed: {
@@ -70,17 +73,19 @@
           return this.$store.getters.getSummary
         },
         heatReductionWithinView () {
-          let sum = this.$store.getters.getSummary
-          let noGreen = ((sum.total.low * 33)
-            + (sum.total.mid * 32)
-            + (sum.total.high * 31)) / sum.total.area;
-          let withGreen = ((sum.gr.area * 29)
-            + (sum.gr.low * 33)
-            + (sum.gr.mid * 32)
-            + (sum.gr.high * 31)) / sum.total.area;
-          let diff = noGreen-withGreen
+          if (this.summary){
+            let sum = this.$store.getters.getSummary
+            let noGreen = ((sum.total.low * 33)
+              + (sum.total.mid * 32)
+              + (sum.total.high * 31)) / sum.total.area;
+            let withGreen = ((sum.gr.area * 29)
+              + (sum.gr.low * 33)
+              + (sum.gr.mid * 32)
+              + (sum.gr.high * 31)) / sum.total.area;
+            let diff = noGreen-withGreen
 
-          return {c: diff, f: (diff * (9/5))};
+            return {c: diff, f: (diff * (9/5))};
+          }
         },
       stormwaterRetentionWithinView () {
         let sum = this.$store.getters.getSummary
@@ -93,8 +98,8 @@
           active: false,
           className: "heat-reduction",
           dataDescription: "click to see surface temperatures",
-          value: this.heatReductionWithinView.f.toFixed(2) + '˚F / '+
-          this.heatReductionWithinView.c.toFixed(2) + '˚C'
+          value: (this.summary) ? this.heatReductionWithinView.f.toFixed(2) + '˚F / '+
+          this.heatReductionWithinView.c.toFixed(2) + '˚C' : '--'
         },
           {
             header: "Annual Stormwater Retention",
@@ -102,7 +107,7 @@
             active: false,
             className: "stormwater",
             dataDescription: "click for combined sewage overflows",
-            value: this.formatNumber(this.stormwaterRetentionWithinView.toFixed(0))
+            value: (this.summary) ? this.formatNumber(this.stormwaterRetentionWithinView.toFixed(0)) : '--'
           },
           {
             header: "Potential Habitat",
@@ -110,7 +115,7 @@
             active: false,
             className: "habitat",
             dataDescription: "click to see satellite map",
-            value: this.formatNumber(Math.round(this.summary.gr.area * this.roofEfficiency)) +  'ft <sup>2</sup> <p>(' + ((this.summary.gr.area * this.roofEfficiency)/this.centralPark).toFixed(2) + ' Central Parks)</p>'
+            value: (this.summary) ? this.formatNumber(Math.round(this.summary.gr.area * this.roofEfficiency)) +  'ft <sup>2</sup> <p>(' + ((this.summary.gr.area * this.roofEfficiency)/this.centralPark).toFixed(2) + ' Central Parks)</p>' : '--'
           },
         ]}
       },

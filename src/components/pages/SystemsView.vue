@@ -46,6 +46,13 @@
           <!--<histogram></histogram>-->
         </div>
       </story-section>
+
+      <story-section class="snap conclusion">
+        <header slot="header"
+                id="conclusion"
+                v-waypoint="{ active: true, callback: onWaypoint}">Colophon</header>
+        <Conclusion slot="text"></Conclusion>
+      </story-section>
     <Footer slot="footer" class="footer" v-show="navActive"></Footer>
     </div>
 
@@ -68,13 +75,14 @@
   import storyText from '../../assets/mainText'
   import NavBar from "../Navbar";
   import Footer from "../Footer";
+  import Conclusion from "../Conclusion";
 
 
   Vue.use(VueWaypoint);
 
   export default {
     name: 'SystemsView',
-    components: {Footer, NavBar, Calculator, DefaultLayout, Map, Histogram, StorySection},
+    components: {Conclusion, Footer, NavBar, Calculator, DefaultLayout, Map, Histogram, StorySection},
     data() {
       return {
         // isNewlyOpened: true,
@@ -135,8 +143,8 @@
   .subtitle{
     font-size: .4em;
     line-height: 1.2em;
-    margin-top: .5em;
-    margin-bottom: 1em;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
     opacity: .6;
   }
 

@@ -12,9 +12,12 @@ export default {
 </script>
 
 <style>
+
+  @import url('https://fonts.googleapis.com/css?family=Catamaran:500,700|Lora');
+
   #app {
     box-sizing: border-box;
-    font-family: Avenir, sans-serif;
+    font-family: 'Lora', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
@@ -22,7 +25,7 @@ export default {
   }
 
   h1, h2, header{
-    font-family: 'Century', "Times New Roman", serif;
+    font-family: 'Lora', serif;
     font-weight: 500;
     font-size: 3em;
     line-height: 1em;
@@ -30,9 +33,9 @@ export default {
   }
 
   p, table{
-    font-family: "Century", sans-serif;
+    font-family: 'Lora', serif;
     font-weight:500;
-    line-height: 1.3em;
+    line-height: 1.4em;
   }
 
 
@@ -48,8 +51,8 @@ export default {
   a, em, .dark-green {
     text-decoration: none;
     color: unset;
-    font-family: Avenir;
-    font-weight: bold;
+    font-family: 'Catamaran', sans-serif;
+    font-weight: 700;
   }
 
   button {
@@ -57,7 +60,8 @@ export default {
     margin-top: 1em;
     padding: .5em;
     /*width: 150px;*/
-    font-family: Avenir;
+    font-family: 'Catamaran', sans-serif;
+    font-weight: 500;
     font-size: small;
     background: none;
     cursor: pointer;
@@ -97,4 +101,37 @@ export default {
     font-size: smaller;
   }
 
+  thead th {
+    font-size: larger;
+  }
+
+  @media only screen and (max-width: 400px) {
+    .container{
+      grid-template-columns: 100%;
+      grid-template-rows: 50vh 50vh;
+      position: fixed;
+      top: 0;
+    }
+
+    .right-panel{
+      overflow: scroll;
+      -webkit-overflow-scrolling: touch;
+      background-color: white;
+      z-index: 1;
+      position:relative;
+      top:50%;
+    }
+
+    #mapbox{
+      height: 50vh;
+    }
+
+    .analysis{
+      min-height: unset;
+    }
+
+    div{
+      /*background-color: white;*/
+    }
+  }
 </style>

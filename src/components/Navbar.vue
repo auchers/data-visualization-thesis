@@ -40,12 +40,12 @@
       return {
         activeEl: '',
         sections: [{
-          title: ' 1. ',
+          title: ' 1 ',
           hoverText: 'Introduction',
           scrollToEl: 'introduction'
         },
           {
-            title: ' 2. ',
+            title: ' 2 ',
             hoverText: 'Existing Infrastructure',
             scrollToEl: 's0'
           },
@@ -65,15 +65,20 @@
             scrollToEl: 's3'
           },
           {
-            title: ' 4. ',
+            title: ' 4 ',
             hoverText: 'Existing Green Roofs',
             scrollToEl: 's4'
           },
           {
-            title: ' 5. ',
+            title: ' 5 ',
             hoverText: 'Calculate Potential benefits',
             scrollToEl: 'analysis'
           },
+          {
+            title: ' 6 ',
+            hoverText: 'Conclusion',
+            scrollToEl: 'conclusion'
+          }
         ],
       }
     },
@@ -112,6 +117,7 @@
     border-top: gray solid 2px;
     opacity: .5;
     width: 1.5em;
+    height: 1em;
     margin-left: .5rem;
 
   }

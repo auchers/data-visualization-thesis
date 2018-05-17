@@ -7,7 +7,7 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
   state: {
-    debug : true,
+    debug : false,
     summary: false,
     histogram_bins: [],
     isLayerActive: {"heat-reduction": false, "stormwater": false, "habitat": false},
