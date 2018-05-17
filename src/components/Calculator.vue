@@ -1,7 +1,7 @@
 <template>
   <div id="calculator">
     <header>Potential Benefit Calculator</header>
-    <p>Press the 'Explore Potential' button below to pull data in from the eligible buildings within view and see what benefits may be possible. For more information about methodology click <a href="https://github.com/auchers/data-visualization-thesis#methodology">here</a>.</p>
+    <p>Press the <em class="explore-potential" v-on:click="featuresClick">'Explore Potential'</em> button below to pull data in from the eligible buildings within view and see what benefits may be possible. For more information about methodology click <a href="https://github.com/auchers/data-visualization-thesis#methodology">here</a>.</p>
     <table>
       <thead>
         <tr>
@@ -240,5 +240,15 @@
     margin-top: 1em;
     width: 40%;
     /*width: auto;*/
+  }
+
+  .explore-potential{
+    cursor: pointer;
+    opacity: 0.7;
+  }
+
+  .explore-potential:hover{
+    cursor: pointer;
+    opacity: 1;
   }
 </style>
