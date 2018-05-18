@@ -9,6 +9,7 @@
 - [Data Flow Overview](#data-flow-overview)
 - [Resources Used](#resources-used)
 - [Methodology](#methodology)
+- [Screen Captures](#screen-captures)
 - [Future Directions](#future-directions)
 - [Acknowledgements](#acknowledgements)
 
@@ -16,7 +17,7 @@
 ### Abstract
 This thesis explores the ways in which green roofs can be used to counteract three major urban ecological challenges in New York City. Taking the city’s existing infrastructural landscape as the starting point, this thesis moves to identify underutilized spaces where green roofs would be most amenable and beneficial from the perspective of (1) stormwater retention, (2) surface temperature regulation, and (3) biodiversity enhancement. Users will then be given opportunities to explore the data themselves and engage with questions regarding the aggregative effects, and benefits of such interventions. Ultimately the goal of this project is to provide creative ways of interacting with the New York City 'building-scape' in order to foster community engagement and informed decision making for residents and policy-makers alike.
 
-[![preview](preview.png)](https://auchers.github.io/data-visualization-thesis/)
+[![gif](thesis-preview.gif)](https://auchers.github.io/data-visualization-thesis/)
 
 ### Data sources
 Below is a table summarizing the datasources used in this work as well as where to find them. Further information about data processing specifics can be found [here](https://github.com/auchers/data-visualization-thesis/tree/master/nyc-data-playground).
@@ -95,6 +96,10 @@ Gallons Retained Annually =
 (formula above)
 * 49.6 [average inches of annual rainfall for NYC]
 ```
+### Screen Captures
+[![preview](preview.png)](https://auchers.github.io/data-visualization-thesis/)
+
+[![benefit-calc](thesis-benefit-calculator.gif)](https://auchers.github.io/data-visualization-thesis/)
 
 ### Future Directions
 Keep an eye on [projects](https://github.com/auchers/data-visualization-thesis/projects) to see upcoming features and additions. Current thoughts include:
