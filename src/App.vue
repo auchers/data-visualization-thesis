@@ -135,7 +135,7 @@ export default {
     }
 
     .scroll-content{
-      z-index: 2;
+      height: 101%;
     }
 
     body #mapbox {
@@ -154,6 +154,10 @@ export default {
       top: 1em;
       bottom: unset;
 
+    }
+
+    .navBar, .footer{
+      display: none;
     }
 
   }
