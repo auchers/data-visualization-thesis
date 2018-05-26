@@ -112,6 +112,7 @@ export default {
       position: fixed;
       top: 0;
       left: 0;
+      z-index: 0;
     }
 
     body .nav-header{
@@ -125,7 +126,7 @@ export default {
 
     .right-panel {
       overflow: scroll;
-      -webkit-overflow-scrolling: touch;
+      /*-webkit-overflow-scrolling: touch;*/
       background-color: white;
       z-index: 1;
       position: relative;
@@ -134,7 +135,7 @@ export default {
     }
 
     .scroll-content{
-      height: calc(100% + 1px);
+      z-index: 2;
     }
 
     body #mapbox {
