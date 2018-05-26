@@ -124,14 +124,17 @@ export default {
     }
 
     .right-panel {
-      overflow: auto;
-      touch-action: none;
+      overflow: scroll;
+      -webkit-overflow-scrolling: touch;
       background-color: white;
-      height: 100%;
       z-index: 1;
       position: relative;
       top: 50%;
       border-top: rgba(131, 131, 131, 0.2) 1em solid;
+    }
+
+    .scroll-content{
+      height: calc(100% + 1px);
     }
 
     body #mapbox {
