@@ -127,6 +127,7 @@ export default {
       overflow: auto;
       touch-action: none;
       background-color: white;
+      height: 100%;
       z-index: 1;
       position: relative;
       top: 50%;
