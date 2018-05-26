@@ -124,8 +124,8 @@ export default {
     }
 
     .right-panel {
-      overflow: scroll;
-      -webkit-overflow-scrolling: touch;
+      overflow: auto;
+      touch-action: none;
       background-color: white;
       z-index: 1;
       position: relative;
@@ -166,6 +166,7 @@ export default {
     button.el-button{
       padding: 0.3em;
       margin-right: 0.5em;
+      margin-top: .5em;
       color: rgba(63, 63, 63, 0.7);
     }
 
