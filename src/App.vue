@@ -109,7 +109,7 @@ export default {
     body > .container {
       grid-template-columns: auto;
       grid-template-rows: 50vh 50vh;
-      position: fixed;
+      position: absolute;
       top: 0;
       left: 0;
       z-index: 0;
@@ -126,7 +126,7 @@ export default {
 
     .right-panel {
       overflow: scroll;
-      /*-webkit-overflow-scrolling: touch;*/
+      -webkit-overflow-scrolling: touch;
       background-color: white;
       z-index: 1;
       position: relative;
