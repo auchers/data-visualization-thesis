@@ -88,6 +88,9 @@ export default {
 
           } else if (obj.el === "s4") { // Existing Green Roofs
               map.setLayoutProperty(mapStyles.layers.existing_green_roofs.id, 'visibility', 'visible')
+              //move existing green roofs to be on top of extrusions
+              map.moveLayer(mapStyles.layers.building_extrusions.id, mapStyles.layers.existing_green_roofs.id);
+
             if (obj.direction === "bottom") {
               map.setPaintProperty(mapStyles.layers.building_extrusions.id, "fill-extrusion-height",{"property": "heightroof","type": "identity"})
               map.setPaintProperty(mapStyles.layers.building_extrusions.id, "fill-extrusion-color", "#aaa")
