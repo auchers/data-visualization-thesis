@@ -85,10 +85,6 @@
         "url": "mapbox://aucher.1kik7pca"
       },
       "source-layer": "green_roofs-d1x6o7",
-      "filter": [
-        "has",
-        "Id"
-      ],
       "paint": {
         "fill-color": "#31a354",
         "fill-outline-color": "#004d14"
