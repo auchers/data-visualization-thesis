@@ -84,7 +84,7 @@ Now these are ready to load into MongoDB!
 
 ### Database Information
 
-To get MongoDB running, run `mongod`. Then, in a separate terminal window run `mondo` to get the mongo shell.
+To get MongoDB running, run `mongod`. Then, in a separate terminal window run `mongo` to get the mongo shell.
 
 ### Ensuring Spatial Index
 
@@ -154,7 +154,7 @@ For this project, we will be using the multi-threaded spatial join brilliantly d
 
 To view the fields we have in our PLUTO lots data we can run:
 
-db.lots_with_buffer.find({},{"properties": 1}).limit(10).pretty()
+`db.lots_with_buffer.find({},{"properties": 1}).limit(10).pretty()`
 
 Fields from PLUTO lots to merge into Buildings:
 
