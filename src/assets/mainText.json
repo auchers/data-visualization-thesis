@@ -55,7 +55,7 @@
   },
   {
     "header": "Existing Green Roofs",
-    "text": "This all leads to the question of how many green roofs already exist in New York. This data comes from <a href=\"https://github.com/tnc-ny-science/NYC_GreenRoofMapping/tree/master/greenroof_gisdata/20180403_greenroof_gte50px_0x5m/polygons\">The Nature Conservancy</a> who put together all available datasets on existing green roofs and used additional methods to identify previously unrecorded rooftop gardens using satellite imagery. <p>Shapes in <span class=\"dark-green\">dark green</span> show green roofs that are already growing and benefiting the city.</p>",
+    "text": "This all leads to the question of how many green roofs already exist in New York. This data comes from <a href=\"https://www.nature.org/\">The Nature Conservancy</a> who put together all <a href=\"https://zenodo.org/record/1469674\">available datasets</a> on existing green roofs and used additional methods to identify previously unrecorded rooftop gardens using satellite imagery. <p>Shapes in <span class=\"dark-green\">dark green</span> show green roofs that are already growing and benefiting the city.</p>",
     "filter": ["all",
       ["has", "shape_area"],
       ["<=", "heightroof", 200],
